@@ -1,0 +1,27 @@
+.header {
+  @apply sticky top-0 bg-transparent w-full h-full text-white z-10;
+
+  &__menu-content {
+    @apply flex justify-between items-center h-20;
+    .header__logo {
+      @apply text-4xl uppercase tracking-widest font-bold cursor-pointer;
+    }
+    .menu {
+      @apply flex items-center;
+      .menu__item {
+        @apply relative mx-4 capitalize font-semibold cursor-pointer;
+        &::after {
+          content: "";
+          height: 1px;
+          @apply absolute top-full left-0 w-full bg-white transform scale-x-0 transition-transform origin-left duration-300;
+        }
+
+        &:hover {
+          &::after {
+            @apply scale-x-100;
+          }
+        }
+      }
+    }
+  }
+}
