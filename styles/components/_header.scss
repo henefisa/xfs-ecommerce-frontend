@@ -1,10 +1,27 @@
 .header {
-  @apply sticky top-0 bg-transparent w-full h-full text-white z-10;
+  @apply fixed top-0 left-0 bg-transparent w-full text-white z-10 transition-all ease-linear duration-100;
 
+  &--scrolled {
+    @apply bg-white text-gray-600;
+    .header__menu-content {
+      @apply h-16;
+      .header__logo {
+        @apply text-3xl;
+      }
+
+      .menu {
+        .menu__item {
+          &::after {
+            @apply bg-gray-600;
+          }
+        }
+      }
+    }
+  }
   &__menu-content {
-    @apply flex justify-between items-center h-20;
+    @apply flex justify-between items-center h-20 transition-all duration-100 ease-linear;
     .header__logo {
-      @apply text-4xl uppercase tracking-widest font-bold cursor-pointer;
+      @apply text-4xl uppercase tracking-widest font-bold cursor-pointer transition-all duration-100 ease-linear;
     }
     .menu {
       @apply flex items-center;
@@ -12,7 +29,7 @@
         @apply relative mx-4 capitalize font-semibold cursor-pointer;
         &::after {
           content: "";
-          height: 1px;
+          height: 2px;
           @apply absolute top-full left-0 w-full bg-white transform scale-x-0 transition-transform origin-left duration-300;
         }
 

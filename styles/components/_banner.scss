@@ -1,5 +1,5 @@
 .banner {
-  @apply relative h-screen -mt-20;
+  @apply relative h-screen;
   &__background {
     @apply absolute top-0 left-0 w-full h-full;
     z-index: -1;

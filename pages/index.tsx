@@ -6,6 +6,7 @@ export default function Home() {
     <div className="home-page">
       <Header />
       <Banner />
+      <div className="h-80">123</div>
     </div>
   );
 }
