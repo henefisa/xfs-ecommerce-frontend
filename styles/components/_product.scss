@@ -1,8 +1,8 @@
 .product {
-  @apply max-w-xs;
+  @apply max-w-xs h-full;
   &__image {
     padding-top: 100%;
-    @apply relative w-full h-full overflow-hidden rounded-sm;
+    @apply relative w-full overflow-hidden rounded-sm bg-white;
     &:hover {
       @apply shadow-md;
       .product__actions {
