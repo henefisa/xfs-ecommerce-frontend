@@ -1,0 +1,28 @@
+.home-page {
+  &__products {
+    @apply bg-gray-100 py-8;
+    .products {
+      @apply w-full md:flex;
+      .category {
+        @apply w-full pb-5 md:w-1/5;
+        &__title {
+          @apply text-xl font-bold uppercase mb-2 tracking-wide;
+        }
+
+        &__list {
+          @apply flex flex-wrap divide-gray-300 md:divide-y md:block md:mr-5;
+          &-item {
+            @apply mr-5 py-2 text-base cursor-pointer transition-all duration-300 md:mr-0;
+            &.active {
+              @apply font-bold;
+            }
+          }
+        }
+      }
+
+      &__list {
+        @apply w-full grid grid-cols-2 gap-x-5 gap-y-9 md:grid-cols-2 md:w-4/5 lg:grid-cols-3 xl:grid-cols-5;
+      }
+    }
+  }
+}
