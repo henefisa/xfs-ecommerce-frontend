@@ -1,5 +1,5 @@
 .header {
-  @apply fixed top-0 left-0 w-full bg-white z-10 transition-all ease-out duration-300 md:bg-transparent;
+  @apply fixed top-0 left-0 w-full bg-white z-20 transition-all ease-out duration-300 md:bg-transparent;
 
   &--active {
     .header__menu-content {
@@ -81,7 +81,7 @@
 
           &:hover {
             &::after {
-              @apply scale-x-100;
+              @apply md:scale-x-100;
             }
           }
         }
