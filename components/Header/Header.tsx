@@ -1,15 +1,19 @@
-import React, { useEffect, useRef } from "react";
+import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import clsx from "clsx";
+import React, { useEffect, useRef, useState } from "react";
 
 // components
 import Container from "../Container/Container";
+import Input from "../Input/Input";
+import Toggle from "../Toggle/Toggle";
 
 const Header: React.FC = () => {
   const headerRef = useRef<HTMLDivElement>(null);
-  const toggleRef = useRef<HTMLDivElement>(null);
+  const [isActive, setIsActive] = useState(false);
 
-  const handleToggleMenu = () => {
-    toggleRef.current?.classList.toggle("header__toggle--active");
-    headerRef.current?.classList.toggle("header--active");
+  const handleClickToggle = () => {
+    setIsActive((prevState) => !prevState);
   };
 
   useEffect(() => {
@@ -31,31 +35,33 @@ const Header: React.FC = () => {
   }, []);
 
   return (
-    <header className="header" ref={headerRef}>
+    <header
+      className={clsx("header", isActive && "header--active")}
+      ref={headerRef}
+    >
       <div className="header__menu">
         <Container className="header__menu-content">
+          <Toggle onClick={handleClickToggle} isActive={isActive} />
           <h1 className="header__logo">Ecommerce</h1>
-          <div
-            className="header__toggle"
-            ref={toggleRef}
-            onClick={handleToggleMenu}
-          >
-            <div className="bars">
-              <span className="bars__line" />
-              <span className="bars__line" />
-              <span className="bars__line" />
+          <div className="header__user-wrap">
+            <div className="header__user">
+              <FontAwesomeIcon icon={faUser} />
+              <div className="name">User name</div>
+            </div>
+            <div className="header__cart">
+              <FontAwesomeIcon icon={faShoppingCart} />
             </div>
           </div>
-          <nav className="nav">
-            <ul className="menu">
-              <li className="menu__item">Sample</li>
-              <li className="menu__item">Sample</li>
-              <li className="menu__item">Sample</li>
-              <li className="menu__item">Sample</li>
-              <li className="menu__item">Sample</li>
-            </ul>
-          </nav>
         </Container>
+        <div className="mobile-menu">
+          <div className="mobile-menu__overlay" />
+          <div className="mobile-menu__container">
+            <div className="actions">
+              <Input placeholder="Input here" size="large" />
+              <Toggle onClick={handleClickToggle} isActive={isActive} />
+            </div>
+          </div>
+        </div>
       </div>
     </header>
   );

@@ -1,0 +1,9 @@
+.input-wrap {
+  @apply w-full border border-gray-300 rounded-sm;
+  .input {
+    @apply h-8 w-full p-2 focus:outline-none rounded-sm;
+    &--large {
+      @apply h-10;
+    }
+  }
+}

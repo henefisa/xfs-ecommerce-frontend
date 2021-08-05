@@ -1,0 +1,29 @@
+.toggle {
+  @apply cursor-pointer md:hidden;
+  .bars {
+    @apply w-7 overflow-hidden;
+    &__line {
+      @apply w-7 bg-gray-600 md:bg-white block mt-2 transition-all duration-300 h-0.5;
+      &:nth-child(1) {
+        @apply mt-0;
+      }
+    }
+  }
+
+  &--active {
+    .bars {
+      .bars__line {
+        @apply bg-white;
+        &:nth-child(1) {
+          @apply transform rotate-45 translate-y-2.5 origin-center;
+        }
+        &:nth-child(2) {
+          @apply opacity-0 transform translate-x-full;
+        }
+        &:nth-child(3) {
+          @apply transform -rotate-45 -translate-y-2.5 origin-center;
+        }
+      }
+    }
+  }
+}

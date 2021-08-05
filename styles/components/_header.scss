@@ -1,88 +1,83 @@
 .header {
   @apply fixed top-0 left-0 w-full bg-white z-20 transition-all ease-out duration-300 md:bg-transparent;
 
-  &--active {
+  &.header--active {
     .header__menu-content {
-      .nav {
-        @apply max-h-96 opacity-100;
+    }
+
+    .mobile-menu {
+      @apply visible opacity-100;
+      .mobile-menu__container {
+        @apply translate-x-0;
       }
     }
   }
 
-  &--scrolled {
+  &.header--scrolled {
     @apply bg-white;
     .header__menu-content {
       @apply h-16;
       .header__logo {
         @apply text-3xl text-gray-600;
       }
-      .header__toggle {
-        .bars {
-          .bars__line {
-            @apply bg-gray-600;
+
+      .header__user-wrap {
+        .header__cart,
+        .header__user {
+          svg {
+            @apply h-6 w-6 text-gray-600;
           }
         }
-      }
-      .nav {
-        .menu {
-          .menu__item {
-            @apply text-gray-600;
-            &::after {
-              @apply bg-gray-600;
-            }
-          }
+
+        .header__user {
+          @apply text-gray-600;
         }
       }
     }
   }
   &__menu-content {
     @apply flex justify-between items-center h-20 transition-all duration-300 ease-out;
+
+    .toggle {
+      @apply mr-5;
+    }
+
     .header__logo {
-      @apply text-4xl text-gray-600 uppercase tracking-widest font-bold cursor-pointer transition-all duration-300 ease-out md:text-white;
+      @apply text-2xl text-gray-600 uppercase tracking-widest font-bold cursor-pointer transition-all duration-300 ease-out w-80 sm:text-3xl md:text-white md:text-4xl;
     }
 
-    .header__toggle {
-      @apply cursor-pointer md:hidden;
-      .bars {
-        @apply w-7 overflow-hidden;
-        &__line {
-          @apply w-7 bg-gray-600 md:bg-white block mt-2 transition-all duration-300 h-0.5;
+    .header__user-wrap {
+      @apply flex items-center space-x-2;
+
+      .header__cart,
+      .header__user {
+        font-size: 0;
+        svg {
+          @apply h-7 w-7 transition-all duration-300 ease-out text-gray-600 md:text-white;
         }
       }
 
-      &--active {
-        .bars {
-          .bars__line {
-            &:nth-child(1) {
-              @apply transform rotate-45 translate-y-2.5 origin-center;
-            }
-            &:nth-child(2) {
-              @apply opacity-0 transform translate-x-full;
-            }
-            &:nth-child(3) {
-              @apply transform -rotate-45 -translate-y-2.5 origin-center;
-            }
-          }
-        }
+      .header__user {
+        @apply text-base flex items-center mr-3 space-x-2 text-white transition-colors duration-300;
       }
     }
-    .nav {
-      @apply absolute top-full left-0 w-full max-h-0 overflow-hidden transition-all duration-300 opacity-0 bg-white md:bg-transparent md:relative md:top-0 md:max-h-full md:overflow-visible md:w-auto md:opacity-100;
-      .menu {
-        @apply py-2 container mx-auto md:flex md:items-center;
-        .menu__item {
-          @apply relative mx-4 py-2 capitalize font-semibold cursor-pointer text-gray-600 transition-colors duration-300 ease-out md:text-white md:py-0;
+  }
 
-          &::after {
-            content: "";
-            height: 2px;
-            @apply absolute top-full left-0 w-full bg-white transform scale-x-0 transition-transform origin-left duration-300;
-          }
+  .mobile-menu {
+    @apply fixed top-0 left-0 w-full h-full invisible transition-all opacity-0 duration-300;
+    &__overlay {
+      @apply bg-black opacity-60 w-full h-full;
+    }
 
-          &:hover {
-            &::after {
-              @apply md:scale-x-100;
-            }
+    &__container {
+      background-color: #222;
+      @apply absolute top-0 left-0 h-full w-full max-w-xs px-4 py-5 transform-gpu -translate-x-full transition-transform duration-300 overflow-y-auto;
+
+      .actions {
+        @apply flex items-center space-x-2;
+        .input-wrap {
+          .input {
+            @apply bg-transparent text-white;
           }
         }
       }
