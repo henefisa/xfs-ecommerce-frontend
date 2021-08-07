@@ -4,12 +4,17 @@ import React, { useRef } from "react";
 interface ToggleProps {
   onClick?: () => void;
   isActive?: boolean;
+  className?: string;
 }
 
-const Toggle: React.FC<ToggleProps> = ({ onClick = () => {}, isActive }) => {
+const Toggle: React.FC<ToggleProps> = ({
+  onClick = () => {},
+  isActive = false,
+  className,
+}) => {
   return (
     <div
-      className={clsx("toggle", isActive && "toggle--active")}
+      className={clsx("toggle", isActive && "toggle--active", className)}
       onClick={onClick}
     >
       <div className="bars">

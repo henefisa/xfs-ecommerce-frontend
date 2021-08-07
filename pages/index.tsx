@@ -1,9 +1,11 @@
+import clsx from "clsx";
+import { useState } from "react";
+
+// components
 import Header from "../components/Header/Header";
 import Banner from "../components/Banner/Banner";
 import Product from "../components/Product/Product";
 import Container from "../components/Container/Container";
-import { useState } from "react";
-import clsx from "clsx";
 
 const categories = [
   "All",

@@ -1,47 +1,116 @@
+import React, { useEffect, useRef, useState } from "react";
+
+// icons
 import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import clsx from "clsx";
-import React, { useEffect, useRef, useState } from "react";
 
 // components
 import Container from "../Container/Container";
-import Input from "../Input/Input";
 import Toggle from "../Toggle/Toggle";
+import clsx from "clsx";
 
-const Header: React.FC = () => {
-  const headerRef = useRef<HTMLDivElement>(null);
-  const [isActive, setIsActive] = useState(false);
+interface MobileNavbarProps {
+  isActive?: boolean;
+}
 
-  const handleClickToggle = () => {
-    setIsActive((prevState) => !prevState);
+// constants
+const TABS = ["Menu", "Categories", "Account"];
+
+const Navbar: React.FC = () => {
+  return <div className="navbar"></div>;
+};
+
+const MobileNavbar: React.FC<MobileNavbarProps> = ({ isActive = false }) => {
+  const [currentTab, setCurrentTab] = useState(0);
+  const currentTabRef = useRef<HTMLLIElement>(null);
+  const markerRef = useRef<HTMLDivElement>(null);
+
+  const styleMarker = (left: number, width: number) => {
+    if (!markerRef.current) return;
+    markerRef.current.style.left = left - 16 + "px";
+    markerRef.current.style.width = width + "px";
+  };
+
+  const handleSelectTab = (idx: number, event: React.MouseEvent) => {
+    setCurrentTab(idx);
+    if (!markerRef.current) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    styleMarker(rect.left, rect.width);
+  };
+
+  const handleTransitionEnd = () => {
+    if (!currentTabRef.current || !markerRef.current || !isActive) return;
+    const rect = currentTabRef.current.getBoundingClientRect();
+    styleMarker(rect.left, rect.width);
   };
 
   useEffect(() => {
-    const scroll = () => {
-      if (!window.matchMedia("(min-width: 768px)").matches) {
-        return;
-      }
-      if (window.scrollY > 0) {
-        headerRef.current?.classList.add("header--scrolled");
-      } else {
-        headerRef.current?.classList.remove("header--scrolled");
-      }
+    const resize = () => {
+      if (!currentTabRef.current || !markerRef.current) return;
+      const rect = currentTabRef.current.getBoundingClientRect();
+      styleMarker(rect.left, rect.width);
     };
-    scroll();
-    window.addEventListener("scroll", scroll);
+    resize();
+    window.addEventListener("resize", resize, false);
     return () => {
-      window.removeEventListener("scroll", scroll);
+      window.removeEventListener("resize", resize, false);
     };
   }, []);
 
   return (
-    <header
-      className={clsx("header", isActive && "header--active")}
-      ref={headerRef}
+    <div
+      className={clsx("navbar navbar--mobile", isActive && "active")}
+      onTransitionEnd={handleTransitionEnd}
     >
+      <ul className="navbar__tabs">
+        {TABS.map((val, idx) => (
+          <li
+            ref={idx === currentTab ? currentTabRef : undefined}
+            key={idx}
+            className={clsx(
+              "navbar__tabs-item",
+              idx === currentTab && "active"
+            )}
+            onClick={(e) => handleSelectTab(idx, e)}
+          >
+            {val}
+          </li>
+        ))}
+        <div id="tabs-item-marker" ref={markerRef} />
+      </ul>
+    </div>
+  );
+};
+
+const Header: React.FC = () => {
+  const [isActive, setIsActive] = useState(false);
+
+  const handleToggleNavbar = () => {
+    setIsActive((prevState) => !prevState);
+  };
+
+  useEffect(() => {
+    const resize = () => {
+      if (window.matchMedia('("min-width: 768px")').matches) {
+        setIsActive(false);
+      }
+    };
+    resize();
+    window.addEventListener("resize", resize, false);
+    return () => {
+      window.removeEventListener("resize", resize, false);
+    };
+  }, []);
+
+  return (
+    <header className="header">
       <div className="header__menu">
         <Container className="header__menu-content">
-          <Toggle onClick={handleClickToggle} isActive={isActive} />
+          <Toggle
+            isActive={isActive}
+            onClick={handleToggleNavbar}
+            className="header__toggle"
+          />
           <h1 className="header__logo">Ecommerce</h1>
           <div className="header__user-wrap">
             <div className="header__user">
@@ -53,15 +122,7 @@ const Header: React.FC = () => {
             </div>
           </div>
         </Container>
-        <div className="mobile-menu">
-          <div className="mobile-menu__overlay" />
-          <div className="mobile-menu__container">
-            <div className="actions">
-              <Input placeholder="Input here" size="large" />
-              <Toggle onClick={handleClickToggle} isActive={isActive} />
-            </div>
-          </div>
-        </div>
+        <MobileNavbar isActive={isActive} />
       </div>
     </header>
   );
