@@ -78,6 +78,7 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({ isActive = false }) => {
         ))}
         <div id="tabs-item-marker" ref={markerRef} />
       </ul>
+      <div className="navbar__content"></div>
     </div>
   );
 };
@@ -90,8 +91,16 @@ const Header: React.FC = () => {
   };
 
   useEffect(() => {
+    if (isActive) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+  }, [isActive]);
+
+  useEffect(() => {
     const resize = () => {
-      if (window.matchMedia('("min-width: 768px")').matches) {
+      if (window.matchMedia('(min-width: 768px)').matches) {
         setIsActive(false);
       }
     };
