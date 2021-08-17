@@ -1,19 +1,17 @@
 .banner {
-  @apply relative h-screen;
-  &__background {
-    @apply absolute top-0 left-0 w-full h-full;
-    z-index: -1;
-  }
-
-  &__content {
-    @apply flex items-center justify-center text-white h-full flex-col;
+  @apply relative h-full bg-cover bg-center bg-no-repeat;
+  &__subtitle {
+    @apply text-xl font-medium truncate overflow-ellipsis;
   }
 
   &__title {
-    @apply text-6xl tracking-wider;
+    @apply text-2xl font-bold tracking-wide truncate overflow-ellipsis;
   }
 
-  &__sub-title {
-    @apply text-2xl mt-5;
+  &__description {
+    @apply text-gray-500 mb-2 truncate overflow-ellipsis;
+  }
+
+  &__extra {
   }
 }

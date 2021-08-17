@@ -1,5 +1,5 @@
 .header {
-  @apply sticky -top-40 left-0 w-full bg-white z-10 transition-all ease-out duration-300;
+  @apply sticky top-0 left-0 w-full bg-white z-10 transition-all ease-out duration-300 md:-top-40;
 
   .user {
     @apply flex items-center space-x-4 text-gray-500 transition-all duration-300;

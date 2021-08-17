@@ -1,28 +1,40 @@
+import clsx from "clsx";
 import React from "react";
 
-// components
-import Image from "next/image";
-import Container from "../Container/Container";
+export interface BannerProps {
+  size?: "sm" | "md" | "default" | "lg";
+  title: string;
+  subTitle?: string;
+  description?: string;
+  extra?: React.ReactNode[];
+  className?: string;
+  style?: React.CSSProperties;
+}
 
-// images
-import bg from "../../public/bg.jpg";
-
-const Banner: React.FC = () => {
+const Banner: React.FC<BannerProps> = ({
+  size = "default",
+  title,
+  subTitle,
+  description,
+  extra,
+  className,
+  style,
+}) => {
   return (
-    <div className="banner">
-      <div className="banner__background">
-        <Image
-          src={bg}
-          alt="Banner background"
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
-        />
+    <div
+      className={clsx(
+        "banner",
+        className,
+        size !== "default" && `banner--${size}`
+      )}
+      style={style}
+    >
+      <div className="banner__content">
+        <h5 className="banner__subtitle">{subTitle}</h5>
+        <h2 className="banner__title">{title}</h2>
+        <p className="banner__description">{description}</p>
+        <div className="banner__extra">{extra}</div>
       </div>
-      <Container className="banner__content">
-        <h1 className="banner__title">Sample title</h1>
-        <p className="banner__sub-title">Sample subtitle</p>
-      </Container>
     </div>
   );
 };
