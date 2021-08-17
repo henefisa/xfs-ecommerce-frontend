@@ -8,6 +8,8 @@ import Container from "../components/Container/Container";
 import SwiperCore, { Pagination, Swiper as S } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import clsx from "clsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCar } from "@fortawesome/free-solid-svg-icons";
 
 const categories = [
   "All",
@@ -154,6 +156,60 @@ const Introduction = () => {
   );
 };
 
+const Services = () => {
+  return (
+    <section className="services">
+      <Swiper
+        slidesPerView={1}
+        autoplay
+        loop
+        breakpoints={{
+          640: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+          1536: { slidesPerView: 4 },
+        }}
+      >
+        <SwiperSlide>
+          <div className="service">
+            <div className="service__icon">
+              <FontAwesomeIcon icon={faCar} />
+            </div>
+            <div className="service__title">Free shippings and Return</div>
+            <div className="service__description">For all order over 99$</div>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="service">
+            <div className="service__icon">
+              <FontAwesomeIcon icon={faCar} />
+            </div>
+            <div className="service__title">Free shippings and Return</div>
+            <div className="service__description">For all order over 99$</div>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="service">
+            <div className="service__icon">
+              <FontAwesomeIcon icon={faCar} />
+            </div>
+            <div className="service__title">Free shippings and Return</div>
+            <div className="service__description">For all order over 99$</div>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="service">
+            <div className="service__icon">
+              <FontAwesomeIcon icon={faCar} />
+            </div>
+            <div className="service__title">Free shippings and Return</div>
+            <div className="service__description">For all order over 99$</div>
+          </div>
+        </SwiperSlide>
+      </Swiper>
+    </section>
+  );
+};
+
 export default function Home() {
   const [category, setCategory] = useState(0);
 
@@ -166,6 +222,9 @@ export default function Home() {
       <Header />
       {/* <Banner /> */}
       <Introduction />
+      <Container>
+        <Services />
+      </Container>
       {/* <div className="home-page__products">
         <Container className="products">
           <div className="category">
