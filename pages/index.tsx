@@ -3,26 +3,17 @@ import clsx from "clsx";
 
 // components
 import Image from "next/image";
-import Header from "../components/Header/Header";
 import Button from "../components/Button/Button";
 import Container from "../components/Container/Container";
 import SwiperCore, { Pagination, Swiper as S } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Banner, BannerGroup } from "../components/Banner";
+import Service from "../components/Service/Service";
+import CommonLayout from "../layouts/CommonLayout";
 
 // icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCar } from "@fortawesome/free-solid-svg-icons";
-import Service from "../components/Service/Service";
-
-const categories = [
-  "All",
-  "Accessories",
-  "Electronics",
-  "Men",
-  "Women",
-  "Shoes",
-];
 
 SwiperCore.use([Pagination]);
 
@@ -242,47 +233,15 @@ const Banners = () => {
 };
 
 export default function Home() {
-  const [category, setCategory] = useState(0);
-
-  const handleChangeCategory = (idx: number) => {
-    setCategory(idx);
-  };
-
   return (
-    <div className="home-page">
-      <Header />
-      {/* <Banner /> */}
-      <Introduction />
-      <Container>
-        <Services />
-        <Banners />
-      </Container>
-      {/* <div className="home-page__products">
-        <Container className="products">
-          <div className="category">
-            <p className="category__title">Shop by:</p>
-            <ul className="category__list">
-              {categories.map((value, idx) => (
-                <li
-                  className={clsx(
-                    "category__list-item",
-                    category === idx && "active"
-                  )}
-                  key={idx}
-                  onClick={() => handleChangeCategory(idx)}
-                >
-                  {value}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="products__list">
-            {[...new Array(100)].map((_, idx) => (
-              <Product key={idx} />
-            ))}
-          </div>
+    <CommonLayout>
+      <div className="home-page">
+        <Introduction />
+        <Container>
+          <Services />
+          <Banners />
         </Container>
-      </div> */}
-    </div>
+      </div>
+    </CommonLayout>
   );
 }
