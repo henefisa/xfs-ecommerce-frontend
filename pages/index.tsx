@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import clsx from "clsx";
 
 // components
 import Image from "next/image";
@@ -7,7 +8,9 @@ import Button from "../components/Button/Button";
 import Container from "../components/Container/Container";
 import SwiperCore, { Pagination, Swiper as S } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import clsx from "clsx";
+import { Banner, BannerGroup } from "../components/Banner";
+
+// icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCar } from "@fortawesome/free-solid-svg-icons";
 
@@ -210,6 +213,40 @@ const Services = () => {
   );
 };
 
+const Banners = () => {
+  return (
+    <section className="banners">
+      <BannerGroup>
+        <Banner
+          title="Sample title"
+          subTitle="Sample sub title"
+          size="lg"
+          description="Sample description"
+          style={{ backgroundImage: "url(/image.jpg)" }}
+        />
+        <Banner
+          title="Sample title"
+          subTitle="Sample sub title"
+          size="md"
+          style={{ backgroundImage: "url(/image.jpg)" }}
+        />
+        <Banner
+          title="Sample title"
+          subTitle="Sample sub title"
+          size="sm"
+          style={{ backgroundImage: "url(/image.jpg)" }}
+        />
+        <Banner
+          title="Sample title"
+          subTitle="Sample sub title"
+          size="sm"
+          style={{ backgroundImage: "url(/image.jpg)" }}
+        />
+      </BannerGroup>
+    </section>
+  );
+};
+
 export default function Home() {
   const [category, setCategory] = useState(0);
 
@@ -224,6 +261,7 @@ export default function Home() {
       <Introduction />
       <Container>
         <Services />
+        <Banners />
       </Container>
       {/* <div className="home-page__products">
         <Container className="products">

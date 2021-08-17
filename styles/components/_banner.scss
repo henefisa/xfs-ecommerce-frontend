@@ -1,7 +1,12 @@
 .banner {
-  @apply relative h-full bg-cover bg-center bg-no-repeat;
+  @apply relative h-full bg-cover bg-center bg-no-repeat px-10 py-5 rounded-md shadow flex items-center;
+
+  &__content {
+    @apply my-auto w-full;
+  }
+
   &__subtitle {
-    @apply text-xl font-medium truncate overflow-ellipsis;
+    @apply text-xl font-medium truncate overflow-ellipsis text-gray-500;
   }
 
   &__title {
@@ -14,4 +19,21 @@
 
   &__extra {
   }
+
+  &--sm,
+  &--md {
+    @apply h-48;
+  }
+
+  &--lg {
+    @apply h-96 row-span-2 md:col-span-2 lg:h-full;
+  }
+
+  &--md {
+    @apply md:col-span-2;
+  }
+}
+
+.banner-group {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4;
 }
