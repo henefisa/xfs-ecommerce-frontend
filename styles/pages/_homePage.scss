@@ -4,12 +4,12 @@
     .carousel {
       @apply mt-2;
       &__dots-custom {
-        @apply absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10 flex items-center space-x-4;
+        @apply absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10 flex items-center space-x-6;
         &-item {
-          @apply w-12 h-12 p-4 bg-transparent rounded-full opacity-70 hover:opacity-100 transition-all duration-300 relative overflow-hidden cursor-pointer;
-          @apply ring-2 ring-offset-4;
+          @apply w-14 h-14 p-4 bg-transparent rounded-full opacity-70 hover:opacity-100 transition-all duration-300 relative overflow-hidden cursor-pointer;
+          @apply ring-0 border border-gray-300;
           &.active {
-            @apply opacity-100;
+            @apply opacity-100 ring-4 ring-offset-2;
           }
         }
       }
