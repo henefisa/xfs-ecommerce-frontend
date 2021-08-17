@@ -1,0 +1,22 @@
+.service {
+  @apply text-center bg-white;
+  &__icon {
+    @apply text-4xl text-gray-500;
+  }
+
+  &__title {
+    @apply text-lg text-gray-600 font-semibold;
+  }
+
+  &__description {
+    @apply text-base text-gray-500;
+  }
+
+  &--bordered {
+    @apply border border-gray-400;
+  }
+
+  &--rounded {
+    @apply rounded;
+  }
+}

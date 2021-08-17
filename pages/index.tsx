@@ -13,6 +13,7 @@ import { Banner, BannerGroup } from "../components/Banner";
 // icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCar } from "@fortawesome/free-solid-svg-icons";
+import Service from "../components/Service/Service";
 
 const categories = [
   "All",
@@ -166,6 +167,7 @@ const Services = () => {
         slidesPerView={1}
         autoplay
         loop
+        spaceBetween={20}
         breakpoints={{
           640: { slidesPerView: 2 },
           1024: { slidesPerView: 3 },
@@ -173,40 +175,32 @@ const Services = () => {
         }}
       >
         <SwiperSlide>
-          <div className="service">
-            <div className="service__icon">
-              <FontAwesomeIcon icon={faCar} />
-            </div>
-            <div className="service__title">Free shippings and Return</div>
-            <div className="service__description">For all order over 99$</div>
-          </div>
+          <Service
+            icon={<FontAwesomeIcon icon={faCar} />}
+            title="Free shippings and Return"
+            description="For all order over 99$"
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <div className="service">
-            <div className="service__icon">
-              <FontAwesomeIcon icon={faCar} />
-            </div>
-            <div className="service__title">Free shippings and Return</div>
-            <div className="service__description">For all order over 99$</div>
-          </div>
+          <Service
+            icon={<FontAwesomeIcon icon={faCar} />}
+            title="Free shippings and Return"
+            description="For all order over 99$"
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <div className="service">
-            <div className="service__icon">
-              <FontAwesomeIcon icon={faCar} />
-            </div>
-            <div className="service__title">Free shippings and Return</div>
-            <div className="service__description">For all order over 99$</div>
-          </div>
+          <Service
+            icon={<FontAwesomeIcon icon={faCar} />}
+            title="Free shippings and Return"
+            description="For all order over 99$"
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <div className="service">
-            <div className="service__icon">
-              <FontAwesomeIcon icon={faCar} />
-            </div>
-            <div className="service__title">Free shippings and Return</div>
-            <div className="service__description">For all order over 99$</div>
-          </div>
+          <Service
+            icon={<FontAwesomeIcon icon={faCar} />}
+            title="Free shippings and Return"
+            description="For all order over 99$"
+          />
         </SwiperSlide>
       </Swiper>
     </section>
