@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <div className="home-page">
       <Header />
-      <Banner />
+      {/* <Banner /> */}
       <div className="home-page__products">
         <Container className="products">
           <div className="category">
@@ -47,7 +47,7 @@ export default function Home() {
             </ul>
           </div>
           <div className="products__list">
-            {[...new Array(10)].map((_, idx) => (
+            {[...new Array(100)].map((_, idx) => (
               <Product key={idx} />
             ))}
           </div>

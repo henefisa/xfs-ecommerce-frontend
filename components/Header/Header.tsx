@@ -1,13 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
+import clsx from "clsx";
 
 // icons
-import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faLaptop,
+  faShoppingCart,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // components
 import Container from "../Container/Container";
 import Toggle from "../Toggle/Toggle";
-import clsx from "clsx";
+import { Swiper as Carousel, SwiperSlide } from "swiper/react";
+import { Swiper } from "swiper";
+
+// utils
+import { debounce } from "../../utils/debounce";
 
 interface MobileNavbarProps {
   isActive?: boolean;
@@ -17,74 +26,156 @@ interface MobileNavbarProps {
 const TABS = ["Menu", "Categories", "Account"];
 
 const Navbar: React.FC = () => {
-  return <div className="navbar"></div>;
-};
-
-const MobileNavbar: React.FC<MobileNavbarProps> = ({ isActive = false }) => {
-  const [currentTab, setCurrentTab] = useState(0);
-  const currentTabRef = useRef<HTMLLIElement>(null);
-  const markerRef = useRef<HTMLDivElement>(null);
-
-  const styleMarker = (left: number, width: number) => {
-    if (!markerRef.current) return;
-    markerRef.current.style.left = left - 16 + "px";
-    markerRef.current.style.width = width + "px";
-  };
-
-  const handleSelectTab = (idx: number, event: React.MouseEvent) => {
-    setCurrentTab(idx);
-    if (!markerRef.current) return;
-    const rect = event.currentTarget.getBoundingClientRect();
-    styleMarker(rect.left, rect.width);
-  };
-
-  const handleTransitionEnd = () => {
-    if (!currentTabRef.current || !markerRef.current || !isActive) return;
-    const rect = currentTabRef.current.getBoundingClientRect();
-    styleMarker(rect.left, rect.width);
-  };
+  const stickyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const resize = () => {
-      if (!currentTabRef.current || !markerRef.current) return;
-      const rect = currentTabRef.current.getBoundingClientRect();
-      styleMarker(rect.left, rect.width);
+    const scroll = () => {
+      const top = stickyRef.current?.getBoundingClientRect().top || 0;
+      if (top <= 0) {
+        stickyRef.current?.classList.add("navbar__top--sticky");
+      } else {
+        stickyRef.current?.classList.remove("navbar__top--sticky");
+      }
     };
-    resize();
-    window.addEventListener("resize", resize, false);
+
+    scroll();
+    window.addEventListener("scroll", scroll, false);
     return () => {
-      window.removeEventListener("resize", resize, false);
+      window.removeEventListener("scroll", scroll, false);
     };
   }, []);
 
   return (
-    <div
-      className={clsx("navbar navbar--mobile", isActive && "active")}
-      onTransitionEnd={handleTransitionEnd}
-    >
+    <nav className="navbar">
+      <div className="navbar__top" ref={stickyRef}>
+        <ul className="navbar__list">
+          <li className="navbar__list-item">Home</li>
+          <li className="navbar__list-item">About</li>
+          <li className="navbar__list-item">Blog</li>
+          <li className="navbar__list-item">Contact</li>
+        </ul>
+        <div className="user">
+          <div className="user__item">
+            <span className="icon">
+              <FontAwesomeIcon icon={faUser} />
+            </span>
+            <span className="name">User name</span>
+          </div>
+          <div className="user__item">
+            <span className="icon">
+              <FontAwesomeIcon icon={faShoppingCart} />
+            </span>
+          </div>
+        </div>
+      </div>
+      <div className="navbar__bottom">
+        <ul className="categories">
+          <li className="category">
+            <div className="category__icon">
+              <FontAwesomeIcon icon={faLaptop} />
+            </div>
+            <div className="category__name">Computers</div>
+          </li>
+          <li className="category">
+            <div className="category__icon">
+              <FontAwesomeIcon icon={faLaptop} />
+            </div>
+            <div className="category__name">Computers</div>
+          </li>
+          <li className="category">
+            <div className="category__icon">
+              <FontAwesomeIcon icon={faLaptop} />
+            </div>
+            <div className="category__name">Computers</div>
+          </li>
+          <li className="category">
+            <div className="category__icon">
+              <FontAwesomeIcon icon={faLaptop} />
+            </div>
+            <div className="category__name">Computers</div>
+          </li>
+          <li className="category">
+            <div className="category__icon">
+              <FontAwesomeIcon icon={faLaptop} />
+            </div>
+            <div className="category__name">Computers</div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
+};
+
+const MobileNavbar: React.FC<MobileNavbarProps> = ({ isActive = false }) => {
+  const [currentTab, setCurrentTab] = useState(0);
+  const [swiper, setSwiper] = useState<Swiper>();
+
+  const handleSelectTab = (idx: number) => {
+    setCurrentTab(idx);
+    swiper?.slideTo(idx);
+  };
+
+  return (
+    <nav className={clsx("navbar navbar--mobile", isActive && "active")}>
       <ul className="navbar__tabs">
         {TABS.map((val, idx) => (
           <li
-            ref={idx === currentTab ? currentTabRef : undefined}
             key={idx}
             className={clsx(
               "navbar__tabs-item",
               idx === currentTab && "active"
             )}
-            onClick={(e) => handleSelectTab(idx, e)}
+            onClick={() => handleSelectTab(idx)}
           >
             {val}
           </li>
         ))}
-        <div id="tabs-item-marker" ref={markerRef} />
       </ul>
-      <div className="navbar__content"></div>
-    </div>
+      <div className="navbar__content">
+        <Carousel
+          className="navbar__slide"
+          onSwiper={setSwiper}
+          onSlideChange={(swiper) => {
+            setCurrentTab(swiper.activeIndex);
+          }}
+        >
+          <SwiperSlide>
+            <ul className="navbar__list">
+              <li className="navbar__list-item">Home</li>
+              <li className="navbar__list-item">About</li>
+              <li className="navbar__list-item">Sample</li>
+              <li className="navbar__list-item">Sample</li>
+              <li className="navbar__list-item">Sample</li>
+            </ul>
+          </SwiperSlide>
+          <SwiperSlide>
+            <ul className="navbar__list">
+              <li className="navbar__list-item">Home</li>
+              <li className="navbar__list-item">About</li>
+              <li className="navbar__list-item">Sample</li>
+              <li className="navbar__list-item">Sample</li>
+              <li className="navbar__list-item">Sample</li>
+            </ul>
+          </SwiperSlide>
+          <SwiperSlide>
+            <ul className="navbar__list">
+              <li className="navbar__list-item">Home</li>
+              <li className="navbar__list-item">About</li>
+              <li className="navbar__list-item">Sample</li>
+              <li className="navbar__list-item">Sample</li>
+              <li className="navbar__list-item">Sample</li>
+            </ul>
+          </SwiperSlide>
+        </Carousel>
+      </div>
+    </nav>
   );
 };
 
 const Header: React.FC = () => {
   const [isActive, setIsActive] = useState(false);
+
+  const headerRef = useRef<HTMLElement>(null);
 
   const handleToggleNavbar = () => {
     setIsActive((prevState) => !prevState);
@@ -100,39 +191,57 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     const resize = () => {
-      if (window.matchMedia('(min-width: 768px)').matches) {
+      if (window.matchMedia("(min-width: 768px)").matches) {
         setIsActive(false);
       }
     };
     resize();
-    window.addEventListener("resize", resize, false);
+    const debouncedResize = debounce(resize, 300);
+    window.addEventListener("resize", debouncedResize, false);
     return () => {
-      window.removeEventListener("resize", resize, false);
+      window.removeEventListener("resize", debouncedResize, false);
+    };
+  }, []);
+
+  useEffect(() => {
+    const scroll = () => {
+      const height = headerRef.current?.getBoundingClientRect().height || 0;
+      if (window.scrollY > height) {
+        headerRef.current?.classList.add("shadow-md");
+      } else {
+        headerRef.current?.classList.remove("shadow-md");
+      }
+    };
+    scroll();
+    window.addEventListener("scroll", scroll, false);
+    return () => {
+      window.removeEventListener("scroll", scroll, false);
     };
   }, []);
 
   return (
-    <header className="header">
-      <div className="header__menu">
-        <Container className="header__menu-content">
+    <header className="header" ref={headerRef}>
+      <Container>
+        <div className="header__top">
           <Toggle
             isActive={isActive}
             onClick={handleToggleNavbar}
             className="header__toggle"
           />
           <h1 className="header__logo">Ecommerce</h1>
-          <div className="header__user-wrap">
-            <div className="header__user">
-              <FontAwesomeIcon icon={faUser} />
-              <div className="name">User name</div>
-            </div>
-            <div className="header__cart">
-              <FontAwesomeIcon icon={faShoppingCart} />
+          <div className="user">
+            <div className="user__item">
+              <span className="icon">
+                <FontAwesomeIcon icon={faShoppingCart} />
+              </span>
             </div>
           </div>
-        </Container>
-        <MobileNavbar isActive={isActive} />
-      </div>
+        </div>
+        <div className="header__bottom">
+          <Navbar />
+          <MobileNavbar isActive={isActive} />
+        </div>
+      </Container>
     </header>
   );
 };
