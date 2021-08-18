@@ -1,0 +1,20 @@
+.rating {
+  @apply text-lg cursor-pointer;
+  &__stars {
+    @apply flex items-center space-x-2;
+    &--disabled {
+      @apply cursor-not-allowed;
+    }
+  }
+
+  &__star {
+    @apply text-gray-200 transition-colors duration-300;
+    &--active {
+      @apply text-yellow-300;
+    }
+  }
+
+  &--disabled {
+    @apply cursor-default;
+  }
+}

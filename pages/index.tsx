@@ -14,6 +14,7 @@ import CommonLayout from "../layouts/CommonLayout";
 // icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCar } from "@fortawesome/free-solid-svg-icons";
+import Vendor from "../components/Vendor/Vendor";
 
 SwiperCore.use([Pagination]);
 
@@ -232,6 +233,14 @@ const Banners = () => {
   );
 };
 
+const TopVendors = () => {
+  return (
+    <div>
+      <Vendor name="Sample" rating={0} logo="/slide-image.png" products={[]} />
+    </div>
+  );
+};
+
 export default function Home() {
   return (
     <CommonLayout>
@@ -240,6 +249,7 @@ export default function Home() {
         <Container>
           <Services />
           <Banners />
+          <TopVendors />
         </Container>
       </div>
     </CommonLayout>
