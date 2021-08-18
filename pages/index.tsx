@@ -236,7 +236,12 @@ const Banners = () => {
 const TopVendors = () => {
   return (
     <div>
-      <Vendor name="Sample" rating={0} logo="/slide-image.png" products={[]} />
+      <Vendor
+        name="Sample"
+        rating={4}
+        logo="/slide-image.png"
+        products={["/slide-image.png", "/slide-image.png", "/slide-image.png"]}
+      />
     </div>
   );
 };
