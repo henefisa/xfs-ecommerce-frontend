@@ -1,22 +1,21 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import clsx from "clsx";
 
 // components
 import Image from "next/image";
 import Button from "../components/Button/Button";
 import Container from "../components/Container/Container";
-import SwiperCore, { Pagination, Swiper as S } from "swiper";
+import { Swiper as S } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Banner, BannerGroup } from "../components/Banner";
 import Service from "../components/Service/Service";
 import CommonLayout from "../layouts/CommonLayout";
+import Vendor from "../components/Vendor/Vendor";
+import Section from "../components/Section/Section";
 
 // icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCar } from "@fortawesome/free-solid-svg-icons";
-import Vendor from "../components/Vendor/Vendor";
-
-SwiperCore.use([Pagination]);
 
 const Introduction = () => {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -154,12 +153,10 @@ const Introduction = () => {
 
 const Services = () => {
   return (
-    <section className="services">
+    <Section className="services">
       <Swiper
         slidesPerView={1}
-        autoplay
-        loop
-        spaceBetween={20}
+        spaceBetween={16}
         breakpoints={{
           640: { slidesPerView: 2 },
           1024: { slidesPerView: 3 },
@@ -195,13 +192,13 @@ const Services = () => {
           />
         </SwiperSlide>
       </Swiper>
-    </section>
+    </Section>
   );
 };
 
 const Banners = () => {
   return (
-    <section className="banners">
+    <Section className="banners">
       <BannerGroup>
         <Banner
           title="Sample title"
@@ -229,20 +226,97 @@ const Banners = () => {
           style={{ backgroundImage: "url(/image.jpg)" }}
         />
       </BannerGroup>
-    </section>
+    </Section>
   );
 };
 
 const TopVendors = () => {
   return (
-    <div>
-      <Vendor
-        name="Sample"
-        rating={4}
-        logo="/slide-image.png"
-        products={["/slide-image.png", "/slide-image.png", "/slide-image.png"]}
-      />
-    </div>
+    <Section className="top-vendors" title="Top Weekly Vendors">
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={16}
+        breakpoints={{
+          640: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+          1536: { slidesPerView: 4 },
+        }}
+      >
+        <SwiperSlide>
+          <Vendor
+            name="Sample"
+            rating={4}
+            logo="/slide-image.png"
+            products={[
+              "/slide-image.png",
+              "/slide-image.png",
+              "/slide-image.png",
+            ]}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Vendor
+            name="Sample"
+            rating={4}
+            logo="/slide-image.png"
+            products={[
+              "/slide-image.png",
+              "/slide-image.png",
+              "/slide-image.png",
+            ]}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Vendor
+            name="Sample"
+            rating={4}
+            logo="/slide-image.png"
+            products={[
+              "/slide-image.png",
+              "/slide-image.png",
+              "/slide-image.png",
+            ]}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Vendor
+            name="Sample"
+            rating={4}
+            logo="/slide-image.png"
+            products={[
+              "/slide-image.png",
+              "/slide-image.png",
+              "/slide-image.png",
+            ]}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Vendor
+            name="Sample"
+            rating={4}
+            logo="/slide-image.png"
+            products={[
+              "/slide-image.png",
+              "/slide-image.png",
+              "/slide-image.png",
+            ]}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Vendor
+            name="Sample"
+            rating={4}
+            logo="/slide-image.png"
+            products={[
+              "/slide-image.png",
+              "/slide-image.png",
+              "/slide-image.png",
+              "/slide-image.png",
+            ]}
+          />
+        </SwiperSlide>
+      </Swiper>
+    </Section>
   );
 };
 

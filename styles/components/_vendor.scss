@@ -1,0 +1,23 @@
+.vendor {
+  @apply p-4 rounded-md border border-gray-300 space-y-4 transition-colors duration-300 hover:border-blue-500;
+
+  &__details {
+    @apply flex items-center space-x-4;
+  }
+
+  &__logo {
+    @apply w-16 h-16 relative bg-gray-100 border border-gray-200 cursor-pointer rounded;
+  }
+
+  &__name {
+    @apply text-lg font-medium cursor-pointer;
+  }
+
+  &__products {
+    @apply flex items-center space-x-2 overflow-x-auto;
+  }
+
+  &__product {
+    @apply w-20 h-20 relative bg-gray-100 border border-gray-200 rounded-md;
+  }
+}

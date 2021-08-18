@@ -1,0 +1,6 @@
+.section {
+  @apply mt-10 space-y-4;
+  &__title {
+    @apply text-2xl font-semibold pb-2 border-b border-gray-200;
+  }
+}

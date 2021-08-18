@@ -1,6 +1,6 @@
 .home-page {
   .introduction {
-    @apply relative;
+    @apply relative mt-0;
     .carousel {
       @apply md:mt-2;
       &__dots-custom {
@@ -48,10 +48,12 @@
   }
 
   .services {
-    @apply mt-4 rounded border border-gray-300 p-4;
+    @apply rounded border border-gray-300 p-4;
   }
 
   .banners {
-    @apply mt-4;
+  }
+
+  .top-vendors {
   }
 }
