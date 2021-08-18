@@ -12,6 +12,7 @@ import Service from "../components/Service/Service";
 import CommonLayout from "../layouts/CommonLayout";
 import Vendor from "../components/Vendor/Vendor";
 import Section from "../components/Section/Section";
+import Product from "../components/Product/Product";
 
 // icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -320,6 +321,22 @@ const TopVendors = () => {
   );
 };
 
+const Products = () => {
+  return (
+    <Section className="products" title="Home and Furnitures">
+      <div className="products__wrap">
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+        <Product />
+      </div>
+    </Section>
+  );
+};
+
 export default function Home() {
   return (
     <CommonLayout>
@@ -329,6 +346,7 @@ export default function Home() {
           <Services />
           <Banners />
           <TopVendors />
+          <Products />
         </Container>
       </div>
     </CommonLayout>

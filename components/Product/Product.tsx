@@ -2,6 +2,8 @@ import React from "react";
 
 // components
 import Image from "next/image";
+
+// icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeart,
@@ -9,8 +11,7 @@ import {
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 
-// mock
-import pr from "../../public/product.jpeg";
+// utils
 import { currencyFormat } from "../../utils/currencyFormat";
 
 interface ProductProps {}
@@ -19,26 +20,43 @@ const Product: React.FC<ProductProps> = ({}) => {
   return (
     <div className="product">
       <div className="product__image">
-        <div className="product__actions">
-          <button className="action" title="Add to cart">
-            <FontAwesomeIcon icon={faShoppingBag} />
-          </button>
-          <button className="action" title="Add to wishlist">
-            <FontAwesomeIcon icon={faHeart} />
-          </button>
-        </div>
-        <button className="product__quick-view">Quickview</button>
         <Image
-          src={pr}
-          alt="Sample product"
           layout="fill"
+          alt="Sample product"
+          src="/product.jpeg"
           objectFit="contain"
           objectPosition="center"
         />
+        <div className="product__actions">
+          <div className="product__actions-item">
+            <button className="product__actions-button">
+              <FontAwesomeIcon icon={faShoppingBag} />
+            </button>
+          </div>
+          <div className="product__actions-item">
+            <button className="product__actions-button">
+              <FontAwesomeIcon icon={faShoppingBag} />
+            </button>
+          </div>
+          <div className="product__actions-item">
+            <button className="product__actions-button">
+              <FontAwesomeIcon icon={faShoppingBag} />
+            </button>
+          </div>
+          <div className="product__actions-item">
+            <button className="product__actions-button">
+              <FontAwesomeIcon icon={faShoppingBag} />
+            </button>
+          </div>
+        </div>
       </div>
-      <div className="product__body">
-        <h3 className="product__title">Sample product title</h3>
-        <p className="product__price">{currencyFormat.format(300000)}</p>
+      <div className="product__details">
+        <h3 className="product__name">Sample product</h3>
+        <div className="product__price">
+          <p className="product__price-current">
+            {currencyFormat.format(300000)}
+          </p>
+        </div>
       </div>
     </div>
   );

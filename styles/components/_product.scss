@@ -1,49 +1,50 @@
 .product {
-  @apply max-w-xs h-full;
+  @apply p-4 overflow-hidden;
   &__image {
     padding-top: 100%;
-    @apply relative w-full overflow-hidden rounded-sm bg-white;
+    @apply relative w-full bg-gray-200 rounded transition duration-300 hover:shadow;
+
     &:hover {
-      @apply shadow-md;
       .product__actions {
-        @apply opacity-100;
-      }
-      .product__quick-view {
-        @apply opacity-100 translate-y-0;
-      }
-    }
-  }
-
-  &__body {
-    @apply mt-2;
-  }
-
-  &__title {
-    @apply text-lg font-normal tracking-tight truncate;
-  }
-
-  &__price {
-    @apply text-xl font-semibold;
-  }
-
-  &__actions {
-    @apply absolute top-2.5 right-2.5 z-10 opacity-0 transition-opacity duration-300 flex space-x-2;
-    .action {
-      @apply w-8 h-8 border border-gray-600 inline-flex items-center justify-center rounded-full transition-colors duration-300 hover:border-opacity-0;
-      svg {
-        @apply w-4 h-4 transition-colors duration-300;
-      }
-
-      &:hover {
-        @apply bg-gray-600;
-        svg {
-          @apply text-white;
+        &-item {
+          @apply translate-x-0 opacity-100 visible;
+          &:nth-child(1) {
+            @apply delay-100;
+          }
+          &:nth-child(2) {
+            @apply delay-200;
+          }
+          &:nth-child(3) {
+            @apply delay-300;
+          }
+          &:nth-child(4) {
+            @apply delay-400;
+          }
         }
       }
     }
   }
 
-  &__quick-view {
-    @apply absolute left-0 bottom-0 h-10 w-full bg-gray-600 text-white z-10 leading-10 text-center transition duration-300 opacity-0 transform translate-y-2 uppercase hover:bg-gray-700;
+  &__actions {
+    @apply absolute right-5 top-5 flex flex-col space-y-2;
+    &-item {
+      @apply transform translate-x-5 transition-all duration-300 opacity-0 invisible;
+    }
+
+    &-button {
+      @apply w-8 h-8 bg-white border border-gray-200 inline-block rounded-full text-gray-600 transition-colors hover:text-white hover:bg-gray-600;
+    }
+  }
+
+  &__details {
+    @apply mt-3;
+  }
+
+  &__name {
+    @apply text-base font-semibold text-center transition-colors duration-300 cursor-pointer hover:text-blue-500;
+  }
+
+  &__price {
+    @apply text-center font-semibold;
   }
 }
