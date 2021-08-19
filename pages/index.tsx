@@ -306,7 +306,7 @@ const Deals = () => {
       extra={<Countdown duration={3600} />}
     >
       <Swiper
-        autoplay
+        autoplay={{ delay: 3000, pauseOnMouseEnter: true }}
         loop
         slidesPerView={1}
         spaceBetween={16}
@@ -361,12 +361,16 @@ const BottomBanners = () => {
   );
 };
 
-const Products = () => {
+const TopRatedProducts = () => {
   return (
     <Section
       className="products"
-      title="Products"
-      extra={<Button>More product</Button>}
+      title="Top Rated Products"
+      extra={
+        <Button type="outline" color="primary">
+          More product
+        </Button>
+      }
     >
       <div className="products__wrap">
         <Product direction="horizontal" image="/product-1.jpg" />
@@ -393,7 +397,7 @@ export default function Home() {
           <TopVendors />
           <Deals />
           <BottomBanners />
-          <Products />
+          <TopRatedProducts />
         </Container>
       </div>
     </CommonLayout>

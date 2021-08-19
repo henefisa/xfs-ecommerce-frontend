@@ -37,6 +37,10 @@
         .title {
           @apply text-5xl font-bold capitalize mb-2 text-blue-600;
         }
+
+        .button {
+          @apply mt-2;
+        }
       }
 
       &-image {
