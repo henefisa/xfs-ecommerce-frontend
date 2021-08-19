@@ -16,10 +16,12 @@ const Section: React.FC<SectionProps> = ({
 }) => {
   return (
     <section className={clsx("section", className)}>
-      <header className="section__header">
-        {title && <h2 className="section__title">{title}</h2>}
-        {extra && <div className="secion__extra">{extra}</div>}
-      </header>
+      {(title || extra) && (
+        <header className="section__header">
+          <h2 className="section__title">{title}</h2>
+          <div className="secion__extra">{extra}</div>
+        </header>
+      )}
       <main className="section__content">{children}</main>
     </section>
   );

@@ -6,9 +6,9 @@ import Image from "next/image";
 // icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faEye,
   faHeart,
   faShoppingBag,
-  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 
 // utils
@@ -35,28 +35,28 @@ const Product: React.FC<ProductProps> = ({ direction = "vertical" }) => {
           objectFit="contain"
           objectPosition="center"
         />
-        <div className="product__actions">
-          <div className="product__actions-item">
-            <button className="product__actions-button">
-              <FontAwesomeIcon icon={faShoppingBag} />
-            </button>
+        {direction === "vertical" && (
+          <div className="product__actions">
+            <div className="product__actions-item">
+              <button className="product__actions-button" title="Add to cart">
+                <FontAwesomeIcon icon={faShoppingBag} />
+              </button>
+            </div>
+            <div className="product__actions-item">
+              <button
+                className="product__actions-button"
+                title="Add to favorite"
+              >
+                <FontAwesomeIcon icon={faHeart} />
+              </button>
+            </div>
+            <div className="product__actions-item">
+              <button className="product__actions-button" title="Quick view">
+                <FontAwesomeIcon icon={faEye} />
+              </button>
+            </div>
           </div>
-          <div className="product__actions-item">
-            <button className="product__actions-button">
-              <FontAwesomeIcon icon={faShoppingBag} />
-            </button>
-          </div>
-          <div className="product__actions-item">
-            <button className="product__actions-button">
-              <FontAwesomeIcon icon={faShoppingBag} />
-            </button>
-          </div>
-          <div className="product__actions-item">
-            <button className="product__actions-button">
-              <FontAwesomeIcon icon={faShoppingBag} />
-            </button>
-          </div>
-        </div>
+        )}
       </div>
       <div className="product__details">
         <h3 className="product__name">Sample product</h3>

@@ -198,9 +198,9 @@ const Services = () => {
   );
 };
 
-const Banners = () => {
+const TopBanners = () => {
   return (
-    <Section className="banners">
+    <Section className="top-banners">
       <BannerGroup>
         <Banner
           title="Sample title"
@@ -361,9 +361,30 @@ const Deals = () => {
   );
 };
 
+const BottomBanners = () => {
+  return (
+    <Section className="bottom-banners">
+      <BannerGroup>
+        <Banner
+          title="Sample banner"
+          subTitle="Sample"
+          style={{ backgroundImage: "url(/image.jpg)" }}
+          size="md"
+        />
+        <Banner
+          title="Sample banner"
+          subTitle="Sample"
+          style={{ backgroundImage: "url(/image.jpg)" }}
+          size="md"
+        />
+      </BannerGroup>
+    </Section>
+  );
+};
+
 const Products = () => {
   return (
-    <Section className="products" title="Home and Furnitures">
+    <Section className="products" title="Products">
       <div className="products__wrap">
         <Product direction="horizontal" />
         <Product direction="horizontal" />
@@ -382,9 +403,10 @@ export default function Home() {
         <Introduction />
         <Container>
           <Services />
-          <Banners />
+          <TopBanners />
           <TopVendors />
           <Deals />
+          <BottomBanners />
           <Products />
         </Container>
       </div>
