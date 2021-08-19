@@ -39,7 +39,7 @@ const Introduction = () => {
         <SwiperSlide>
           <div
             className="introduction__banner"
-            style={{ backgroundImage: `url(/slide.jpg)` }}
+            style={{ backgroundImage: `url(/slide-1.jpg)` }}
           >
             <Container className="introduction__banner-container">
               <div className="introduction__banner-content">
@@ -49,7 +49,7 @@ const Introduction = () => {
               </div>
               <div className="introduction__banner-image">
                 <Image
-                  src="/slide-image.png"
+                  src="/slide-image-1.png"
                   layout="fill"
                   alt="Sample image"
                   objectFit="contain"
@@ -62,7 +62,7 @@ const Introduction = () => {
         <SwiperSlide>
           <div
             className="introduction__banner"
-            style={{ backgroundImage: `url(/slide.jpg)` }}
+            style={{ backgroundImage: `url(/slide-2.jpg)` }}
           >
             <Container className="introduction__banner-container">
               <div className="introduction__banner-content">
@@ -72,7 +72,7 @@ const Introduction = () => {
               </div>
               <div className="introduction__banner-image">
                 <Image
-                  src="/slide-image.png"
+                  src="/slide-image-2.png"
                   layout="fill"
                   alt="Sample image"
                   objectFit="contain"
@@ -85,7 +85,7 @@ const Introduction = () => {
         <SwiperSlide>
           <div
             className="introduction__banner"
-            style={{ backgroundImage: `url(/slide.jpg)` }}
+            style={{ backgroundImage: `url(/slide-3.jpg)` }}
           >
             <Container className="introduction__banner-container">
               <div className="introduction__banner-content">
@@ -95,7 +95,7 @@ const Introduction = () => {
               </div>
               <div className="introduction__banner-image">
                 <Image
-                  src="/slide-image.png"
+                  src="/slide-image-3.png"
                   layout="fill"
                   alt="Sample image"
                   objectFit="contain"
@@ -108,7 +108,7 @@ const Introduction = () => {
         <SwiperSlide>
           <div
             className="introduction__banner"
-            style={{ backgroundImage: `url(/slide.jpg)` }}
+            style={{ backgroundImage: `url(/slide-1.jpg)` }}
           >
             <Container className="introduction__banner-container">
               <div className="introduction__banner-content">
@@ -118,7 +118,7 @@ const Introduction = () => {
               </div>
               <div className="introduction__banner-image">
                 <Image
-                  src="/slide-image.png"
+                  src="/slide-image-1.png"
                   layout="fill"
                   alt="Sample image"
                   objectFit="contain"
@@ -140,7 +140,7 @@ const Introduction = () => {
             onClick={() => handleChangeSlide(idx)}
           >
             <Image
-              src="/slide-image.png"
+              src={`/slide-image-${(idx % 3) + 1}.png`}
               layout="fill"
               objectFit="cover"
               objectPosition="center"
@@ -282,7 +282,7 @@ const TopVendors = () => {
           <Vendor
             name="Sample"
             rating={4}
-            logo="/slide-image.png"
+            logo="/slide-image-1.png"
             products={["/product-5.jpg", "/product-2.jpg", "/product-1.jpg"]}
           />
         </SwiperSlide>
