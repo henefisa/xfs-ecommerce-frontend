@@ -1,0 +1,10 @@
+.count-down {
+  @apply flex items-center space-x-4 text-white text-lg;
+  &__time {
+    @apply w-8 h-8 bg-gray-600 inline-flex items-center justify-center rounded relative;
+    &:not(&:first-child)::before {
+      content: ":";
+      @apply absolute top-1/2 transform -translate-y-1/2 -left-2.5 text-gray-600;
+    }
+  }
+}

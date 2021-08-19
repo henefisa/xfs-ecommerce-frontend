@@ -2,7 +2,7 @@
   @apply p-4 overflow-hidden;
   &__image {
     padding-top: 100%;
-    @apply relative w-full bg-gray-200 rounded transition duration-300 hover:shadow;
+    @apply relative w-full bg-gray-200 rounded transition duration-300 hover:shadow-md;
 
     &:hover {
       .product__actions {

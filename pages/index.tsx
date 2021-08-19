@@ -13,6 +13,7 @@ import CommonLayout from "../layouts/CommonLayout";
 import Vendor from "../components/Vendor/Vendor";
 import Section from "../components/Section/Section";
 import Product from "../components/Product/Product";
+import Countdown from "../components/Countdown/Countdown";
 
 // icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -321,17 +322,54 @@ const TopVendors = () => {
   );
 };
 
+const Deals = () => {
+  return (
+    <Section
+      className="deals"
+      title="Hot deals"
+      extra={<Countdown duration={3600} />}
+    >
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={16}
+        breakpoints={{
+          640: { slidesPerView: 3 },
+          1024: { slidesPerView: 4 },
+          1536: { slidesPerView: 5 },
+        }}
+      >
+        <SwiperSlide>
+          <Product />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Product />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Product />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Product />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Product />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Product />
+        </SwiperSlide>
+      </Swiper>
+    </Section>
+  );
+};
+
 const Products = () => {
   return (
     <Section className="products" title="Home and Furnitures">
       <div className="products__wrap">
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
+        <Product direction="horizontal" />
+        <Product direction="horizontal" />
+        <Product direction="horizontal" />
+        <Product direction="horizontal" />
+        <Product direction="horizontal" />
       </div>
     </Section>
   );
@@ -346,6 +384,7 @@ export default function Home() {
           <Services />
           <Banners />
           <TopVendors />
+          <Deals />
           <Products />
         </Container>
       </div>

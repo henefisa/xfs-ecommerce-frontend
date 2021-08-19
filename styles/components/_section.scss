@@ -1,6 +1,10 @@
 .section {
   @apply mt-10 space-y-4;
+  &__header {
+    @apply pb-2 border-b border-gray-200 flex items-center justify-between;
+  }
+
   &__title {
-    @apply text-2xl font-semibold pb-2 border-b border-gray-200;
+    @apply text-2xl font-semibold;
   }
 }

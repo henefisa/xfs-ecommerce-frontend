@@ -13,12 +13,20 @@ import {
 
 // utils
 import { currencyFormat } from "../../utils/currencyFormat";
+import clsx from "clsx";
 
-interface ProductProps {}
+interface ProductProps {
+  direction?: "vertical" | "horizontal";
+}
 
-const Product: React.FC<ProductProps> = ({}) => {
+const Product: React.FC<ProductProps> = ({ direction = "vertical" }) => {
   return (
-    <div className="product">
+    <div
+      className={clsx(
+        "product",
+        direction !== "vertical" && `product--${direction}`
+      )}
+    >
       <div className="product__image">
         <Image
           layout="fill"
