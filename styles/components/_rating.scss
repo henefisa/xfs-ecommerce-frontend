@@ -17,4 +17,12 @@
   &--disabled {
     @apply cursor-default;
   }
+
+  &--small {
+    @apply text-sm;
+  }
+
+  &--large {
+    @apply text-xl;
+  }
 }

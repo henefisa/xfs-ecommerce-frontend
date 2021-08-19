@@ -26,7 +26,7 @@ const Vendor: React.FC<VendorProps> = ({ name, logo, rating, products }) => {
         </div>
         <div className="vendor__personal">
           <h5 className="vendor__name">{name}</h5>
-          <Rating value={rating} />
+          <Rating value={rating} size="small" />
         </div>
       </div>
       <div className="vendor__products">

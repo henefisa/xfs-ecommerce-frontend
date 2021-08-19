@@ -11,6 +11,7 @@ export interface RatingProps {
   onChange?: (rate: number) => void;
   disabled?: boolean;
   className?: string;
+  size?: "small" | "default" | "large";
 }
 
 export interface RatingRefProps {
@@ -18,7 +19,17 @@ export interface RatingRefProps {
 }
 
 const Rating = React.forwardRef<RatingRefProps, RatingProps>(
-  ({ value, onChange, disabled = false, defaultValue = 0, className }, ref) => {
+  (
+    {
+      value,
+      onChange,
+      disabled = false,
+      defaultValue = 0,
+      className,
+      size = "default",
+    },
+    ref
+  ) => {
     const [rate, setRate] = useState(defaultValue);
 
     const handleRateChange = (rate: number) => {
@@ -40,7 +51,13 @@ const Rating = React.forwardRef<RatingRefProps, RatingProps>(
     useImperativeHandle(ref, () => ({ rate }), [rate]);
 
     return (
-      <div className={clsx("rating", className)}>
+      <div
+        className={clsx(
+          "rating",
+          className,
+          size !== "default" && `rating--${size}`
+        )}
+      >
         <ul
           className={clsx(
             "rating__stars",

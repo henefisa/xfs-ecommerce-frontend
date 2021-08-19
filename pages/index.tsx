@@ -250,12 +250,32 @@ const TopVendors = () => {
           <Vendor
             name="Sample"
             rating={4}
-            logo="/slide-image.png"
-            products={[
-              "/slide-image.png",
-              "/slide-image.png",
-              "/slide-image.png",
-            ]}
+            logo="/vendor-1.jpg"
+            products={["/product-1.jpg", "/product-2.jpg", "/product-3.jpg"]}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Vendor
+            name="Sample"
+            rating={4}
+            logo="/vendor-2.jpg"
+            products={["/product-4.jpg", "/product-5.jpg", "/product-2.jpg"]}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Vendor
+            name="Sample"
+            rating={4}
+            logo="/vendor-3.jpg"
+            products={["/product-2.jpg", "/product-3.jpg", "/product-4.jpg"]}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Vendor
+            name="Sample"
+            rating={4}
+            logo="/vendor-4.jpg"
+            products={["/product-2.jpg", "/product-1.jpg", "/product-5.jpg"]}
           />
         </SwiperSlide>
         <SwiperSlide>
@@ -263,60 +283,7 @@ const TopVendors = () => {
             name="Sample"
             rating={4}
             logo="/slide-image.png"
-            products={[
-              "/slide-image.png",
-              "/slide-image.png",
-              "/slide-image.png",
-            ]}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Vendor
-            name="Sample"
-            rating={4}
-            logo="/slide-image.png"
-            products={[
-              "/slide-image.png",
-              "/slide-image.png",
-              "/slide-image.png",
-            ]}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Vendor
-            name="Sample"
-            rating={4}
-            logo="/slide-image.png"
-            products={[
-              "/slide-image.png",
-              "/slide-image.png",
-              "/slide-image.png",
-            ]}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Vendor
-            name="Sample"
-            rating={4}
-            logo="/slide-image.png"
-            products={[
-              "/slide-image.png",
-              "/slide-image.png",
-              "/slide-image.png",
-            ]}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Vendor
-            name="Sample"
-            rating={4}
-            logo="/slide-image.png"
-            products={[
-              "/slide-image.png",
-              "/slide-image.png",
-              "/slide-image.png",
-              "/slide-image.png",
-            ]}
+            products={["/product-5.jpg", "/product-2.jpg", "/product-1.jpg"]}
           />
         </SwiperSlide>
       </Swiper>
