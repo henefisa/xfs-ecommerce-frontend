@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import clsx from "clsx";
 
 // components
@@ -17,7 +17,12 @@ import Countdown from "../components/Countdown/Countdown";
 
 // icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCar } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBriefcase,
+  faComments,
+  faMoneyCheckAlt,
+  faShippingFast,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Introduction = () => {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -35,6 +40,8 @@ const Introduction = () => {
         onSlideChange={(swiper) => {
           setActiveSlide(swiper.activeIndex);
         }}
+        autoplay={{ delay: 5000 }}
+        loop
       >
         <SwiperSlide>
           <div
@@ -167,30 +174,30 @@ const Services = () => {
       >
         <SwiperSlide>
           <Service
-            icon={<FontAwesomeIcon icon={faCar} />}
+            icon={<FontAwesomeIcon icon={faShippingFast} />}
             title="Free shippings and Return"
             description="For all order over 99$"
           />
         </SwiperSlide>
         <SwiperSlide>
           <Service
-            icon={<FontAwesomeIcon icon={faCar} />}
-            title="Free shippings and Return"
-            description="For all order over 99$"
+            icon={<FontAwesomeIcon icon={faMoneyCheckAlt} />}
+            title="Money back guarantee"
+            description="Any back within 30 days"
           />
         </SwiperSlide>
         <SwiperSlide>
           <Service
-            icon={<FontAwesomeIcon icon={faCar} />}
-            title="Free shippings and Return"
-            description="For all order over 99$"
+            icon={<FontAwesomeIcon icon={faComments} />}
+            title="Customer Support"
+            description="Call or mail us 24/7"
           />
         </SwiperSlide>
         <SwiperSlide>
           <Service
-            icon={<FontAwesomeIcon icon={faCar} />}
-            title="Free shippings and Return"
-            description="For all order over 99$"
+            icon={<FontAwesomeIcon icon={faBriefcase} />}
+            title="Secure payment"
+            description="We ensure secure payment"
           />
         </SwiperSlide>
       </Swiper>
@@ -299,6 +306,8 @@ const Deals = () => {
       extra={<Countdown duration={3600} />}
     >
       <Swiper
+        autoplay
+        loop
         slidesPerView={1}
         spaceBetween={16}
         breakpoints={{

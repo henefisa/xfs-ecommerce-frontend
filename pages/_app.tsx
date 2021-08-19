@@ -1,6 +1,6 @@
 import type { AppProps } from "next/app";
 
-import SwiperCore, { Navigation, Pagination, Swiper as S } from "swiper";
+import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
 
 // icons css
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -17,7 +17,7 @@ import "tailwindcss/tailwind.css";
 
 config.autoAddCss = false;
 
-SwiperCore.use([Pagination, Navigation]);
+SwiperCore.use([Pagination, Navigation, Autoplay]);
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />;
