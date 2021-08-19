@@ -10,7 +10,7 @@
   }
 
   &__title {
-    @apply text-2xl font-bold tracking-wide truncate overflow-ellipsis;
+    @apply text-2xl font-bold tracking-wide truncate overflow-ellipsis text-gray-600;
   }
 
   &__description {

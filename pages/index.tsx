@@ -207,25 +207,27 @@ const TopBanners = () => {
           subTitle="Sample sub title"
           size="lg"
           description="Sample description"
-          style={{ backgroundImage: "url(/image.jpg)" }}
+          style={{ backgroundImage: "url(/banner-1.jpg)" }}
         />
         <Banner
           title="Sample title"
           subTitle="Sample sub title"
           size="md"
-          style={{ backgroundImage: "url(/image.jpg)" }}
+          style={{ backgroundImage: "url(/banner-2.jpg)" }}
+          className="banner--custom"
         />
         <Banner
           title="Sample title"
           subTitle="Sample sub title"
           size="sm"
-          style={{ backgroundImage: "url(/image.jpg)" }}
+          className="banner--custom"
+          style={{ backgroundImage: "url(/banner-3.jpg)" }}
         />
         <Banner
           title="Sample title"
           subTitle="Sample sub title"
           size="sm"
-          style={{ backgroundImage: "url(/image.jpg)" }}
+          style={{ backgroundImage: "url(/banner-4.jpg)" }}
         />
       </BannerGroup>
     </Section>
@@ -339,22 +341,22 @@ const Deals = () => {
         }}
       >
         <SwiperSlide>
-          <Product />
+          <Product image="/product-1.jpg" />
         </SwiperSlide>
         <SwiperSlide>
-          <Product />
+          <Product image="/product-2.jpg" />
         </SwiperSlide>
         <SwiperSlide>
-          <Product />
+          <Product image="/product-3.jpg" />
         </SwiperSlide>
         <SwiperSlide>
-          <Product />
+          <Product image="/product-4.jpg" />
         </SwiperSlide>
         <SwiperSlide>
-          <Product />
+          <Product image="/product-5.jpg" />
         </SwiperSlide>
         <SwiperSlide>
-          <Product />
+          <Product image="/product-2.jpg" />
         </SwiperSlide>
       </Swiper>
     </Section>
@@ -368,13 +370,14 @@ const BottomBanners = () => {
         <Banner
           title="Sample banner"
           subTitle="Sample"
-          style={{ backgroundImage: "url(/image.jpg)" }}
+          style={{ backgroundImage: "url(/banner-1.jpg)" }}
           size="md"
         />
         <Banner
           title="Sample banner"
           subTitle="Sample"
-          style={{ backgroundImage: "url(/image.jpg)" }}
+          style={{ backgroundImage: "url(/banner-2.jpg)" }}
+          className="banner--custom"
           size="md"
         />
       </BannerGroup>
@@ -384,13 +387,20 @@ const BottomBanners = () => {
 
 const Products = () => {
   return (
-    <Section className="products" title="Products">
+    <Section
+      className="products"
+      title="Products"
+      extra={<Button>More product</Button>}
+    >
       <div className="products__wrap">
-        <Product direction="horizontal" />
-        <Product direction="horizontal" />
-        <Product direction="horizontal" />
-        <Product direction="horizontal" />
-        <Product direction="horizontal" />
+        <Product direction="horizontal" image="/product-1.jpg" />
+        <Product direction="horizontal" image="/product-2.jpg" />
+        <Product direction="horizontal" image="/product-3.jpg" />
+        <Product direction="horizontal" image="/product-4.jpg" />
+        <Product direction="horizontal" image="/product-5.jpg" />
+        <Product direction="horizontal" image="/product-4.jpg" />
+        <Product direction="horizontal" image="/product-1.jpg" />
+        <Product direction="horizontal" image="/product-2.jpg" />
       </div>
     </Section>
   );

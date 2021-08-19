@@ -17,9 +17,10 @@ import clsx from "clsx";
 
 interface ProductProps {
   direction?: "vertical" | "horizontal";
+  image?: string;
 }
 
-const Product: React.FC<ProductProps> = ({ direction = "vertical" }) => {
+const Product: React.FC<ProductProps> = ({ direction = "vertical", image }) => {
   return (
     <div
       className={clsx(
@@ -31,8 +32,8 @@ const Product: React.FC<ProductProps> = ({ direction = "vertical" }) => {
         <Image
           layout="fill"
           alt="Sample product"
-          src="/product.jpeg"
-          objectFit="contain"
+          src={image || "/product.jpeg"}
+          objectFit="cover"
           objectPosition="center"
         />
         {direction === "vertical" && (

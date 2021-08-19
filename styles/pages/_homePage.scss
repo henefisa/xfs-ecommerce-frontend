@@ -52,12 +52,37 @@
   }
 
   .top-banners {
+    .banner--custom {
+      .banner__content {
+        .banner__title {
+          @apply text-white;
+        }
+
+        .banner__subtitle {
+          @apply text-gray-300;
+        }
+      }
+    }
   }
 
   .products {
     @apply relative;
     &__wrap {
-      @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4;
+      @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4;
+    }
+  }
+
+  .bottom-banners {
+    .banner--custom {
+      .banner__content {
+        .banner__title {
+          @apply text-white;
+        }
+
+        .banner__subtitle {
+          @apply text-gray-300;
+        }
+      }
     }
   }
 }

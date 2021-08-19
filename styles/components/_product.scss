@@ -49,10 +49,17 @@
   }
 
   &--horizontal {
-    @apply flex items-center space-x-2 hover:shadow-md;
+    @apply flex items-center space-x-4 p-0 transition duration-300 hover:shadow-md;
     .product__image {
       padding-top: 0;
-      @apply w-28 h-28 hover:shadow-none;
+      @apply w-24 h-24 flex-shrink-0 hover:shadow-none;
+    }
+
+    .product__details {
+    }
+
+    .product__price {
+      @apply text-left;
     }
   }
 }
