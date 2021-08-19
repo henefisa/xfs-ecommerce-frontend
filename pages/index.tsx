@@ -213,7 +213,7 @@ const TopBanners = () => {
           title="Sample title"
           subTitle="Sample sub title"
           size="lg"
-          description="Sample description"
+          extra={<Button>Sample button</Button>}
           style={{ backgroundImage: "url(/banner-1.jpg)" }}
         />
         <Banner

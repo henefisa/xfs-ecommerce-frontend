@@ -32,6 +32,10 @@
   &--md {
     @apply md:col-span-2;
   }
+
+  &--text-center {
+    @apply text-center;
+  }
 }
 
 .banner-group {

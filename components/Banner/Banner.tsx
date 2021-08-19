@@ -6,9 +6,10 @@ export interface BannerProps {
   title: string;
   subTitle?: string;
   description?: string;
-  extra?: React.ReactNode[];
+  extra?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  center?: boolean;
 }
 
 const Banner: React.FC<BannerProps> = ({
@@ -19,21 +20,23 @@ const Banner: React.FC<BannerProps> = ({
   extra,
   className,
   style,
+  center,
 }) => {
   return (
     <div
       className={clsx(
         "banner",
         className,
-        size !== "default" && `banner--${size}`
+        size !== "default" && `banner--${size}`,
+        center && `banner--text-center`
       )}
       style={style}
     >
       <div className="banner__content">
-        <h5 className="banner__subtitle">{subTitle}</h5>
-        <h2 className="banner__title">{title}</h2>
-        <p className="banner__description">{description}</p>
-        <div className="banner__extra">{extra}</div>
+        {subTitle && <h5 className="banner__subtitle">{subTitle}</h5>}
+        {title && <h2 className="banner__title">{title}</h2>}
+        {description && <p className="banner__description">{description}</p>}
+        {extra && <div className="banner__extra">{extra}</div>}
       </div>
     </div>
   );
