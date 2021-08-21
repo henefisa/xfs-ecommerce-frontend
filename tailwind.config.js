@@ -8,6 +8,9 @@ module.exports = {
         400: "400ms",
       },
     },
+    fontFamily: {
+      sans: ["Poppins", "Roboto", "sans-serif"],
+    },
   },
   variants: {
     extend: {},

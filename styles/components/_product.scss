@@ -37,27 +37,25 @@
   }
 
   &__details {
-    @apply mt-3;
+    @apply mt-3 w-full;
   }
 
   &__name {
-    @apply text-base font-semibold text-center transition-colors duration-300 cursor-pointer truncate overflow-ellipsis hover:text-blue-500;
+    @apply text-base font-medium text-center transition-colors duration-300 cursor-pointer truncate overflow-ellipsis hover:text-blue-500;
   }
 
   &__price {
-    @apply text-center font-semibold truncate overflow-ellipsis;
+    @apply text-center font-medium truncate overflow-ellipsis;
   }
 
   &--horizontal {
-    @apply flex items-center space-x-4 p-0 transition duration-300 hover:shadow-md;
+    @apply flex items-center space-x-4 p-2 transition duration-300 hover:shadow-md;
     .product__image {
       padding-top: 0;
       @apply w-24 h-24 flex-shrink-0 hover:shadow-none;
     }
 
-    .product__details {
-    }
-
+    .product__name,
     .product__price {
       @apply text-left;
     }

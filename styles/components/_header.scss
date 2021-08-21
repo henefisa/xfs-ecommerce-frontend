@@ -26,7 +26,7 @@
     }
 
     .header__logo {
-      @apply text-xl text-gray-600 uppercase tracking-widest font-bold cursor-pointer transition-all duration-300 ease-out sm:text-3xl md:text-4xl;
+      @apply text-xl text-gray-600 uppercase tracking-widest font-bold cursor-pointer transition-all duration-300 ease-out sm:text-3xl md:text-3xl;
     }
   }
 
@@ -37,7 +37,7 @@
       .navbar__list {
         @apply flex items-center space-x-4;
         &-item {
-          @apply font-semibold text-lg relative cursor-pointer;
+          @apply font-semibold text-base relative cursor-pointer;
           &:hover {
             &::after {
               @apply scale-x-100;
