@@ -1,3 +1,12 @@
 .dropdown {
-  
+  &__content {
+    @apply inline-block cursor-default;
+  }
+
+  &__overlay {
+    @apply invisible opacity-0 transition-all duration-300 z-10 rounded-sm shadow-md overflow-hidden pointer-events-none;
+    &--show {
+      @apply visible opacity-100 pointer-events-auto;
+    }
+  }
 }

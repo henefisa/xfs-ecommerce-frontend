@@ -2,7 +2,7 @@
   @apply bg-white outline-none;
 
   &__item {
-    @apply pl-3 py-3 cursor-pointer font-medium text-gray-500 transition-colors duration-300 hover:text-gray-600 hover:bg-gray-200;
+    @apply p-3 cursor-pointer font-medium text-gray-500 transition-colors duration-300 hover:text-gray-600 hover:bg-gray-200;
     &.active {
       @apply text-white bg-gray-600;
     }

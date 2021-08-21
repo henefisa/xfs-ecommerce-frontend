@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import clsx from "clsx";
 
 // context
-import MenuContext from "../../context/MenuContext";
+import MenuContext from "../../contexts/MenuContext";
 
 export interface MenuItemProps {
   id: string;

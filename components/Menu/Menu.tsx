@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { v4 as uuidv4 } from "uuid";
 
 // context
-import MenuContext from "../../context/MenuContext";
+import MenuContext from "../../contexts/MenuContext";
 import { useEffect } from "react";
 
 export interface MenuProps {
@@ -13,6 +13,7 @@ export interface MenuProps {
   mode?: "dark" | "light" | "transparent";
   style?: React.CSSProperties;
   activeId?: string;
+  trackingActive?: boolean;
   onClick?: (id: string) => void;
 }
 
@@ -23,9 +24,16 @@ const Menu: React.FC<MenuProps> = ({
   mode = "light",
   style,
   activeId,
+  trackingActive,
   onClick,
 }) => {
   const [currentActive, setCurrentActive] = useState(activeId);
+
+  const handleChangeCurrentActive = (id: string) => {
+    if (!trackingActive) return;
+    setCurrentActive(id);
+  };
+
   const menuId = uuidv4();
 
   const cloned = React.Children.map(children, (child) => {
@@ -55,7 +63,11 @@ const Menu: React.FC<MenuProps> = ({
 
   return (
     <MenuContext.Provider
-      value={{ uuid: menuId, currentActive, changeActive: setCurrentActive }}
+      value={{
+        uuid: menuId,
+        currentActive,
+        changeActive: handleChangeCurrentActive,
+      }}
     >
       <ul
         data-menu-id={menuId}
