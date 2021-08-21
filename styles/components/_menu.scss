@@ -8,9 +8,20 @@
     }
   }
 
+  &--dark {
+    @apply bg-gray-600;
+    .menu__item {
+      @apply text-white;
+      &.active {
+        @apply text-gray-600 bg-white;
+      }
+    }
+  }
+
   &--transparent {
     @apply bg-transparent;
     .menu__item {
+      color: inherit;
       @apply hover:bg-transparent;
       &.active {
         @apply bg-transparent;

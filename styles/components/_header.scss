@@ -90,13 +90,8 @@
         }
       }
 
-      .navbar__content {
-        .navbar__list {
-          @apply space-y-2 divide-y divide-gray-500 mt-2;
-          &-item {
-            @apply py-2;
-          }
-        }
+      .navbar__menu {
+        @apply divide-y divide-gray-700;
       }
     }
   }

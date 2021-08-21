@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // components
 import Container from "../Container/Container";
 import Toggle from "../Toggle/Toggle";
+import { Menu, MenuItem } from "../Menu";
 import { Swiper as Carousel, SwiperSlide } from "swiper/react";
 import { Swiper } from "swiper";
 
@@ -20,6 +21,7 @@ import { debounce } from "../../utils/debounce";
 
 interface MobileNavbarProps {
   isActive?: boolean;
+  onClick?: () => void;
 }
 
 // constants
@@ -106,7 +108,10 @@ const Navbar: React.FC = () => {
   );
 };
 
-const MobileNavbar: React.FC<MobileNavbarProps> = ({ isActive = false }) => {
+const MobileNavbar: React.FC<MobileNavbarProps> = ({
+  isActive = false,
+  onClick,
+}) => {
   const [currentTab, setCurrentTab] = useState(0);
   const [swiper, setSwiper] = useState<Swiper>();
 
@@ -140,31 +145,28 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({ isActive = false }) => {
           }}
         >
           <SwiperSlide>
-            <ul className="navbar__list">
-              <li className="navbar__list-item">Home</li>
-              <li className="navbar__list-item">About</li>
-              <li className="navbar__list-item">Sample</li>
-              <li className="navbar__list-item">Sample</li>
-              <li className="navbar__list-item">Sample</li>
-            </ul>
+            <Menu className="navbar__menu" mode="transparent" onClick={onClick}>
+              <MenuItem id="home">Home</MenuItem>
+              <MenuItem id="about">About</MenuItem>
+              <MenuItem id="Sample 1">Sample 1</MenuItem>
+              <MenuItem id="Sample 2">Sample 2</MenuItem>
+            </Menu>
           </SwiperSlide>
           <SwiperSlide>
-            <ul className="navbar__list">
-              <li className="navbar__list-item">Home</li>
-              <li className="navbar__list-item">About</li>
-              <li className="navbar__list-item">Sample</li>
-              <li className="navbar__list-item">Sample</li>
-              <li className="navbar__list-item">Sample</li>
-            </ul>
+            <Menu className="navbar__menu" mode="transparent" onClick={onClick}>
+              <MenuItem id="home">Home</MenuItem>
+              <MenuItem id="about">About</MenuItem>
+              <MenuItem id="Sample 1">Sample 1</MenuItem>
+              <MenuItem id="Sample 2">Sample 2</MenuItem>
+            </Menu>
           </SwiperSlide>
           <SwiperSlide>
-            <ul className="navbar__list">
-              <li className="navbar__list-item">Home</li>
-              <li className="navbar__list-item">About</li>
-              <li className="navbar__list-item">Sample</li>
-              <li className="navbar__list-item">Sample</li>
-              <li className="navbar__list-item">Sample</li>
-            </ul>
+            <Menu className="navbar__menu" mode="transparent" onClick={onClick}>
+              <MenuItem id="home">Home</MenuItem>
+              <MenuItem id="about">About</MenuItem>
+              <MenuItem id="Sample 1">Sample 1</MenuItem>
+              <MenuItem id="Sample 2">Sample 2</MenuItem>
+            </Menu>
           </SwiperSlide>
         </Carousel>
       </div>
@@ -239,7 +241,7 @@ const Header: React.FC = () => {
         </div>
         <div className="header__bottom">
           <Navbar />
-          <MobileNavbar isActive={isActive} />
+          <MobileNavbar isActive={isActive} onClick={handleToggleNavbar} />
         </div>
       </Container>
     </header>

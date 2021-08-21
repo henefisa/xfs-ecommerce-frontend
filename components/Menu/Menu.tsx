@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 // context
 import MenuContext from "../../context/MenuContext";
+import { useEffect } from "react";
 
 export interface MenuProps {
   children: React.ReactNode;
@@ -37,6 +38,20 @@ const Menu: React.FC<MenuProps> = ({
       return React.cloneElement(child, { ...child.props, onClick: handlers });
     }
   });
+
+  useEffect(() => {
+    const ids: string[] = [];
+    React.Children.forEach(children, (child) => {
+      if (React.isValidElement(child) && child.props.id) {
+        ids.push(child.props.id);
+      }
+    });
+
+    const uniqueIds = new Set(ids);
+    if (Array.from(uniqueIds).length !== React.Children.count(children)) {
+      throw new Error("Menu item should have unique id");
+    }
+  }, [children]);
 
   return (
     <MenuContext.Provider
