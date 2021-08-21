@@ -23,6 +23,7 @@ import {
   faMoneyCheckAlt,
   faShippingFast,
 } from "@fortawesome/free-solid-svg-icons";
+import { Menu, MenuItem } from "../components/Menu";
 
 const Introduction = () => {
   const [activeSlide, setActiveSlide] = useState(0);
