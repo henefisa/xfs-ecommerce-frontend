@@ -59,7 +59,7 @@
     }
 
     &--mobile {
-      @apply bg-blue-500 fixed px-4 top-14 left-0 bottom-0 right-0 transform-gpu transition duration-300 opacity-0 -translate-x-full z-10 text-white overflow-y-auto h-full block md:hidden;
+      @apply bg-blue-500 fixed px-4 top-20 left-0 bottom-0 right-0 transform-gpu transition duration-300 opacity-0 -translate-x-full z-10 text-white overflow-y-auto h-full block md:hidden;
       &.active {
         @apply opacity-100 translate-x-0;
       }
@@ -83,6 +83,12 @@
   &.header--scrolled {
     .container {
       @apply h-16;
+    }
+
+    .navbar {
+      &--mobile {
+        @apply top-16;
+      }
     }
   }
 }

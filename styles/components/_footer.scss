@@ -1,0 +1,22 @@
+.footer {
+  @apply py-5 border-t border-gray-300;
+
+  &__left {
+  }
+  &__right {
+    .social {
+      @apply flex items-center space-x-2;
+      &__item {
+        &.facebook {
+          @apply text-blue-500;
+        }
+        &.github {
+          @apply text-indigo-800;
+        }
+        svg {
+          @apply w-8 h-8;
+        }
+      }
+    }
+  }
+}
