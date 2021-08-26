@@ -1,5 +1,5 @@
 .header {
-  @apply sticky top-0 left-0 w-full bg-white z-50 transition-all ease-out duration-300 md:-top-40;
+  @apply fixed top-0 left-0 w-full z-50 bg-white transition-all ease-out duration-300 shadow-md;
 
   .user {
     @apply flex items-center space-x-4 text-gray-500 transition-all duration-300;
@@ -17,60 +17,42 @@
     }
   }
 
-  &__top {
-    @apply flex justify-between items-center transition-all duration-300 ease-out h-14;
+  .container {
+    @apply h-20;
+  }
 
-    .header__toggle,
-    .user {
-      @apply md:hidden;
-    }
+  .header__logo {
+    @apply text-xl text-gray-600 uppercase tracking-widest font-bold cursor-pointer transition-all duration-300 ease-out sm:text-3xl md:text-3xl;
+  }
 
-    .header__logo {
-      @apply text-xl text-gray-600 uppercase tracking-widest font-bold cursor-pointer transition-all duration-300 ease-out sm:text-3xl md:text-3xl;
-    }
+  .header__left {
+    @apply md:hidden;
+  }
+
+  .header__center {
+    @apply flex items-center;
   }
 
   .navbar {
-    @apply hidden md:block;
-    &__top {
-      @apply bg-white sticky top-0 left-0 w-full py-2 flex items-center justify-between;
-      .navbar__list {
-        @apply flex items-center space-x-4;
-        &-item {
-          @apply font-semibold text-base relative cursor-pointer;
-          &:hover {
-            &::after {
-              @apply scale-x-100;
-            }
-          }
+    @apply hidden md:block md:ml-5;
+    .navbar__list {
+      @apply flex items-center space-x-4;
+      &-item {
+        @apply font-semibold text-base relative cursor-pointer;
+        &:hover {
           &::after {
-            content: "";
-            @apply absolute top-full left-0 h-0.5 w-full transform scale-x-0 bg-gray-600 transition-transform duration-300 origin-left;
+            @apply scale-x-100;
           }
         }
-      }
-
-      &--sticky {
-        @apply py-4;
+        &::after {
+          content: "";
+          @apply absolute top-full left-0 h-0.5 w-full transform scale-x-0 bg-gray-600 transition-transform duration-300 origin-left;
+        }
       }
     }
 
-    &__bottom {
-      @apply pb-2;
-      .categories {
-        background-color: #222;
-        @apply flex items-center p-4 mt-2 rounded-md space-x-6;
-        .category {
-          @apply flex flex-col items-center cursor-pointer text-gray-400 transition-colors duration-300 hover:text-white;
-          &__icon {
-            @apply text-xl;
-          }
-
-          &__name {
-            @apply mt-1;
-          }
-        }
-      }
+    &--sticky {
+      @apply py-4;
     }
 
     &--mobile {

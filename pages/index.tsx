@@ -23,8 +23,6 @@ import {
   faMoneyCheckAlt,
   faShippingFast,
 } from "@fortawesome/free-solid-svg-icons";
-import Dropdown from "../components/Dropdown/Dropdown";
-import { Menu, MenuItem } from "../components/Menu";
 
 const Introduction = () => {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -397,21 +395,6 @@ export default function Home() {
           <Services />
           <TopBanners />
           <TopVendors />
-          <Dropdown
-            overlay={
-              <Menu style={{ width: 240 }}>
-                <MenuItem id="1">Sample</MenuItem>
-                <MenuItem id="2">Sample</MenuItem>
-                <MenuItem id="3">Sample</MenuItem>
-                <MenuItem id="4">Sample</MenuItem>
-              </Menu>
-            }
-            triggers={["click"]}
-          >
-            <Button type="outline" color="primary">
-              Sample
-            </Button>
-          </Dropdown>
           <Deals />
           <BottomBanners />
           <TopRatedProducts />

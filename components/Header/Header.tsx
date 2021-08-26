@@ -2,11 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 
 // icons
-import {
-  faLaptop,
-  faShoppingCart,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // components
@@ -49,61 +45,12 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar__top" ref={stickyRef}>
-        <ul className="navbar__list">
-          <li className="navbar__list-item">Home</li>
-          <li className="navbar__list-item">About</li>
-          <li className="navbar__list-item">Blog</li>
-          <li className="navbar__list-item">Contact</li>
-        </ul>
-        <div className="user">
-          <div className="user__item">
-            <span className="icon">
-              <FontAwesomeIcon icon={faUser} />
-            </span>
-            <span className="name">User name</span>
-          </div>
-          <div className="user__item">
-            <span className="icon">
-              <FontAwesomeIcon icon={faShoppingCart} />
-            </span>
-          </div>
-        </div>
-      </div>
-      <div className="navbar__bottom">
-        <ul className="categories">
-          <li className="category">
-            <div className="category__icon">
-              <FontAwesomeIcon icon={faLaptop} />
-            </div>
-            <div className="category__name">Computers</div>
-          </li>
-          <li className="category">
-            <div className="category__icon">
-              <FontAwesomeIcon icon={faLaptop} />
-            </div>
-            <div className="category__name">Computers</div>
-          </li>
-          <li className="category">
-            <div className="category__icon">
-              <FontAwesomeIcon icon={faLaptop} />
-            </div>
-            <div className="category__name">Computers</div>
-          </li>
-          <li className="category">
-            <div className="category__icon">
-              <FontAwesomeIcon icon={faLaptop} />
-            </div>
-            <div className="category__name">Computers</div>
-          </li>
-          <li className="category">
-            <div className="category__icon">
-              <FontAwesomeIcon icon={faLaptop} />
-            </div>
-            <div className="category__name">Computers</div>
-          </li>
-        </ul>
-      </div>
+      <ul className="navbar__list">
+        <li className="navbar__list-item">Home</li>
+        <li className="navbar__list-item">About</li>
+        <li className="navbar__list-item">Blog</li>
+        <li className="navbar__list-item">Contact</li>
+      </ul>
     </nav>
   );
 };
@@ -205,32 +152,21 @@ const Header: React.FC = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const scroll = () => {
-      const height = headerRef.current?.getBoundingClientRect().height || 0;
-      if (window.scrollY > height) {
-        headerRef.current?.classList.add("shadow-md");
-      } else {
-        headerRef.current?.classList.remove("shadow-md");
-      }
-    };
-    scroll();
-    window.addEventListener("scroll", scroll, false);
-    return () => {
-      window.removeEventListener("scroll", scroll, false);
-    };
-  }, []);
-
   return (
     <header className="header" ref={headerRef}>
-      <Container>
-        <div className="header__top">
+      <Container flex justify="between" items="center">
+        <div className="header__left">
           <Toggle
             isActive={isActive}
             onClick={handleToggleNavbar}
             className="header__toggle"
           />
+        </div>
+        <div className="header__center">
           <h1 className="header__logo">Ecommerce</h1>
+          <Navbar />
+        </div>
+        <div className="header__right">
           <div className="user">
             <div className="user__item">
               <span className="icon">
@@ -239,10 +175,7 @@ const Header: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="header__bottom">
-          <Navbar />
-          <MobileNavbar isActive={isActive} onClick={handleToggleNavbar} />
-        </div>
+        <MobileNavbar isActive={isActive} onClick={handleToggleNavbar} />
       </Container>
     </header>
   );

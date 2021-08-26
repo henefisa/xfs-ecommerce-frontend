@@ -10,11 +10,11 @@ interface CommonLayoutProps {
 
 const CommonLayout: React.FC<CommonLayoutProps> = ({ children }) => {
   return (
-    <>
+    <div className="common-layout">
       <Header />
       <main className="main">{children}</main>
       <Footer />
-    </>
+    </div>
   );
 };
 

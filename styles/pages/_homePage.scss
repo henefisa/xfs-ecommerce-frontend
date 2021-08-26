@@ -2,7 +2,6 @@
   .introduction {
     @apply relative mt-0;
     .carousel {
-      @apply md:mt-2;
       &__dots-custom {
         @apply absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10 flex items-center space-x-6;
         &-item {
