@@ -1,6 +1,10 @@
 .dropdown {
   &__content {
-    @apply inline-block cursor-default;
+    @apply inline-block relative;
+    &::after {
+      content: '';
+      @apply absolute top-full left-0 w-full h-2 bg-transparent z-10;
+    }
   }
 
   &__overlay {

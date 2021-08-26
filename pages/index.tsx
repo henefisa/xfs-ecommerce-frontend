@@ -40,8 +40,6 @@ const Introduction = () => {
         onSlideChange={(swiper) => {
           setActiveSlide(swiper.activeIndex);
         }}
-        autoplay={{ delay: 5000 }}
-        loop
       >
         <SwiperSlide>
           <div

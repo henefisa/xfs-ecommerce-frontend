@@ -18,6 +18,14 @@ const Dropdown: React.FC<DropdownProps> = ({
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement | null>(null);
   const { styles, attributes, update } = usePopper(contentRef, overlayRef, {
     placement: "bottom-start",
+    modifiers: [
+      {
+        name: "offset",
+        options: {
+          offset: [0, 8],
+        },
+      },
+    ],
   });
 
   const dropdownRef = useRef<HTMLDivElement>(null);

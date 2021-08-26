@@ -14,6 +14,7 @@ import { Swiper } from "swiper";
 
 // utils
 import { debounce } from "../../utils/debounce";
+import Dropdown from "../Dropdown/Dropdown";
 
 interface MobileNavbarProps {
   isActive?: boolean;
@@ -46,6 +47,7 @@ const Navbar: React.FC = () => {
   return (
     <nav className="navbar">
       <ul className="navbar__list">
+        <li className="navbar__list-item"></li>
         <li className="navbar__list-item">Home</li>
         <li className="navbar__list-item">About</li>
         <li className="navbar__list-item">Blog</li>
@@ -149,6 +151,22 @@ const Header: React.FC = () => {
     window.addEventListener("resize", debouncedResize, false);
     return () => {
       window.removeEventListener("resize", debouncedResize, false);
+    };
+  }, []);
+
+  useEffect(() => {
+    const scroll = () => {
+      const rect = headerRef.current?.getBoundingClientRect().height || 0;
+      if (window.scrollY > rect / 2) {
+        headerRef.current?.classList.add("header--scrolled");
+      } else {
+        headerRef.current?.classList.remove("header--scrolled");
+      }
+    };
+    scroll();
+    window.addEventListener("scroll", scroll, false);
+    return () => {
+      window.removeEventListener("scroll", scroll, false);
     };
   }, []);
 
