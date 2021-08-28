@@ -2,14 +2,14 @@
   @apply fixed top-0 left-0 w-full z-50 bg-blue-500 text-white shadow-md;
 
   .user {
-    @apply flex items-center text-white transition-all duration-300;
+    @apply flex items-center text-white transition-all duration-300 space-x-4;
 
     &__item {
-      @apply space-x-4 cursor-pointer transition-colors duration-300 hover:text-gray-300;
+      @apply space-x-2 cursor-pointer transition-colors duration-300 hover:text-gray-300;
 
       .icon,
       .name {
-        @apply inline-block align-baseline;
+        @apply inline-block align-middle;
       }
 
       .icon {

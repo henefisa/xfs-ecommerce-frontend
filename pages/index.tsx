@@ -50,7 +50,7 @@ const Introduction = () => {
               <div className="introduction__banner-content">
                 <h5 className="subtitle">Sample subtitle</h5>
                 <h2 className="title">Sample title</h2>
-                <Button>Sample button</Button>
+                <Button type="outline">Sample button</Button>
               </div>
               <div className="introduction__banner-image">
                 <Image
@@ -73,7 +73,7 @@ const Introduction = () => {
               <div className="introduction__banner-content">
                 <h5 className="subtitle">Sample subtitle</h5>
                 <h2 className="title">Sample title</h2>
-                <Button>Sample button</Button>
+                <Button type="outline">Sample button</Button>
               </div>
               <div className="introduction__banner-image">
                 <Image
@@ -96,7 +96,7 @@ const Introduction = () => {
               <div className="introduction__banner-content">
                 <h5 className="subtitle">Sample subtitle</h5>
                 <h2 className="title">Sample title</h2>
-                <Button>Sample button</Button>
+                <Button type="outline">Sample button</Button>
               </div>
               <div className="introduction__banner-image">
                 <Image
@@ -119,7 +119,7 @@ const Introduction = () => {
               <div className="introduction__banner-content">
                 <h5 className="subtitle">Sample subtitle</h5>
                 <h2 className="title">Sample title</h2>
-                <Button>Sample button</Button>
+                <Button type="outline">Sample button</Button>
               </div>
               <div className="introduction__banner-image">
                 <Image

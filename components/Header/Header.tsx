@@ -7,6 +7,7 @@ import clsx from "clsx";
 import {
   faCog,
   faShoppingCart,
+  faSignInAlt,
   faSignOutAlt,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
@@ -161,7 +162,7 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({
 
 const Header: React.FC = () => {
   const [isActive, setIsActive] = useState(false);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
 
   const handleToggleNavbar = () => {
@@ -201,7 +202,11 @@ const Header: React.FC = () => {
           />
         </div>
         <div className="header__center">
-          <h1 className="header__logo">Ecommerce</h1>
+          <h1 className="header__logo">
+            <Link href="/">
+              <a>Ecommerce</a>
+            </Link>
+          </h1>
           <Navbar />
         </div>
         <div className="header__right">
@@ -211,38 +216,51 @@ const Header: React.FC = () => {
                 <FontAwesomeIcon icon={faShoppingCart} />
               </span>
             </div>
-
-            <Dropdown
-              placement="bottom"
-              triggers="click"
-              overlayWidth={200}
-              overlay={
-                <Menu trackingActive={false}>
-                  <MenuItem
-                    id="account"
-                    icon={<FontAwesomeIcon icon={faUser} />}
-                  >
-                    Account
-                  </MenuItem>
-                  <MenuItem
-                    id="settings"
-                    icon={<FontAwesomeIcon icon={faCog} />}
-                  >
-                    Settings
-                  </MenuItem>
-                  <MenuItem
-                    id="logout"
-                    icon={<FontAwesomeIcon icon={faSignOutAlt} />}
-                  >
-                    Logout
-                  </MenuItem>
-                </Menu>
-              }
-            >
-              <div className="user__item account">
-                <span className="name">Username</span>
+            {isLoggedIn ? (
+              <Dropdown
+                placement="bottom"
+                triggers="click"
+                overlayWidth={200}
+                overlay={
+                  <Menu trackingActive={false}>
+                    <MenuItem
+                      id="account"
+                      icon={<FontAwesomeIcon icon={faUser} />}
+                    >
+                      Account
+                    </MenuItem>
+                    <MenuItem
+                      id="settings"
+                      icon={<FontAwesomeIcon icon={faCog} />}
+                    >
+                      Settings
+                    </MenuItem>
+                    <MenuItem
+                      id="logout"
+                      icon={<FontAwesomeIcon icon={faSignOutAlt} />}
+                      onClick={() => setIsLoggedIn(false)}
+                    >
+                      Logout
+                    </MenuItem>
+                  </Menu>
+                }
+              >
+                <div className="user__item account">
+                  <span className="name">Username</span>
+                </div>
+              </Dropdown>
+            ) : (
+              <div className="user__item">
+                <span className="icon">
+                  <FontAwesomeIcon icon={faSignInAlt} />
+                </span>
+                <span className="name">
+                  <Link href="/login">
+                    <a onClick={() => setIsLoggedIn(true)}>Login</a>
+                  </Link>
+                </span>
               </div>
-            </Dropdown>
+            )}
           </div>
         </div>
         <MobileNavbar isActive={isActive} onClick={handleToggleNavbar} />

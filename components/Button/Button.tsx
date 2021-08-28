@@ -11,7 +11,11 @@ interface ButtonProps {
   className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, type, color }) => {
+const Button: React.FC<ButtonProps> = ({
+  children,
+  type = "outline",
+  color = "primary",
+}) => {
   return (
     <button
       className={clsx(
