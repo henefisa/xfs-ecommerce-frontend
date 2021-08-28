@@ -1,8 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
 import clsx from "clsx";
 
 // icons
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCog,
+  faShoppingCart,
+  faSignOutAlt,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // components
@@ -23,9 +30,17 @@ interface MobileNavbarProps {
 
 // constants
 const TABS = ["Menu", "Categories", "Account"];
+const NAVBAR = [
+  { path: "/", title: "Home" },
+  { path: "/about", title: "About" },
+  { path: "/blog", title: "Blog" },
+  { path: "/contact", title: "Contact" },
+];
 
 const Navbar: React.FC = () => {
   const stickyRef = useRef<HTMLDivElement>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     const scroll = () => {
@@ -47,11 +62,19 @@ const Navbar: React.FC = () => {
   return (
     <nav className="navbar">
       <ul className="navbar__list">
-        <li className="navbar__list-item"></li>
-        <li className="navbar__list-item">Home</li>
-        <li className="navbar__list-item">About</li>
-        <li className="navbar__list-item">Blog</li>
-        <li className="navbar__list-item">Contact</li>
+        {NAVBAR.map((item) => (
+          <li
+            className={clsx(
+              "navbar__list-item",
+              item.path === router.asPath && "active"
+            )}
+            key={item.path}
+          >
+            <Link href={item.path}>
+              <a>{item.title}</a>
+            </Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );
@@ -110,11 +133,24 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({
             </Menu>
           </SwiperSlide>
           <SwiperSlide>
-            <Menu className="navbar__menu" mode="transparent" onClick={onClick}>
-              <MenuItem id="home">Home</MenuItem>
-              <MenuItem id="about">About</MenuItem>
-              <MenuItem id="Sample 1">Sample 1</MenuItem>
-              <MenuItem id="Sample 2">Sample 2</MenuItem>
+            <Menu
+              trackingActive={false}
+              className="navbar__menu"
+              mode="transparent"
+              onClick={onClick}
+            >
+              <MenuItem id="account" icon={<FontAwesomeIcon icon={faUser} />}>
+                Account
+              </MenuItem>
+              <MenuItem id="settings" icon={<FontAwesomeIcon icon={faCog} />}>
+                Settings
+              </MenuItem>
+              <MenuItem
+                id="logout"
+                icon={<FontAwesomeIcon icon={faSignOutAlt} />}
+              >
+                Logout
+              </MenuItem>
             </Menu>
           </SwiperSlide>
         </Carousel>
@@ -154,22 +190,6 @@ const Header: React.FC = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const scroll = () => {
-      const rect = headerRef.current?.getBoundingClientRect().height || 0;
-      if (window.scrollY > rect / 2) {
-        headerRef.current?.classList.add("header--scrolled");
-      } else {
-        headerRef.current?.classList.remove("header--scrolled");
-      }
-    };
-    scroll();
-    window.addEventListener("scroll", scroll, false);
-    return () => {
-      window.removeEventListener("scroll", scroll, false);
-    };
-  }, []);
-
   return (
     <header className="header" ref={headerRef}>
       <Container flex justify="between" items="center">
@@ -191,6 +211,38 @@ const Header: React.FC = () => {
                 <FontAwesomeIcon icon={faShoppingCart} />
               </span>
             </div>
+
+            <Dropdown
+              placement="bottom"
+              triggers="click"
+              overlayWidth={200}
+              overlay={
+                <Menu trackingActive={false}>
+                  <MenuItem
+                    id="account"
+                    icon={<FontAwesomeIcon icon={faUser} />}
+                  >
+                    Account
+                  </MenuItem>
+                  <MenuItem
+                    id="settings"
+                    icon={<FontAwesomeIcon icon={faCog} />}
+                  >
+                    Settings
+                  </MenuItem>
+                  <MenuItem
+                    id="logout"
+                    icon={<FontAwesomeIcon icon={faSignOutAlt} />}
+                  >
+                    Logout
+                  </MenuItem>
+                </Menu>
+              }
+            >
+              <div className="user__item account">
+                <span className="name">Username</span>
+              </div>
+            </Dropdown>
           </div>
         </div>
         <MobileNavbar isActive={isActive} onClick={handleToggleNavbar} />

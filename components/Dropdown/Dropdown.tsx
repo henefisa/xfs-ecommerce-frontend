@@ -1,23 +1,30 @@
 import clsx from "clsx";
 import React, { useEffect, useRef, useState } from "react";
+import { Placement } from "@popperjs/core";
 import { usePopper } from "react-popper";
+import { debounce } from "../../utils/debounce";
 
 interface DropdownProps {
   children: React.ReactNode;
   overlay: React.ReactNode;
-  triggers?: ("hover" | "click")[];
+  triggers?: "hover" | "click";
+  placement?: Placement;
+  overlayWidth?: number;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
   children,
   overlay,
-  triggers = ["hover"],
+  triggers = "hover",
+  placement = "bottom-start",
+  overlayWidth,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [contentRef, setContentRef] = useState<HTMLDivElement | null>(null);
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement | null>(null);
+  const [arrowRef, setArrowRef] = useState<HTMLDivElement | null>(null);
   const { styles, attributes, update } = usePopper(contentRef, overlayRef, {
-    placement: "bottom-start",
+    placement,
     modifiers: [
       {
         name: "offset",
@@ -25,25 +32,26 @@ const Dropdown: React.FC<DropdownProps> = ({
           offset: [0, 8],
         },
       },
+      { name: "arrow", options: { element: arrowRef } },
     ],
   });
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const handleClickOpen = () => {
-    if (!triggers.includes("click")) return;
+  const handleToggleDropdown = () => {
+    if (triggers !== "click") return;
     setIsOpen((prevState) => !prevState);
     update?.();
   };
 
   const handleMouseEnter = () => {
-    if (!triggers.includes("hover")) return;
+    if (triggers !== "hover") return;
     setIsOpen(true);
     update?.();
   };
 
   const handleMouseLeave = () => {
-    if (!triggers.includes("hover")) return;
+    if (triggers !== "hover") return;
     setIsOpen(false);
   };
 
@@ -60,15 +68,26 @@ const Dropdown: React.FC<DropdownProps> = ({
     };
   }, [overlayRef, isOpen]);
 
+  useEffect(() => {
+    const resize = debounce(() => update?.(), 300);
+    window.addEventListener("resize", resize, false);
+    return () => {
+      window.removeEventListener("resize", resize, false);
+    };
+  }, [update]);
+
   return (
     <div
       className="dropdown"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={handleClickOpen}
       ref={dropdownRef}
     >
-      <div className="dropdown__content" ref={setContentRef}>
+      <div
+        className="dropdown__content"
+        ref={setContentRef}
+        onClick={handleToggleDropdown}
+      >
         {children}
       </div>
       <div
@@ -78,9 +97,14 @@ const Dropdown: React.FC<DropdownProps> = ({
           isOpen && "dropdown__overlay--show"
         )}
         ref={setOverlayRef}
-        style={styles.popper}
-        onClick={handleMouseLeave}
+        style={{ ...styles.popper, width: overlayWidth }}
+        onClick={() => setIsOpen(false)}
       >
+        <div
+          className="dropdown__arrow"
+          ref={setArrowRef}
+          style={styles.arrow}
+        />
         {overlay}
       </div>
     </div>

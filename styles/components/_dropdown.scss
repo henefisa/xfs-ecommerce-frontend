@@ -2,15 +2,51 @@
   &__content {
     @apply inline-block relative;
     &::after {
-      content: '';
+      content: "";
       @apply absolute top-full left-0 w-full h-2 bg-transparent z-10;
     }
   }
 
   &__overlay {
-    @apply invisible opacity-0 transition-all duration-300 z-10 rounded-sm shadow-md overflow-hidden pointer-events-none;
+    transition-property: opacity, visibility;
+    @apply invisible bg-white opacity-0 duration-300 z-30 rounded-sm shadow-md pointer-events-none;
     &--show {
       @apply visible opacity-100 pointer-events-auto;
+    }
+
+    .dropdown__arrow,
+    .dropdown__arrow::before {
+      @apply absolute top-0 -left-2;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid white;
+    }
+
+    .dropdown__arrow {
+      @apply invisible z-20;
+    }
+
+    .dropdown__arrow::before {
+      content: "";
+      @apply visible;
+    }
+
+    &[data-popper-placement^="top"] > .dropdown__arrow {
+      bottom: -8px;
+    }
+
+    &[data-popper-placement^="bottom"] > .dropdown__arrow {
+      top: -8px;
+    }
+
+    &[data-popper-placement^="left"] > .dropdown__arrow {
+      right: -8px;
+    }
+
+    &[data-popper-placement^="right"] > .dropdown__arrow {
+      left: -8px;
     }
   }
 }

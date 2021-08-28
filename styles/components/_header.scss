@@ -2,23 +2,34 @@
   @apply fixed top-0 left-0 w-full z-50 bg-blue-500 text-white shadow-md;
 
   .user {
-    @apply flex items-center space-x-4 text-white transition-all duration-300;
+    @apply flex items-center text-white transition-all duration-300;
 
     &__item {
-      @apply text-lg cursor-pointer hover:text-gray-300 transition-colors duration-300;
+      @apply space-x-4 cursor-pointer transition-colors duration-300 hover:text-gray-300;
+
       .icon,
       .name {
-        @apply inline-block;
+        @apply inline-block align-baseline;
       }
 
       .icon {
-        @apply mr-2;
+        svg {
+          @apply w-5 h-5;
+        }
+      }
+
+      .name {
+        @apply capitalize font-medium tracking-wide;
+      }
+
+      &.account {
+        @apply hidden md:flex;
       }
     }
   }
 
   .container {
-    @apply h-20 transition-all duration-300 ease-in-out;
+    @apply h-16 transition-all duration-300 ease-in-out;
   }
 
   .header__logo {
@@ -39,17 +50,12 @@
   .navbar {
     @apply hidden md:block md:ml-5;
     .navbar__list {
-      @apply flex items-center space-x-4;
+      @apply flex items-center space-x-2;
       &-item {
-        @apply font-semibold text-base relative cursor-pointer;
+        @apply font-semibold text-base relative cursor-pointer h-10 flex items-center px-2 rounded transition-colors duration-300;
+        &.active,
         &:hover {
-          &::after {
-            @apply scale-x-100;
-          }
-        }
-        &::after {
-          content: "";
-          @apply absolute top-full left-0 h-0.5 w-full transform scale-x-0 bg-white transition-transform duration-300 origin-left;
+          @apply text-blue-500 bg-white;
         }
       }
     }
@@ -59,7 +65,7 @@
     }
 
     &--mobile {
-      @apply bg-blue-500 fixed px-4 top-20 left-0 bottom-0 right-0 transform-gpu transition duration-300 opacity-0 -translate-x-full z-10 text-white overflow-y-auto h-full block md:hidden;
+      @apply bg-blue-500 fixed px-4 top-16 left-0 bottom-0 right-0 transform-gpu transition duration-300 opacity-0 -translate-x-full z-10 text-white overflow-y-auto h-full block md:hidden;
       &.active {
         @apply opacity-100 translate-x-0;
       }
@@ -76,18 +82,6 @@
 
       .navbar__menu {
         @apply divide-y divide-gray-100;
-      }
-    }
-  }
-
-  &.header--scrolled {
-    .container {
-      @apply h-16;
-    }
-
-    .navbar {
-      &--mobile {
-        @apply top-16;
       }
     }
   }

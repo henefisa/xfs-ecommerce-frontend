@@ -9,12 +9,14 @@ export interface MenuItemProps {
   children: React.ReactNode;
   className?: string;
   onClick?: (id: string) => void;
+  icon?: React.ReactNode;
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({
   children,
   className,
   id,
+  icon,
   onClick,
 }) => {
   const { currentActive, changeActive } = useContext(MenuContext);
@@ -34,7 +36,8 @@ const MenuItem: React.FC<MenuItemProps> = ({
       )}
       onClick={handleClick}
     >
-      {children}
+      {icon && <span className="menu__item-icon">{icon}</span>}
+      <span className="menu__item-label">{children}</span>
     </li>
   );
 };
