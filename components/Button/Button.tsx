@@ -9,20 +9,25 @@ interface ButtonProps {
   type?: ButtonTypes;
   color?: ButtonColors;
   className?: string;
+  onClick?: () => void;
 }
 
 const Button: React.FC<ButtonProps> = ({
   children,
   type = "outline",
   color = "primary",
+  className,
+  onClick,
 }) => {
   return (
     <button
       className={clsx(
         "button",
         type && `button--${type}`,
-        color && `button--${color}`
+        color && `button--${color}`,
+        className
       )}
+      onClick={onClick}
     >
       {children}
     </button>
