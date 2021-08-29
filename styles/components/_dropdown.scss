@@ -16,7 +16,7 @@
 
     .dropdown__arrow,
     .dropdown__arrow::before {
-      @apply absolute top-0 -left-2;
+      @apply absolute left-1/2 transform -translate-x-2;
       width: 0;
       height: 0;
       border-left: 8px solid transparent;
@@ -25,7 +25,8 @@
     }
 
     .dropdown__arrow {
-      @apply invisible z-20;
+      content: "";
+      @apply invisible z-20 w-full;
     }
 
     .dropdown__arrow::before {
