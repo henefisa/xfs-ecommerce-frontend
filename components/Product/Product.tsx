@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // components
 import Image from "next/image";
@@ -14,6 +14,7 @@ import {
 // utils
 import { currencyFormat } from "../../utils/currencyFormat";
 import clsx from "clsx";
+import Modal from "../Modal/Modal";
 
 interface ProductProps {
   direction?: "vertical" | "horizontal";
@@ -21,6 +22,11 @@ interface ProductProps {
 }
 
 const Product: React.FC<ProductProps> = ({ direction = "vertical", image }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpenModal = () => setIsOpen(true);
+  const handleCloseModal = () => setIsOpen(false);
+
   return (
     <div
       className={clsx(
@@ -52,7 +58,11 @@ const Product: React.FC<ProductProps> = ({ direction = "vertical", image }) => {
               </button>
             </div>
             <div className="product__actions-item">
-              <button className="product__actions-button" title="Quick view">
+              <button
+                className="product__actions-button"
+                title="Quick view"
+                onClick={handleOpenModal}
+              >
                 <FontAwesomeIcon icon={faEye} />
               </button>
             </div>
@@ -67,6 +77,9 @@ const Product: React.FC<ProductProps> = ({ direction = "vertical", image }) => {
           </p>
         </div>
       </div>
+      <Modal isOpen={isOpen} onClose={handleCloseModal}>
+        Sample product
+      </Modal>
     </div>
   );
 };

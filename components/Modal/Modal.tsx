@@ -1,8 +1,10 @@
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
+
+// icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 interface ModalProps {
   children: React.ReactNode;
@@ -23,10 +25,19 @@ const Modal: React.FC<ModalProps> = ({
     setRoot(document.getElementById("modal-root") as Element);
   }, []);
 
-  return root
+  useEffect(() => {
+    if (!root) return;
+    if (isOpen) {
+      root.classList.add("open");
+    } else {
+      root.classList.remove("open");
+    }
+  }, [isOpen, root]);
+
+  return root && isOpen
     ? ReactDOM.createPortal(
-        <div className={clsx("modal", isOpen && "modal--open", className)}>
-          <div className="modal__content">{isOpen ? children : null}</div>
+        <div className={clsx("modal", className)}>
+          <div className="modal__content">{children}</div>
           <div className="modal__close" onClick={onClose}>
             <FontAwesomeIcon icon={faTimes} />
           </div>
