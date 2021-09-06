@@ -15,13 +15,19 @@ import {
 import { currencyFormat } from "../../utils/currencyFormat";
 import clsx from "clsx";
 import Modal from "../Modal/Modal";
+import ProductView from "../ProductView/ProductView";
 
 interface ProductProps {
   direction?: "vertical" | "horizontal";
   image?: string;
+  quickview?: boolean;
 }
 
-const Product: React.FC<ProductProps> = ({ direction = "vertical", image }) => {
+const Product: React.FC<ProductProps> = ({
+  direction = "vertical",
+  image,
+  quickview,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenModal = () => setIsOpen(true);
@@ -38,7 +44,7 @@ const Product: React.FC<ProductProps> = ({ direction = "vertical", image }) => {
         <Image
           layout="fill"
           alt="Sample product"
-          src={image || "/product.jpeg"}
+          src={image || "/product-1.jpg"}
           objectFit="cover"
           objectPosition="center"
         />
@@ -77,9 +83,11 @@ const Product: React.FC<ProductProps> = ({ direction = "vertical", image }) => {
           </p>
         </div>
       </div>
-      <Modal isOpen={isOpen} onClose={handleCloseModal}>
-        Sample product
-      </Modal>
+      {quickview && (
+        <Modal isOpen={isOpen} onClose={handleCloseModal}>
+          <ProductView />
+        </Modal>
+      )}
     </div>
   );
 };

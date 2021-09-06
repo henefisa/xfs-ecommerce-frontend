@@ -1,0 +1,11 @@
+.divider {
+  @apply border-gray-200;
+
+  &--vertical {
+    @apply border-b my-4;
+  }
+
+  &--horizontal {
+    @apply border-r mx-4 h-full;
+  }
+}

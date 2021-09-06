@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import React from "react";
 
-type ButtonColors = "primary" | "sucess" | "error" | "warning";
+type ButtonColors = "primary" | "success" | "error" | "warning";
 type ButtonTypes = "outline" | "solid";
 
 interface ButtonProps {

@@ -1,0 +1,55 @@
+.product-view {
+  @apply flex flex-wrap;
+  &__image-container,
+  &__details {
+    @apply w-full px-3 md:w-1/2;
+  }
+
+  &__image {
+    @apply relative w-full h-96;
+  }
+
+  &__image-select {
+    @apply mt-4;
+    .product-view__image {
+      @apply h-22 rounded overflow-hidden cursor-pointer;
+    }
+  }
+
+  &__details {
+    @apply overflow-y-auto;
+  }
+
+  &__title {
+    @apply text-xl capitalize tracking-wide font-semibold;
+  }
+
+  &__price {
+    @apply text-2xl font-bold mb-2;
+  }
+
+  &__description {
+    @apply text-sm mt-2 leading-relaxed;
+  }
+
+  &__colors,
+  &__sizes {
+    @apply flex items-center mb-4;
+    .colors__title,
+    .sizes__title {
+      @apply capitalize mr-2 w-14;
+    }
+
+    .colors__select,
+    .sizes__select {
+      @apply space-x-2 flex items-center cursor-pointer;
+    }
+  }
+
+  &__actions {
+    @apply flex items-center;
+    .input-number {
+      @apply mr-4;
+    }
+  }
+}

@@ -315,22 +315,22 @@ const Deals = () => {
         }}
       >
         <SwiperSlide>
-          <Product image="/product-1.jpg" />
+          <Product image="/product-1.jpg" quickview />
         </SwiperSlide>
         <SwiperSlide>
-          <Product image="/product-2.jpg" />
+          <Product image="/product-2.jpg" quickview />
         </SwiperSlide>
         <SwiperSlide>
-          <Product image="/product-3.jpg" />
+          <Product image="/product-3.jpg" quickview />
         </SwiperSlide>
         <SwiperSlide>
-          <Product image="/product-4.jpg" />
+          <Product image="/product-4.jpg" quickview />
         </SwiperSlide>
         <SwiperSlide>
-          <Product image="/product-5.jpg" />
+          <Product image="/product-5.jpg" quickview />
         </SwiperSlide>
         <SwiperSlide>
-          <Product image="/product-2.jpg" />
+          <Product image="/product-2.jpg" quickview />
         </SwiperSlide>
       </Swiper>
     </Section>

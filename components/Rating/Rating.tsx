@@ -63,6 +63,7 @@ const Rating = React.forwardRef<RatingRefProps, RatingProps>(
             "rating__stars",
             disabled && "rating__stars--disabled"
           )}
+          title={"" + (value || rate)}
         >
           {[...new Array(5)].map((_, idx) => (
             <li

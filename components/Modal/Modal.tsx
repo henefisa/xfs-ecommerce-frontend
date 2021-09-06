@@ -29,8 +29,10 @@ const Modal: React.FC<ModalProps> = ({
     if (!root) return;
     if (isOpen) {
       root.classList.add("open");
+      document.body.classList.add("overflow-hidden");
     } else {
       root.classList.remove("open");
+      document.body.classList.remove("overflow-hidden");
     }
   }, [isOpen, root]);
 

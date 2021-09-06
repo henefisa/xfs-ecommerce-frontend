@@ -1,0 +1,25 @@
+.input-number {
+  @apply relative inline-flex items-center min-w-min pt-2 pl-4 pb-2 border border-gray-300 rounded;
+
+  input[type="number"] {
+    appearance: textfield;
+    @apply focus:outline-none;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &__nav {
+    @apply relative border-l border-gray-300 flex flex-col -my-2 w-full;
+  }
+
+  &__button {
+    @apply text-sm text-gray-500 transition-colors duration-300 h-1/2 px-2 hover:text-gray-600 hover:bg-gray-100;
+    & + & {
+      @apply border-t border-gray-300;
+    }
+  }
+}
