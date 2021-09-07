@@ -140,8 +140,11 @@ const ProductView: React.FC<ProductViewProps> = ({}) => {
         </div>
         <Swiper
           className="product-view__image-select"
-          slidesPerView={4}
+          slidesPerView={3}
           spaceBetween={16}
+          breakpoints={{
+            640: { slidesPerView: 4 },
+          }}
         >
           <SwiperSlide>
             <div
@@ -236,7 +239,10 @@ const ProductView: React.FC<ProductViewProps> = ({}) => {
           </div>
         </div>
         <div className="product-view__actions">
-          <InputNumber min={1} max={99} defaultValue={0} />
+          <div className="product-view__quantity">
+            <div className="quantity__title">Quantity: </div>
+            <InputNumber min={1} max={99} defaultValue={0} />
+          </div>
           <Button type="solid">Add to cart</Button>
         </div>
       </div>

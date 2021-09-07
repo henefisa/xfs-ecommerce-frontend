@@ -9,13 +9,18 @@
 
 .modal {
   box-shadow: 0 0 0 10000px rgba($color: #000000, $alpha: 0.3);
-  @apply w-full max-w-4xl absolute top-1/2 left-1/2 bg-white transform -translate-x-1/2 -translate-y-1/2 rounded z-50;
-
+  max-height: calc(100vh - 100px);
+  max-width: min(calc(100vw - 60px), 900px);
+  @apply w-full h-full absolute top-1/2 left-1/2 bg-white transform -translate-x-1/2 -translate-y-1/2 rounded z-50;
   &__content {
-    @apply p-6;
+    @apply p-6 h-full w-full;
   }
 
   &__close {
     @apply absolute -top-8 right-0 w-6 h-6 rounded-full flex items-center justify-center text-white text-2xl cursor-pointer hover:text-red-400 transition-colors duration-300;
+  }
+
+  @media screen and (min-width: 768px) {
+    max-height: 555px;
   }
 }

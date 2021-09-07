@@ -1,12 +1,14 @@
 .product-view {
-  @apply flex flex-wrap;
+  @apply flex flex-wrap overflow-y-auto h-full md:overflow-y-hidden;
+  row-gap: 1.5rem;
   &__image-container,
   &__details {
     @apply w-full px-3 md:w-1/2;
   }
 
   &__image {
-    @apply relative w-full h-96;
+    @apply relative w-full;
+    padding-block-start: 100%;
   }
 
   &__image-select {
@@ -17,7 +19,7 @@
   }
 
   &__details {
-    @apply overflow-y-auto;
+    @apply overflow-y-auto h-full;
   }
 
   &__title {
@@ -29,7 +31,7 @@
   }
 
   &__description {
-    @apply text-sm mt-2 leading-relaxed;
+    @apply text-sm mt-2 leading-relaxed text-justify;
   }
 
   &__colors,
@@ -47,9 +49,17 @@
   }
 
   &__actions {
-    @apply flex items-center;
+    @apply flex items-center flex-wrap;
+    row-gap: 1rem;
     .input-number {
       @apply mr-4;
+    }
+  }
+
+  &__quantity {
+    @apply flex items-center;
+    .quantity__title {
+      @apply mr-2;
     }
   }
 }

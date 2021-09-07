@@ -1,5 +1,5 @@
 .button {
-  @apply rounded-md px-4 py-2 font-medium hover:underline transition duration-300;
+  @apply rounded-md px-4 py-2 font-medium hover:underline transition duration-300 whitespace-nowrap;
 
   &--outline {
     @apply border select-none hover:no-underline focus:outline-none;
