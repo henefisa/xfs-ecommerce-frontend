@@ -2,6 +2,8 @@ import clsx from "clsx";
 import React, { useEffect, useRef, useState } from "react";
 import { Placement } from "@popperjs/core";
 import { usePopper } from "react-popper";
+
+// utils
 import { debounce } from "../../utils/debounce";
 
 interface DropdownProps {
@@ -10,14 +12,19 @@ interface DropdownProps {
   triggers?: "hover" | "click";
   placement?: Placement;
   overlayWidth?: number;
+  /**
+   * Return true to close dropdown when click the overlay and vice versa;
+   */
+  onClickOverlay?: () => boolean;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
   children,
   overlay,
   triggers = "hover",
-  placement = "bottom-start",
+  placement = "bottom",
   overlayWidth,
+  onClickOverlay,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [contentRef, setContentRef] = useState<HTMLDivElement | null>(null);
@@ -55,9 +62,15 @@ const Dropdown: React.FC<DropdownProps> = ({
     setIsOpen(false);
   };
 
+  const handleClickOverlay = () => {
+    if (onClickOverlay?.()) {
+      setIsOpen(false);
+    }
+  };
+
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (!dropdownRef.current?.contains(e.target as Node) && isOpen) {
+      if (!dropdownRef.current?.contains(e.target as Node)) {
         setIsOpen(false);
       }
     };
@@ -66,7 +79,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [overlayRef, isOpen]);
+  }, []);
 
   useEffect(() => {
     const resize = debounce(() => update?.(), 300);
@@ -98,7 +111,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         )}
         ref={setOverlayRef}
         style={{ ...styles.popper, width: overlayWidth }}
-        onClick={() => setIsOpen(false)}
+        onClick={handleClickOverlay}
       >
         <div
           className="dropdown__arrow"

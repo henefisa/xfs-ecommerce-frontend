@@ -212,15 +212,22 @@ const Header: React.FC = () => {
         <div className="header__right">
           <div className="user">
             <div className="user__item">
-              <span className="icon">
-                <FontAwesomeIcon icon={faShoppingCart} />
-              </span>
+              <Dropdown
+                triggers="click"
+                onClickOverlay={() => true}
+                overlay={<div className="cart">This is cart</div>}
+              >
+                <span className="icon">
+                  <FontAwesomeIcon icon={faShoppingCart} />
+                </span>
+              </Dropdown>
             </div>
             {isLoggedIn ? (
               <Dropdown
                 placement="bottom"
                 triggers="click"
                 overlayWidth={200}
+                onClickOverlay={() => true}
                 overlay={
                   <Menu trackingActive={false}>
                     <MenuItem
