@@ -1,5 +1,11 @@
 import clsx from "clsx";
-import React, { useEffect, useState } from "react";
+import React, {
+  TransitionEvent,
+  TransitionEventHandler,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import ReactDOM from "react-dom";
 
 // icons
@@ -20,33 +26,52 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
 }) => {
   const [root, setRoot] = useState<Element>();
+  const [isMount, setIsMount] = useState(isOpen);
+  const modalRef = useRef<HTMLDivElement | null>(null);
+
+  const handleTransitionEnd = () => {
+    if (!isOpen) {
+      setIsMount(false);
+    }
+  };
+
+  const content = isMount ? (
+    <div
+      className={clsx("modal", className)}
+      onTransitionEnd={handleTransitionEnd}
+      ref={modalRef}
+    >
+      <div className="modal__content">
+        {children}
+        <div className="modal__close" onClick={onClose}>
+          <FontAwesomeIcon icon={faTimes} />
+        </div>
+      </div>
+    </div>
+  ) : null;
 
   useEffect(() => {
     setRoot(document.getElementById("modal-root") as Element);
   }, []);
 
   useEffect(() => {
-    if (!root) return;
-    if (isOpen) {
-      root.classList.add("open");
+    if (!isOpen) {
+      modalRef.current?.classList.remove("modal--show");
+      return;
+    }
+    setIsMount(true);
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (isMount) {
+      modalRef.current?.classList.add("modal--show");
       document.body.classList.add("overflow-hidden");
     } else {
-      root.classList.remove("open");
       document.body.classList.remove("overflow-hidden");
     }
-  }, [isOpen, root]);
+  }, [isMount]);
 
-  return root && isOpen
-    ? ReactDOM.createPortal(
-        <div className={clsx("modal", className)}>
-          <div className="modal__content">{children}</div>
-          <div className="modal__close" onClick={onClose}>
-            <FontAwesomeIcon icon={faTimes} />
-          </div>
-        </div>,
-        root
-      )
-    : null;
+  return root ? ReactDOM.createPortal(content, root) : null;
 };
 
 export default React.memo(Modal);
