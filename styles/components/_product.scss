@@ -48,6 +48,15 @@
     @apply text-center font-medium truncate overflow-ellipsis;
   }
 
+  &__modal {
+    .modal__content {
+      max-height: min(100vh - 100px, 600px);
+      @media screen and (min-width: 1024px) {
+        max-width: calc(100vw - 300px);
+      }
+    }
+  }
+
   &--horizontal {
     @apply flex items-center space-x-4 p-2 transition duration-300 hover:shadow-md;
     .product__image {

@@ -84,7 +84,11 @@ const Product: React.FC<ProductProps> = ({
         </div>
       </div>
       {quickview && (
-        <Modal isOpen={isOpen} onClose={handleCloseModal}>
+        <Modal
+          isOpen={isOpen}
+          onClose={handleCloseModal}
+          className="product__modal"
+        >
           <ProductView />
         </Modal>
       )}

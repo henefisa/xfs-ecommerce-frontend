@@ -1,11 +1,5 @@
 import clsx from "clsx";
-import React, {
-  TransitionEvent,
-  TransitionEventHandler,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 
 // icons

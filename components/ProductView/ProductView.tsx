@@ -72,6 +72,7 @@ const sizeOptions: SizeOption[] = [
 ];
 
 const colorSelectStyle: StylesConfig<ColorOption, boolean> = {
+  container: (styles) => ({ ...styles, maxWidth: 200, width: "100%" }),
   control: (styles) => ({ ...styles, backgroundColor: "white" }),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
     const color = chroma(data.color);
@@ -100,19 +101,34 @@ const colorSelectStyle: StylesConfig<ColorOption, boolean> = {
       },
     };
   },
-  input: (styles) => ({ ...styles, ...dot(), width: 200 }),
-  placeholder: (styles) => ({ ...styles, ...dot() }),
+  menuPortal: (styles) => ({ ...styles, zIndex: 9999 }),
+  input: (styles) => ({ ...styles, ...dot() }),
+  placeholder: (styles) => ({
+    ...styles,
+    ...dot(),
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+  }),
   singleValue: (styles, { data }) => ({ ...styles, ...dot(data.color) }),
 };
 
 const sizeSelectStyle: StylesConfig<SizeOption, boolean> = {
+  container: (styles) => ({ ...styles, maxWidth: 200, width: "100%" }),
   control: (styles) => ({ ...styles, backgroundColor: "white" }),
   option: (styles, { isDisabled }) => ({
     ...styles,
     cursor: isDisabled ? "not-allowed" : "default",
   }),
-  input: (styles) => ({ ...styles, ...size(), width: 200 }),
-  placeholder: (styles) => ({ ...styles, ...size() }),
+  menuPortal: (styles) => ({ ...styles, zIndex: 9999 }),
+  input: (styles) => ({ ...styles, ...size() }),
+  placeholder: (styles) => ({
+    ...styles,
+    ...size(),
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+  }),
   singleValue: (styles, { data }) => ({
     ...styles,
     ...size(data.abbreviation),
@@ -129,7 +145,7 @@ const ProductView: React.FC<ProductViewProps> = ({}) => {
   return (
     <div className="product-view">
       <div className="product-view__image-container">
-        <div className="product-view__image">
+        <div className="product-view__image product-view__image--main">
           <Image
             src={image}
             layout="fill"
@@ -140,11 +156,8 @@ const ProductView: React.FC<ProductViewProps> = ({}) => {
         </div>
         <Swiper
           className="product-view__image-select"
-          slidesPerView={3}
+          slidesPerView="auto"
           spaceBetween={16}
-          breakpoints={{
-            640: { slidesPerView: 4 },
-          }}
         >
           <SwiperSlide>
             <div
@@ -224,7 +237,8 @@ const ProductView: React.FC<ProductViewProps> = ({}) => {
             <Select
               options={colorOptions}
               styles={colorSelectStyle}
-              placeholder="Select product color"
+              placeholder="Select color"
+              menuPortalTarget={document.body}
             />
           </div>
         </div>
@@ -234,7 +248,8 @@ const ProductView: React.FC<ProductViewProps> = ({}) => {
             <Select
               options={sizeOptions}
               styles={sizeSelectStyle}
-              placeholder="Select product size"
+              placeholder="Select size"
+              menuPortalTarget={document.body}
             />
           </div>
         </div>

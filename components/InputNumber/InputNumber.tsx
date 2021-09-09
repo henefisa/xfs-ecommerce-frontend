@@ -63,8 +63,8 @@ const InputNumber: React.FC<InputNumberProps> = ({
         <button className="input-number__button" onClick={handleStepUp}>
           <FontAwesomeIcon icon={faChevronUp} />
         </button>
-        <button className="input-number__button">
-          <FontAwesomeIcon icon={faChevronDown} onClick={handleStepDown} />
+        <button className="input-number__button" onClick={handleStepDown}>
+          <FontAwesomeIcon icon={faChevronDown} />
         </button>
       </div>
     </div>
