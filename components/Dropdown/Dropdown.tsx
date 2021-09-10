@@ -29,7 +29,6 @@ const Dropdown: React.FC<DropdownProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [contentRef, setContentRef] = useState<HTMLDivElement | null>(null);
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement | null>(null);
-  const [arrowRef, setArrowRef] = useState<HTMLDivElement | null>(null);
   const { styles, attributes, update } = usePopper(contentRef, overlayRef, {
     placement,
     modifiers: [
@@ -39,7 +38,6 @@ const Dropdown: React.FC<DropdownProps> = ({
           offset: [0, 8],
         },
       },
-      { name: "arrow", options: { element: arrowRef } },
     ],
   });
 
@@ -113,11 +111,6 @@ const Dropdown: React.FC<DropdownProps> = ({
         style={{ ...styles.popper, width: overlayWidth }}
         onClick={handleClickOverlay}
       >
-        <div
-          className="dropdown__arrow"
-          ref={setArrowRef}
-          style={styles.arrow}
-        />
         {overlay}
       </div>
     </div>

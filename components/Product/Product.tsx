@@ -21,12 +21,14 @@ interface ProductProps {
   direction?: "vertical" | "horizontal";
   image?: string;
   quickview?: boolean;
+  hoverable?: boolean;
 }
 
 const Product: React.FC<ProductProps> = ({
   direction = "vertical",
   image,
   quickview,
+  hoverable,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -37,7 +39,8 @@ const Product: React.FC<ProductProps> = ({
     <div
       className={clsx(
         "product",
-        direction !== "vertical" && `product--${direction}`
+        direction !== "vertical" && `product--${direction}`,
+        hoverable && "product--hoverable"
       )}
     >
       <div className="product__image">

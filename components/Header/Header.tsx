@@ -19,10 +19,11 @@ import Toggle from "../Toggle/Toggle";
 import { Menu, MenuItem } from "../Menu";
 import { Swiper as Carousel, SwiperSlide } from "swiper/react";
 import { Swiper } from "swiper";
+import Dropdown from "../Dropdown/Dropdown";
+import Badge from "../Badge/Badge";
 
 // utils
 import { debounce } from "../../utils/debounce";
-import Dropdown from "../Dropdown/Dropdown";
 
 interface MobileNavbarProps {
   isActive?: boolean;
@@ -212,16 +213,17 @@ const Header: React.FC = () => {
         <div className="header__right">
           <div className="user">
             <div className="user__item">
-              <Dropdown
-                triggers="click"
-                onClickOverlay={() => true}
-                overlay={<div className="cart">This is cart</div>}
-              >
-                <span className="icon">
-                  <FontAwesomeIcon icon={faShoppingCart} />
-                </span>
-              </Dropdown>
+              <Link href="/cart">
+                <a>
+                  <Badge value={300}>
+                    <span className="icon">
+                      <FontAwesomeIcon icon={faShoppingCart} />
+                    </span>
+                  </Badge>
+                </a>
+              </Link>
             </div>
+
             {isLoggedIn ? (
               <Dropdown
                 placement="bottom"

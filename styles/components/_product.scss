@@ -1,8 +1,9 @@
 .product {
   @apply p-4 overflow-hidden;
+
   &__image {
     padding-top: 100%;
-    @apply relative w-full bg-gray-200 rounded transition duration-300 hover:shadow-md;
+    @apply relative w-full bg-gray-200 rounded transition duration-300;
 
     &:hover {
       .product__actions {
@@ -58,15 +59,28 @@
   }
 
   &--horizontal {
-    @apply flex items-center space-x-4 p-2 transition duration-300 hover:shadow-md;
+    @apply flex items-center space-x-4 p-2 transition duration-300;
     .product__image {
       padding-top: 0;
-      @apply w-24 h-24 flex-shrink-0 hover:shadow-none;
+      @apply w-24 h-24 flex-shrink-0;
     }
 
     .product__name,
     .product__price {
       @apply text-left;
+    }
+  }
+
+  &--hoverable {
+    .product__image {
+      @apply hover:shadow-md;
+    }
+
+    &.product--horizontal {
+      @apply hover:shadow-md;
+      .product__image {
+        @apply hover:shadow-none;
+      }
     }
   }
 }
