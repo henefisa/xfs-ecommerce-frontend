@@ -137,10 +137,15 @@ const sizeSelectStyle: StylesConfig<SizeOption, boolean> = {
 
 const ProductView: React.FC<ProductViewProps> = ({}) => {
   const [image, setImage] = useState("/product-1.jpg");
+  const [selectRoot, setSelectRoot] = useState<HTMLElement | null>(null);
 
   const setCurrentImage = (image: string) => {
     setImage(image);
   };
+
+  useEffect(() => {
+    setSelectRoot(document.getElementById("select-root"));
+  }, []);
 
   return (
     <div className="product-view">
@@ -238,7 +243,7 @@ const ProductView: React.FC<ProductViewProps> = ({}) => {
               options={colorOptions}
               styles={colorSelectStyle}
               placeholder="Select color"
-              menuPortalTarget={document.body}
+              menuPortalTarget={selectRoot}
             />
           </div>
         </div>
@@ -249,7 +254,7 @@ const ProductView: React.FC<ProductViewProps> = ({}) => {
               options={sizeOptions}
               styles={sizeSelectStyle}
               placeholder="Select size"
-              menuPortalTarget={document.body}
+              menuPortalTarget={selectRoot}
             />
           </div>
         </div>

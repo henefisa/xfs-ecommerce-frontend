@@ -8,6 +8,7 @@ class MyDocument extends Document {
         <body>
           <Main />
           <div id="modal-root" />
+          <div id="select-root" />
           <NextScript />
         </body>
       </Html>
