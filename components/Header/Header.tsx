@@ -215,7 +215,7 @@ const Header: React.FC = () => {
             <div className="user__item">
               <Link href="/cart">
                 <a>
-                  <Badge value={300}>
+                  <Badge value={1}>
                     <span className="icon">
                       <FontAwesomeIcon icon={faShoppingCart} />
                     </span>

@@ -22,6 +22,7 @@ interface ProductProps {
   image?: string;
   quickview?: boolean;
   hoverable?: boolean;
+  showPrice?: boolean;
 }
 
 const Product: React.FC<ProductProps> = ({
@@ -29,6 +30,7 @@ const Product: React.FC<ProductProps> = ({
   image,
   quickview,
   hoverable,
+  showPrice,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -80,11 +82,13 @@ const Product: React.FC<ProductProps> = ({
       </div>
       <div className="product__details">
         <h3 className="product__name">Sample product</h3>
-        <div className="product__price">
-          <p className="product__price-current">
-            {currencyFormat.format(300000)}
-          </p>
-        </div>
+        {showPrice && (
+          <div className="product__price">
+            <p className="product__price-current">
+              {currencyFormat.format(300000)}
+            </p>
+          </div>
+        )}
       </div>
       {quickview && (
         <Modal

@@ -18,9 +18,12 @@
 @import "./components/divider";
 @import "./components/inputNumber";
 @import "./components/badge";
+@import "./components/row";
+@import "./components/col";
 
 // layouts
 @import "./layouts/commonLayout";
 
 // pages
 @import "./pages/homePage";
+@import "./pages/cartPage";

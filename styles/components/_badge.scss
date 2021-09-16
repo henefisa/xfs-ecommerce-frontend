@@ -2,7 +2,7 @@
   @apply relative mr-4;
   &__value {
     min-width: 1.25rem;
-    left: calc(100% - 10px);
+    left: calc(100% - 6px);
     @apply absolute -top-2 inline-flex items-center justify-center p-1
       bg-red-500 text-white h-5 rounded-full text-sm;
   }

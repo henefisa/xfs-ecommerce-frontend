@@ -1,0 +1,35 @@
+.row {
+  @apply flex flex-wrap flex-row;
+
+  &--justify-between {
+    @apply justify-between;
+  }
+
+  &--justify-center {
+    @apply justify-center;
+  }
+
+  &--justify-end {
+    @apply justify-end;
+  }
+
+  &--justify-start {
+    @apply justify-start;
+  }
+
+  &--align-start {
+    @apply items-start;
+  }
+
+  &--align-center {
+    @apply items-center;
+  }
+
+  &--align-end {
+    @apply items-end;
+  }
+
+  &--align-stretch {
+    @apply items-stretch;
+  }
+}

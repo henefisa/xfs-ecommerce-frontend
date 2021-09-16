@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 
 // icons
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
@@ -23,36 +23,40 @@ const InputNumber: React.FC<InputNumberProps> = ({
   placeholder,
   min,
   max,
-  step,
+  step = 1,
   disabled,
   className,
   onChange,
 }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [inputVal, setInputVal] = useState(value || defaultValue);
 
   const handleStepUp = () => {
-    if (!inputRef.current) return;
-    inputRef.current.stepUp();
+    if (max && inputVal >= max) return;
+    setInputVal((prevState) => {
+      onChange?.(prevState + step);
+      return inputVal + step;
+    });
   };
 
   const handleStepDown = () => {
-    if (!inputRef.current) return;
-    inputRef.current.stepDown();
+    if (min && inputVal <= min) return;
+    setInputVal((prevState) => {
+      onChange?.(prevState - step);
+      return inputVal - step;
+    });
   };
 
-  const handleInputChange = () => {
-    if (!inputRef.current) return;
-    onChange?.(+inputRef.current.value);
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputVal(+e.target.value);
+    onChange?.(+e.target.value);
   };
 
   return (
     <div className={clsx("input-number", className)}>
       <input
         type="number"
-        value={value}
-        defaultValue={defaultValue}
+        value={inputVal}
         placeholder={placeholder}
-        ref={inputRef}
         min={min}
         max={max}
         step={step}

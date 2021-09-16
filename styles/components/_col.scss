@@ -1,0 +1,196 @@
+.col {
+  @apply w-full;
+
+  &--1 {
+    @apply sm:w-1/12;
+  }
+  &--2 {
+    @apply sm:w-2/12;
+  }
+  &--3 {
+    @apply sm:w-3/12;
+  }
+  &--4 {
+    @apply sm:w-4/12;
+  }
+  &--5 {
+    @apply sm:w-5/12;
+  }
+  &--6 {
+    @apply sm:w-6/12;
+  }
+  &--7 {
+    @apply sm:w-7/12;
+  }
+  &--8 {
+    @apply sm:w-8/12;
+  }
+  &--9 {
+    @apply sm:w-9/12;
+  }
+  &--10 {
+    @apply sm:w-10/12;
+  }
+  &--11 {
+    @apply sm:w-11/12;
+  }
+  &--12 {
+    @apply sm:w-full;
+  }
+
+  &--sm {
+    &-1 {
+      @apply sm:w-1/12;
+    }
+    &-2 {
+      @apply sm:w-2/12;
+    }
+    &-3 {
+      @apply sm:w-3/12;
+    }
+    &-4 {
+      @apply sm:w-4/12;
+    }
+    &-5 {
+      @apply sm:w-5/12;
+    }
+    &-6 {
+      @apply sm:w-6/12;
+    }
+    &-7 {
+      @apply sm:w-7/12;
+    }
+    &-8 {
+      @apply sm:w-8/12;
+    }
+    &-9 {
+      @apply sm:w-9/12;
+    }
+    &-10 {
+      @apply sm:w-10/12;
+    }
+    &-11 {
+      @apply sm:w-11/12;
+    }
+    &-12 {
+      @apply sm:w-full;
+    }
+  }
+
+  &--md {
+    &-1 {
+      @apply md:w-1/12;
+    }
+    &-2 {
+      @apply md:w-2/12;
+    }
+    &-3 {
+      @apply md:w-3/12;
+    }
+    &-4 {
+      @apply md:w-4/12;
+    }
+    &-5 {
+      @apply md:w-5/12;
+    }
+    &-6 {
+      @apply md:w-6/12;
+    }
+    &-7 {
+      @apply md:w-7/12;
+    }
+    &-8 {
+      @apply md:w-8/12;
+    }
+    &-9 {
+      @apply md:w-9/12;
+    }
+    &-10 {
+      @apply md:w-10/12;
+    }
+    &-11 {
+      @apply md:w-11/12;
+    }
+    &-12 {
+      @apply md:w-full;
+    }
+  }
+
+  &--lg {
+    &-1 {
+      @apply lg:w-1/12;
+    }
+    &-2 {
+      @apply lg:w-2/12;
+    }
+    &-3 {
+      @apply lg:w-3/12;
+    }
+    &-4 {
+      @apply lg:w-4/12;
+    }
+    &-5 {
+      @apply lg:w-5/12;
+    }
+    &-6 {
+      @apply lg:w-6/12;
+    }
+    &-7 {
+      @apply lg:w-7/12;
+    }
+    &-8 {
+      @apply lg:w-8/12;
+    }
+    &-9 {
+      @apply lg:w-9/12;
+    }
+    &-10 {
+      @apply lg:w-10/12;
+    }
+    &-11 {
+      @apply lg:w-11/12;
+    }
+    &-12 {
+      @apply lg:w-full;
+    }
+  }
+
+  &--xl {
+    &-1 {
+      @apply xl:w-1/12;
+    }
+    &-2 {
+      @apply xl:w-2/12;
+    }
+    &-3 {
+      @apply xl:w-3/12;
+    }
+    &-4 {
+      @apply xl:w-4/12;
+    }
+    &-5 {
+      @apply xl:w-5/12;
+    }
+    &-6 {
+      @apply xl:w-6/12;
+    }
+    &-7 {
+      @apply xl:w-7/12;
+    }
+    &-8 {
+      @apply xl:w-8/12;
+    }
+    &-9 {
+      @apply xl:w-9/12;
+    }
+    &-10 {
+      @apply xl:w-10/12;
+    }
+    &-11 {
+      @apply xl:w-11/12;
+    }
+    &-12 {
+      @apply xl:w-full;
+    }
+  }
+}
