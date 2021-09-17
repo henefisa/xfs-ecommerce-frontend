@@ -9,6 +9,7 @@ interface ButtonProps {
   type?: ButtonTypes;
   color?: ButtonColors;
   className?: string;
+  htmlType?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"];
   onClick?: () => void;
 }
 
@@ -17,6 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   type = "outline",
   color = "primary",
   className,
+  htmlType,
   onClick,
 }) => {
   return (
@@ -28,6 +30,7 @@ const Button: React.FC<ButtonProps> = ({
         className
       )}
       onClick={onClick}
+      type={htmlType}
     >
       {children}
     </button>
