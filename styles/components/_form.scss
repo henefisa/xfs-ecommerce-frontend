@@ -1,0 +1,8 @@
+.form {
+  &__item {
+    @apply mb-6 relative;
+    &-error {
+      @apply absolute top-full left-2 text-xs text-red-500;
+    }
+  }
+}

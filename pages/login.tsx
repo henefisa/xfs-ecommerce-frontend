@@ -14,12 +14,12 @@ interface LoginProps {}
 
 interface LoginInputs {
   username: string;
-  // password: string;
+  password: string;
 }
 
 const loginSchema = yup.object().shape({
   username: yup.string().required("Username is required"),
-  // password: yup.string().required("Password is required"),
+  password: yup.string().required("Password is required"),
 });
 
 const Login: React.FC<LoginProps> = ({}) => {
@@ -35,6 +35,9 @@ const Login: React.FC<LoginProps> = ({}) => {
           >
             <FormItem name="username">
               <Input placeholder="Username" />
+            </FormItem>
+            <FormItem name="password">
+              <Input placeholder="Password" type="password" />
             </FormItem>
             <Button htmlType="submit">Submit</Button>
           </Form>

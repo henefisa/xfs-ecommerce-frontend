@@ -12,7 +12,9 @@ const FormItem: React.FC<FormItemProps> = ({ name, children }) => {
   if (!React.isValidElement(children)) return null;
   return (
     <div className="form__item">
-      {React.cloneElement(children, { ...register(name) })}
+      <div className="form__item-field">
+        {React.cloneElement(children, { ...register(name) })}
+      </div>
       <div className="form__item-error">{formState.errors[name]?.message}</div>
     </div>
   );
