@@ -2,7 +2,7 @@ import clsx from "clsx";
 import React from "react";
 
 type ButtonColors = "primary" | "success" | "error" | "warning";
-type ButtonTypes = "outline" | "solid";
+type ButtonTypes = "outline" | "solid" | "link";
 
 interface ButtonProps {
   children: React.ReactNode;

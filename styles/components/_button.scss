@@ -1,8 +1,8 @@
 .button {
-  @apply rounded-md px-4 py-2 font-medium hover:underline transition duration-300 whitespace-nowrap;
+  @apply rounded-md px-4 py-2 font-medium transition duration-300 whitespace-nowrap;
 
   &--outline {
-    @apply border select-none hover:no-underline focus:outline-none;
+    @apply border select-none focus:outline-none;
 
     &.button--primary {
       @apply border-blue-500 text-blue-500 hover:text-white hover:bg-blue-600;
@@ -22,7 +22,7 @@
   }
 
   &--solid {
-    @apply text-white hover:no-underline;
+    @apply text-white;
 
     &.button--primary {
       @apply bg-blue-500  hover:bg-blue-600;
@@ -42,16 +42,20 @@
   }
 
   &--link {
-    @apply relative px-2 py-1;
-    &:hover {
-      &::after {
-        @apply scale-x-100;
-      }
+    &.button--primary {
+      @apply hover:text-blue-500;
     }
 
-    &::after {
-      content: "";
-      @apply absolute top-full left-0 w-full h-0.5 transform scale-x-0 origin-left;
+    &.button--success {
+      @apply hover:text-green-500;
+    }
+
+    &.button--error {
+      @apply hover:text-red-500;
+    }
+
+    &.button--warning {
+      @apply hover:text-yellow-500;
     }
   }
 }
