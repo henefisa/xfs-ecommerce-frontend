@@ -1,60 +1,60 @@
 .button {
-  @apply rounded-md px-4 py-2 font-medium transition duration-300 whitespace-nowrap;
+  @apply rounded-md px-4 py-2 font-medium transition duration-300 text-sm whitespace-nowrap;
 
-  &--outline {
+  &--type-outline {
     @apply border select-none focus:outline-none;
 
-    &.button--primary {
+    &.button--color-primary {
       @apply border-blue-500 text-blue-500 hover:text-white hover:bg-blue-600;
     }
 
-    &.button--success {
+    &.button--color-success {
       @apply border-green-500 text-green-500 hover:text-white hover:bg-green-600;
     }
 
-    &.button--error {
+    &.button--color-error {
       @apply border-red-500 text-red-500 hover:text-white hover:bg-red-600;
     }
 
-    &.button--warning {
+    &.button--color-warning {
       @apply border-yellow-500 text-yellow-500 hover:text-white hover:bg-yellow-600;
     }
   }
 
-  &--solid {
+  &--type-solid {
     @apply text-white;
 
-    &.button--primary {
+    &.button--color-primary {
       @apply bg-blue-500  hover:bg-blue-600;
     }
 
-    &.button--success {
+    &.button--color-success {
       @apply bg-green-500 hover:bg-green-600;
     }
 
-    &.button--error {
+    &.button--color-error {
       @apply bg-red-500 hover:bg-red-600;
     }
 
-    &.button--warning {
+    &.button--color-warning {
       @apply bg-yellow-500 hover:bg-yellow-600;
     }
   }
 
-  &--link {
-    &.button--primary {
+  &--type-link {
+    &.button--color-primary {
       @apply hover:text-blue-500;
     }
 
-    &.button--success {
+    &.button--color-success {
       @apply hover:text-green-500;
     }
 
-    &.button--error {
+    &.button--color-error {
       @apply hover:text-red-500;
     }
 
-    &.button--warning {
+    &.button--color-warning {
       @apply hover:text-yellow-500;
     }
   }

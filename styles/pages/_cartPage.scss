@@ -6,24 +6,49 @@
       @apply mb-4 font-semibold text-2xl;
     }
 
+    &__empty {
+      @apply text-center mt-4 max-w-3xl mx-auto;
+
+      &-image {
+        padding-block-start: 75%;
+        @apply w-full relative;
+      }
+
+      h5 {
+        @apply text-xl mb-4 font-semibold;
+      }
+    }
+
     .products {
       max-height: 600px;
       @apply w-full overflow-x-auto;
       &-table {
         @apply w-full border-collapse;
-        &__col {
+
+        &__product {
+          min-width: 375px;
+          @apply w-5/12;
+        }
+
+        &__price,
+        &__quantity,
+        &__subtotal {
           min-width: 150px;
           @apply w-2/12;
-          &--large {
-            min-width: 450px;
-            @apply w-6/12;
+        }
+
+        &__delete {
+          min-width: 75px;
+          @apply w-1/12 text-gray-400;
+          .button {
+            @apply p-0;
           }
         }
 
         thead {
           @apply text-left;
           th {
-            @apply pt-2 pb-3 text-lg sticky top-0 bg-white z-50;
+            @apply pt-2 pb-3 text-base sticky top-0 bg-white z-50 font-medium;
           }
         }
 
@@ -31,11 +56,16 @@
           .products-table__product {
             .product {
               @apply p-0;
+              &__details {
+                .product__name {
+                  @apply text-sm;
+                }
+              }
             }
           }
 
           td {
-            @apply border-t border-gray-300;
+            @apply border-t border-gray-300 text-sm;
           }
         }
 
@@ -46,28 +76,24 @@
             @apply pl-2;
           }
         }
-
-        &__subtotal {
-          @apply font-semibold;
-        }
       }
     }
 
     .summary {
       @apply w-full border border-gray-300 p-4 rounded;
       &__title {
-        @apply text-lg font-semibold mb-4;
+        @apply text-base font-semibold mb-4;
       }
 
       &__price {
-        @apply flex items-center justify-between;
+        @apply flex items-center justify-between text-sm;
         &:not(:first-of-type) {
           @apply mt-2;
         }
       }
 
       &__total {
-        @apply font-semibold;
+        @apply font-semibold text-base;
       }
 
       &__button {

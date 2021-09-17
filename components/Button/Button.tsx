@@ -23,8 +23,8 @@ const Button: React.FC<ButtonProps> = ({
     <button
       className={clsx(
         "button",
-        type && `button--${type}`,
-        color && `button--${color}`,
+        type && `button--type-${type}`,
+        color && `button--color-${color}`,
         className
       )}
       onClick={onClick}
