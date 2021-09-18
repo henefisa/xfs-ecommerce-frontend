@@ -21,6 +21,7 @@ import { Swiper as Carousel, SwiperSlide } from "swiper/react";
 import { Swiper } from "swiper";
 import Dropdown from "../Dropdown/Dropdown";
 import Badge from "../Badge/Badge";
+import Row from "../Row/Row";
 
 // utils
 import { debounce } from "../../utils/debounce";
@@ -194,85 +195,87 @@ const Header: React.FC = () => {
 
   return (
     <header className="header" ref={headerRef}>
-      <Container flex justify="between" items="center">
-        <div className="header__left">
-          <Toggle
-            isActive={isActive}
-            onClick={handleToggleNavbar}
-            className="header__toggle"
-          />
-        </div>
-        <div className="header__center">
-          <h1 className="header__logo">
-            <Link href="/">
-              <a>Ecommerce</a>
-            </Link>
-          </h1>
-          <Navbar />
-        </div>
-        <div className="header__right">
-          <div className="user">
-            <div className="user__item">
-              <Link href="/cart">
-                <a>
-                  <Badge value={1}>
-                    <span className="icon">
-                      <FontAwesomeIcon icon={faShoppingCart} />
-                    </span>
-                  </Badge>
-                </a>
-              </Link>
-            </div>
-
-            {isLoggedIn ? (
-              <Dropdown
-                placement="bottom"
-                triggers="click"
-                overlayWidth={200}
-                onClickOverlay={() => true}
-                overlay={
-                  <Menu trackingActive={false}>
-                    <MenuItem
-                      id="account"
-                      icon={<FontAwesomeIcon icon={faUser} />}
-                    >
-                      Account
-                    </MenuItem>
-                    <MenuItem
-                      id="settings"
-                      icon={<FontAwesomeIcon icon={faCog} />}
-                    >
-                      Settings
-                    </MenuItem>
-                    <MenuItem
-                      id="logout"
-                      icon={<FontAwesomeIcon icon={faSignOutAlt} />}
-                      onClick={() => setIsLoggedIn(false)}
-                    >
-                      Logout
-                    </MenuItem>
-                  </Menu>
-                }
-              >
-                <div className="user__item account">
-                  <span className="name">Username</span>
-                </div>
-              </Dropdown>
-            ) : (
-              <div className="user__item">
-                <span className="icon">
-                  <FontAwesomeIcon icon={faSignInAlt} />
-                </span>
-                <span className="name">
-                  <Link href="/login">
-                    <a onClick={() => setIsLoggedIn(true)}>Login</a>
-                  </Link>
-                </span>
-              </div>
-            )}
+      <Container>
+        <Row justify="between" align="center" className="header__row">
+          <div className="header__left">
+            <Toggle
+              isActive={isActive}
+              onClick={handleToggleNavbar}
+              className="header__toggle"
+            />
           </div>
-        </div>
-        <MobileNavbar isActive={isActive} onClick={handleToggleNavbar} />
+          <div className="header__center">
+            <h1 className="header__logo">
+              <Link href="/">
+                <a>Ecommerce</a>
+              </Link>
+            </h1>
+            <Navbar />
+          </div>
+          <div className="header__right">
+            <div className="user">
+              <div className="user__item">
+                <Link href="/cart">
+                  <a>
+                    <Badge value={1}>
+                      <span className="icon">
+                        <FontAwesomeIcon icon={faShoppingCart} />
+                      </span>
+                    </Badge>
+                  </a>
+                </Link>
+              </div>
+
+              {isLoggedIn ? (
+                <Dropdown
+                  placement="bottom"
+                  triggers="click"
+                  overlayWidth={200}
+                  onClickOverlay={() => true}
+                  overlay={
+                    <Menu trackingActive={false}>
+                      <MenuItem
+                        id="account"
+                        icon={<FontAwesomeIcon icon={faUser} />}
+                      >
+                        Account
+                      </MenuItem>
+                      <MenuItem
+                        id="settings"
+                        icon={<FontAwesomeIcon icon={faCog} />}
+                      >
+                        Settings
+                      </MenuItem>
+                      <MenuItem
+                        id="logout"
+                        icon={<FontAwesomeIcon icon={faSignOutAlt} />}
+                        onClick={() => setIsLoggedIn(false)}
+                      >
+                        Logout
+                      </MenuItem>
+                    </Menu>
+                  }
+                >
+                  <div className="user__item account">
+                    <span className="name">Username</span>
+                  </div>
+                </Dropdown>
+              ) : (
+                <div className="user__item">
+                  <span className="icon">
+                    <FontAwesomeIcon icon={faSignInAlt} />
+                  </span>
+                  <span className="name">
+                    <Link href="/login">
+                      <a onClick={() => setIsLoggedIn(true)}>Login</a>
+                    </Link>
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+          <MobileNavbar isActive={isActive} onClick={handleToggleNavbar} />
+        </Row>
       </Container>
     </header>
   );
