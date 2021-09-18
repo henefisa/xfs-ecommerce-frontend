@@ -10,7 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Banner, BannerGroup } from "../components/Banner";
 import Service from "../components/Service/Service";
 import CommonLayout from "../layouts/CommonLayout";
-import Vendor from "../components/Vendor/Vendor";
+import Seller from "../components/Seller/Seller";
 import Section from "../components/Section/Section";
 import Product from "../components/Product/Product";
 import Countdown from "../components/Countdown/Countdown";
@@ -239,9 +239,9 @@ const TopBanners = () => {
   );
 };
 
-const TopVendors = () => {
+const TopSellers = () => {
   return (
-    <Section className="top-vendors" title="Top Weekly Vendors">
+    <Section className="top-vendors" title="Top Weekly Sellers">
       <Swiper
         slidesPerView={1}
         spaceBetween={16}
@@ -252,7 +252,7 @@ const TopVendors = () => {
         }}
       >
         <SwiperSlide>
-          <Vendor
+          <Seller
             name="Sample"
             rating={4}
             logo="/vendor-1.jpg"
@@ -260,7 +260,7 @@ const TopVendors = () => {
           />
         </SwiperSlide>
         <SwiperSlide>
-          <Vendor
+          <Seller
             name="Sample"
             rating={4}
             logo="/vendor-2.jpg"
@@ -268,7 +268,7 @@ const TopVendors = () => {
           />
         </SwiperSlide>
         <SwiperSlide>
-          <Vendor
+          <Seller
             name="Sample"
             rating={4}
             logo="/vendor-3.jpg"
@@ -276,7 +276,7 @@ const TopVendors = () => {
           />
         </SwiperSlide>
         <SwiperSlide>
-          <Vendor
+          <Seller
             name="Sample"
             rating={4}
             logo="/vendor-4.jpg"
@@ -284,7 +284,7 @@ const TopVendors = () => {
           />
         </SwiperSlide>
         <SwiperSlide>
-          <Vendor
+          <Seller
             name="Sample"
             rating={4}
             logo="/slide-image-1.png"
@@ -315,22 +315,22 @@ const Deals = () => {
         }}
       >
         <SwiperSlide>
-          <Product image="/product-1.jpg" quickview />
+          <Product image="/product-1.jpg" hoverable />
         </SwiperSlide>
         <SwiperSlide>
-          <Product image="/product-2.jpg" quickview />
+          <Product image="/product-2.jpg" hoverable />
         </SwiperSlide>
         <SwiperSlide>
-          <Product image="/product-3.jpg" quickview />
+          <Product image="/product-3.jpg" hoverable />
         </SwiperSlide>
         <SwiperSlide>
-          <Product image="/product-4.jpg" quickview />
+          <Product image="/product-4.jpg" hoverable />
         </SwiperSlide>
         <SwiperSlide>
-          <Product image="/product-5.jpg" quickview />
+          <Product image="/product-5.jpg" hoverable />
         </SwiperSlide>
         <SwiperSlide>
-          <Product image="/product-2.jpg" quickview />
+          <Product image="/product-2.jpg" hoverable />
         </SwiperSlide>
       </Swiper>
     </Section>
@@ -371,14 +371,14 @@ const TopRatedProducts = () => {
       }
     >
       <div className="products__wrap">
-        <Product direction="horizontal" image="/product-1.jpg" />
-        <Product direction="horizontal" image="/product-2.jpg" />
-        <Product direction="horizontal" image="/product-3.jpg" />
-        <Product direction="horizontal" image="/product-4.jpg" />
-        <Product direction="horizontal" image="/product-5.jpg" />
-        <Product direction="horizontal" image="/product-4.jpg" />
-        <Product direction="horizontal" image="/product-1.jpg" />
-        <Product direction="horizontal" image="/product-2.jpg" />
+        <Product direction="horizontal" image="/product-1.jpg" hoverable />
+        <Product direction="horizontal" image="/product-2.jpg" hoverable />
+        <Product direction="horizontal" image="/product-3.jpg" hoverable />
+        <Product direction="horizontal" image="/product-4.jpg" hoverable />
+        <Product direction="horizontal" image="/product-5.jpg" hoverable />
+        <Product direction="horizontal" image="/product-4.jpg" hoverable />
+        <Product direction="horizontal" image="/product-1.jpg" hoverable />
+        <Product direction="horizontal" image="/product-2.jpg" hoverable />
       </div>
     </Section>
   );
@@ -392,7 +392,7 @@ export default function Home() {
         <Container>
           <Services />
           <TopBanners />
-          <TopVendors />
+          <TopSellers />
           <Deals />
           <BottomBanners />
           <TopRatedProducts />

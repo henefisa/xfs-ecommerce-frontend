@@ -4,18 +4,18 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Rating from "../Rating/Rating";
 
-interface VendorProps {
+interface SellerProps {
   name: string;
   logo: string;
   rating: number;
   products: string[];
 }
 
-const Vendor: React.FC<VendorProps> = ({ name, logo, rating, products }) => {
+const Seller: React.FC<SellerProps> = ({ name, logo, rating, products }) => {
   return (
-    <div className="vendor">
-      <div className="vendor__details">
-        <div className="vendor__logo">
+    <div className="seller">
+      <div className="seller__details">
+        <div className="seller__logo">
           <Image
             layout="fill"
             src={logo}
@@ -24,14 +24,14 @@ const Vendor: React.FC<VendorProps> = ({ name, logo, rating, products }) => {
             objectPosition="center"
           />
         </div>
-        <div className="vendor__personal">
-          <h5 className="vendor__name">{name}</h5>
+        <div className="seller__personal">
+          <h5 className="seller__name">{name}</h5>
           <Rating value={rating} size="small" />
         </div>
       </div>
-      <div className="vendor__products">
+      <div className="seller__products">
         {products.map((product, idx) => (
-          <div className="vendor__product" key={idx}>
+          <div className="seller__product" key={idx}>
             <Image
               layout="fill"
               src={product}
@@ -46,4 +46,4 @@ const Vendor: React.FC<VendorProps> = ({ name, logo, rating, products }) => {
   );
 };
 
-export default React.memo(Vendor);
+export default React.memo(Seller);

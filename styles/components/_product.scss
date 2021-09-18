@@ -4,37 +4,6 @@
   &__image {
     padding-top: 100%;
     @apply relative w-full bg-gray-200 rounded transition duration-300;
-
-    &:hover {
-      .product__actions {
-        &-item {
-          @apply translate-x-0 opacity-100 visible;
-          &:nth-child(1) {
-            @apply delay-100;
-          }
-          &:nth-child(2) {
-            @apply delay-200;
-          }
-          &:nth-child(3) {
-            @apply delay-300;
-          }
-          &:nth-child(4) {
-            @apply delay-400;
-          }
-        }
-      }
-    }
-  }
-
-  &__actions {
-    @apply absolute right-5 top-5 flex flex-col space-y-2;
-    &-item {
-      @apply transform translate-x-5 transition-all duration-300 opacity-0 invisible;
-    }
-
-    &-button {
-      @apply w-8 h-8 bg-white inline-block rounded-full text-gray-600 transition-colors hover:text-white hover:bg-gray-600;
-    }
   }
 
   &__details {
@@ -42,20 +11,11 @@
   }
 
   &__name {
-    @apply text-base font-medium text-center transition-colors duration-300 cursor-pointer truncate overflow-ellipsis hover:text-blue-500;
+    @apply text-base font-medium text-center transition-colors duration-300 truncate overflow-ellipsis hover:text-blue-500;
   }
 
   &__price {
     @apply text-center font-medium truncate overflow-ellipsis;
-  }
-
-  &__modal {
-    .modal__content {
-      max-height: min(100vh - 100px, 600px);
-      @media screen and (min-width: 1024px) {
-        max-width: calc(100vw - 300px);
-      }
-    }
   }
 
   &--horizontal {
