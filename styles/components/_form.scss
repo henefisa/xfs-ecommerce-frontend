@@ -1,8 +1,16 @@
 .form {
   &__item {
     @apply mb-6 relative;
+    &-label {
+      @apply pb-2;
+    }
+
+    &-field {
+      @apply mt-2;
+    }
+
     &-error {
-      @apply absolute top-full left-2 text-xs text-red-500;
+      @apply absolute top-full left-0 text-xs text-red-500 mt-1;
     }
   }
 }

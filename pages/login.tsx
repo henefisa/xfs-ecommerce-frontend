@@ -1,5 +1,5 @@
 import React from "react";
-import { UnpackNestedValue, useForm } from "react-hook-form";
+import Link from "next/link";
 
 // validation
 import * as yup from "yup";
@@ -9,6 +9,8 @@ import Input from "../components/Input/Input";
 import Button from "../components/Button/Button";
 import CommonLayout from "../layouts/CommonLayout";
 import { Form, FormItem } from "../components/Form";
+import Container from "../components/Container/Container";
+import Row from "../components/Row/Row";
 
 interface LoginProps {}
 
@@ -23,39 +25,36 @@ const loginSchema = yup.object().shape({
 });
 
 const Login: React.FC<LoginProps> = ({}) => {
+  const handleSubmit = (values: LoginInputs) => {
+    console.log(values);
+  };
+
   return (
     <CommonLayout>
-      <div className="login-page">
-        <div className="login-box">
-          <Form
-            onSubmit={(values: LoginInputs) => {
-              console.log(values);
-            }}
-            schema={loginSchema}
-          >
-            <FormItem name="username">
-              <Input placeholder="Username" />
-            </FormItem>
-            <FormItem name="password">
-              <Input placeholder="Password" type="password" />
-            </FormItem>
-            <Button htmlType="submit">Submit</Button>
-          </Form>
-          {/* <form onSubmit={handleSubmit((value) => console.log(value))}>
-            <label className="">
-              <div>Username</div>
-              <Input {...register("username", { required: true })} />
-            </label>
-            <label>
-              <div>Password</div>
-              <Input
-                {...register("username", { required: true })}
-                type="password"
-              />
-            </label>
-            
-          </form> */}
-        </div>
+      <div
+        className="login-page"
+        style={{ backgroundImage: `url("/login-bg.jpg")` }}
+      >
+        <Container>
+          <div className="login-box">
+            <Form onSubmit={handleSubmit} schema={loginSchema} name="login">
+              <FormItem name="username" label="Username">
+                <Input placeholder="Username" />
+              </FormItem>
+              <FormItem name="password" label="Password">
+                <Input placeholder="Password" type="password" />
+              </FormItem>
+              <Row justify="between" gutter={[0, 12]}>
+                <Button type="link" className="register-btn">
+                  <Link href="/register">
+                    <a>Doesn&apos;t have an account? Register now</a>
+                  </Link>
+                </Button>
+                <Button htmlType="submit">Login</Button>
+              </Row>
+            </Form>
+          </div>
+        </Container>
       </div>
     </CommonLayout>
   );
