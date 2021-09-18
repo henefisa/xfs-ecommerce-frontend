@@ -12,20 +12,22 @@ import { Form, FormItem } from "../components/Form";
 import Container from "../components/Container/Container";
 import Row from "../components/Row/Row";
 
-interface LoginProps {}
+interface RegisterProps {}
 
-interface LoginInputs {
+interface RegisterInputs {
   username: string;
+  email: string;
   password: string;
 }
 
-const loginSchema = yup.object().shape({
+const registerSchema = yup.object().shape({
   username: yup.string().required("Username is required!"),
+  email: yup.string().email("Invalid email!").required("Email is required!"),
   password: yup.string().required("Password is required!"),
 });
 
-const Login: React.FC<LoginProps> = ({}) => {
-  const handleSubmit = (values: LoginInputs) => {
+const Register: React.FC<RegisterProps> = ({}) => {
+  const handleSubmit = (values: RegisterInputs) => {
     console.log(values);
   };
 
@@ -37,9 +39,12 @@ const Login: React.FC<LoginProps> = ({}) => {
       >
         <Container>
           <div className="login-register-box">
-            <div className="login-register-box__title">Login</div>
-            <Form onSubmit={handleSubmit} schema={loginSchema} name="login">
+            <div className="login-register-box__title">Register</div>
+            <Form onSubmit={handleSubmit} schema={registerSchema} name="login">
               <FormItem name="username" label="Username">
+                <Input />
+              </FormItem>
+              <FormItem name="email" label="Email">
                 <Input />
               </FormItem>
               <FormItem name="password" label="Password">
@@ -47,11 +52,11 @@ const Login: React.FC<LoginProps> = ({}) => {
               </FormItem>
               <Row justify="between" gutter={[0, 12]}>
                 <Button type="link" className="login-register-box__btn">
-                  <Link href="/register">
-                    <a>Doesn&apos;t have an account? Register now</a>
+                  <Link href="/login">
+                    <a>Have an account? Login now</a>
                   </Link>
                 </Button>
-                <Button htmlType="submit">Login</Button>
+                <Button htmlType="submit">Register</Button>
               </Row>
             </Form>
           </div>
@@ -61,4 +66,4 @@ const Login: React.FC<LoginProps> = ({}) => {
   );
 };
 
-export default React.memo(Login);
+export default React.memo(Register);

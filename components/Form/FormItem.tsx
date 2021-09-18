@@ -18,12 +18,14 @@ const FormItem: React.FC<FormItemProps> = ({ label, name, children }) => {
   if (!React.isValidElement(children)) return null;
   return (
     <div className="form__item">
-      <label
-        className="form__item-label"
-        htmlFor={formContext.name && `${formContext.name}-${name}`}
-      >
-        {label}
-      </label>
+      {label && (
+        <label
+          className="form__item-label"
+          htmlFor={formContext.name && `${formContext.name}-${name}`}
+        >
+          {label}
+        </label>
+      )}
       <div className="form__item-field">
         {React.cloneElement(children, {
           ...register(name),

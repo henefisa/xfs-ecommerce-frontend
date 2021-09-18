@@ -1,0 +1,15 @@
+.login-register-page {
+  min-height: inherit;
+  @apply flex items-center justify-center bg-cover bg-center;
+  .login-register-box {
+    @apply max-w-lg mx-auto w-full p-4 shadow bg-white rounded relative;
+
+    &__title {
+      @apply text-xl mb-4 font-medium;
+    }
+
+    &__btn {
+      @apply pl-0 text-gray-500 whitespace-pre-wrap hover:text-blue-500;
+    }
+  }
+}
