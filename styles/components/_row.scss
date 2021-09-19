@@ -32,4 +32,18 @@
   &--align-stretch {
     @apply items-stretch;
   }
+
+  &--divide {
+    &-all {
+      @apply divide-x divide-y divide-gray-300;
+    }
+
+    &-x {
+      @apply divide-x divide-gray-300;
+    }
+
+    &-y {
+      @apply divide-y divide-gray-300;
+    }
+  }
 }

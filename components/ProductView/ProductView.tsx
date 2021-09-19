@@ -13,7 +13,9 @@ import Button from "../Button/Button";
 // utils
 import { currencyFormat } from "../../utils/currencyFormat";
 
-interface ProductViewProps {}
+interface ProductViewProps {
+  showDescription?: boolean;
+}
 
 type ColorOption = {
   label: string;
@@ -135,7 +137,7 @@ const sizeSelectStyle: StylesConfig<SizeOption, boolean> = {
   }),
 };
 
-const ProductView: React.FC<ProductViewProps> = ({}) => {
+const ProductView: React.FC<ProductViewProps> = ({ showDescription }) => {
   const [image, setImage] = useState("/product-1.jpg");
   const [selectRoot, setSelectRoot] = useState<HTMLElement | null>(null);
 
@@ -229,12 +231,14 @@ const ProductView: React.FC<ProductViewProps> = ({}) => {
           {currencyFormat.format(200000)}
         </div>
         <Rating size="small" value={4.5} />
-        <p className="product-view__description">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas
-          reiciendis laboriosam modi nemo aspernatur necessitatibus beatae
-          similique sed, blanditiis cum aperiam dignissimos fuga soluta
-          temporibus nobis! Distinctio at ut laboriosam.
-        </p>
+        {showDescription && (
+          <p className="product-view__description">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas
+            reiciendis laboriosam modi nemo aspernatur necessitatibus beatae
+            similique sed, blanditiis cum aperiam dignissimos fuga soluta
+            temporibus nobis! Distinctio at ut laboriosam.
+          </p>
+        )}
         <Divider />
         <div className="product-view__colors">
           <div className="colors__title">Colors: </div>

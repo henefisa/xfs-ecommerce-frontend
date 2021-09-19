@@ -119,7 +119,10 @@ const Cart: React.FC<CartProps> = ({}) => {
                           {products.map((product, idx) => (
                             <tr key={idx}>
                               <td className="products-table__product">
-                                <Product direction="horizontal" />
+                                <Product
+                                  direction="horizontal"
+                                  showPrice={false}
+                                />
                               </td>
                               <td className="products-table__price">
                                 {currencyFormat.format(product.price)}

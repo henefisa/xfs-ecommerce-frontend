@@ -10,6 +10,7 @@ interface RowProps {
   justify?: "start" | "center" | "end" | "between";
   align?: "start" | "center" | "end" | "stretch";
   gutter?: number | [number, number];
+  divide?: "all" | "x" | "y";
   style?: React.CSSProperties;
 }
 
@@ -20,6 +21,7 @@ const Row: React.FC<RowProps> = ({
   align,
   gutter = 0,
   style,
+  divide,
 }) => {
   const rowRef = useRef<HTMLDivElement>(null);
 
@@ -44,6 +46,7 @@ const Row: React.FC<RowProps> = ({
           "row",
           justify && `row--justify-${justify}`,
           align && `row--align-${align}`,
+          divide && `row--divide-${divide}`,
           className
         )}
         ref={rowRef}

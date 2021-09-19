@@ -1,5 +1,5 @@
 .seller {
-  @apply p-4 rounded-md border border-gray-300 space-y-4 transition-colors duration-300 hover:border-blue-500;
+  @apply p-4 rounded space-y-4 transition-colors duration-300;
 
   &__details {
     @apply flex items-center space-x-4;
@@ -13,11 +13,33 @@
     @apply text-lg font-medium cursor-pointer;
   }
 
+  &__stats {
+    @apply inline-flex items-center divide-x divide-gray-300 border border-gray-300 p-2 rounded-sm;
+    &-item {
+      @apply text-center px-4;
+      .title {
+        @apply font-semibold text-sm text-green-500;
+      }
+
+      .sub-title {
+        @apply font-light text-xs text-gray-400;
+      }
+    }
+  }
+
   &__products {
     @apply flex items-center space-x-2 overflow-x-auto;
   }
 
   &__product {
-    @apply w-20 h-20 relative bg-gray-100 border border-gray-200 rounded-md;
+    @apply w-20 h-20 relative bg-gray-100 border border-gray-200 rounded-md flex-shrink-0;
+  }
+
+  &--bordered {
+    @apply border border-gray-300;
+  }
+
+  &--hoverable {
+    @apply hover:border-blue-500;
   }
 }

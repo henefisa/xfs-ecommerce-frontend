@@ -1,5 +1,5 @@
 .service {
-  @apply text-center bg-white cursor-default;
+  @apply text-center bg-white cursor-default p-2;
   &__icon {
     @apply text-3xl text-gray-500;
   }
