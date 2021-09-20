@@ -2,8 +2,13 @@
   min-height: inherit;
   @apply py-6 bg-gray-100;
 
+  .card {
+    &:not(:first-child) {
+      @apply mt-4;
+    }
+  }
+
   .product-view {
-    @apply bg-white p-4 rounded-sm;
     &__image-wrap {
       @apply flex flex-col;
     }
@@ -111,7 +116,6 @@
   }
 
   .similar-products {
-    @apply p-4 bg-white mt-4 rounded-sm;
     &__title {
       @apply text-xl font-medium tracking-wide mb-4;
     }
@@ -124,7 +128,6 @@
   }
 
   .details {
-    @apply bg-white mt-4 rounded-sm p-4;
     &__title {
       @apply text-xl font-medium tracking-wide mb-4;
     }
@@ -156,14 +159,12 @@
   }
 
   .product-description {
-    @apply bg-white mt-4 rounded-sm p-4;
     &__title {
       @apply text-xl font-medium tracking-wide mb-4;
     }
   }
 
   .customer-review {
-    @apply bg-white mt-4 rounded-sm p-4;
     &__title {
       @apply text-xl font-medium tracking-wide mb-4;
     }

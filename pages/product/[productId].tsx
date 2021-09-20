@@ -21,6 +21,7 @@ import Product from "../../components/Product/Product";
 import ReviewRating from "../../components/ReviewRating/ReviewRating";
 import Avatar from "../../components/Avatar/Avatar";
 import Stars from "../../components/Stars/Stars";
+import Card from "../../components/Card/Card";
 
 // utils
 import { currencyFormat } from "../../utils/currencyFormat";
@@ -280,7 +281,7 @@ const ProductView: React.FC = () => {
   }, []);
 
   return (
-    <div className="product-view">
+    <Card className="product-view">
       <Row gutter={[32, 16]}>
         <Col sm={6} lg={4}>
           <div className="product-view__image-wrap">
@@ -374,7 +375,7 @@ const ProductView: React.FC = () => {
         query="(max-width:1023px)"
         breakpoints={{ 640: { slidesPerView: 2 } }}
       />
-    </div>
+    </Card>
   );
 };
 
@@ -383,7 +384,7 @@ const SimilarProduct: React.FC = () => {
   const prevEl = useRef<HTMLDivElement | null>(null);
 
   return (
-    <div className="similar-products">
+    <Card className="similar-products">
       <h4 className="similar-products__title">Similar Products</h4>
       <div className="slides similar-products__slides">
         <div
@@ -433,13 +434,13 @@ const SimilarProduct: React.FC = () => {
           </SwiperSlide>
         </Swiper>
       </div>
-    </div>
+    </Card>
   );
 };
 
 const Details: React.FC = () => {
   return (
-    <div className="details">
+    <Card className="details">
       <h4 className="details__title">Details</h4>
       <div className="details__table-wrap">
         <table className="details__table">
@@ -460,13 +461,13 @@ const Details: React.FC = () => {
           </tbody>
         </table>
       </div>
-    </div>
+    </Card>
   );
 };
 
 const ProductDescription: React.FC = () => {
   return (
-    <div className="product-description">
+    <Card className="product-description">
       <h4 className="product-description__title">Product Description</h4>
       <div className="product-description__content">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi expedita
@@ -474,13 +475,13 @@ const ProductDescription: React.FC = () => {
         earum ea sunt! Iusto asperiores eligendi blanditiis voluptate dicta est
         numquam?
       </div>
-    </div>
+    </Card>
   );
 };
 
 const CustomerReview: React.FC = () => {
   return (
-    <div className="customer-review">
+    <Card className="customer-review">
       <Row gutter={[16, 16]} className="customer-review__top">
         <Col md={5} lg={4} xl={3}>
           <ReviewRating />
@@ -643,7 +644,7 @@ const CustomerReview: React.FC = () => {
           </Col>
         </Row>
       </div>
-    </div>
+    </Card>
   );
 };
 
