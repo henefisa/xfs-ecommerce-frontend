@@ -1,0 +1,44 @@
+.review-rating {
+  &__summary {
+    @apply flex items-center;
+  }
+
+  &__point {
+    @apply text-3xl font-bold mr-4;
+  }
+
+  &__total {
+    @apply text-xs text-gray-500;
+  }
+
+  &__details {
+    @apply mt-3;
+  }
+
+  &__level {
+    @apply flex items-center my-1;
+    .stars {
+      @apply text-xs;
+    }
+  }
+
+  &__process {
+    @apply ml-2 w-32 h-1.5 bg-gray-100 rounded overflow-hidden relative;
+    & > div {
+      @apply absolute top-0 left-0 h-full bg-gray-500 rounded;
+    }
+  }
+
+  &__number {
+    @apply ml-2 text-xs text-gray-500;
+  }
+
+  .stars {
+    @apply flex items-center space-x-1 text-gray-300;
+    .star {
+      &.active {
+        @apply text-yellow-400;
+      }
+    }
+  }
+}

@@ -33,6 +33,7 @@ import {
   faMoneyCheckAlt,
   faShippingFast,
 } from "@fortawesome/free-solid-svg-icons";
+import ReviewRating from "../../components/ReviewRating/ReviewRating";
 
 interface ProductPageProps {}
 
@@ -474,6 +475,14 @@ const ProductDescription: React.FC = () => {
   );
 };
 
+const CustomerReview: React.FC = () => {
+  return (
+    <div className="customer-review">
+      <ReviewRating />
+    </div>
+  );
+};
+
 const ProductPage: React.FC<ProductPageProps> = ({}) => {
   return (
     <CommonLayout>
@@ -483,6 +492,7 @@ const ProductPage: React.FC<ProductPageProps> = ({}) => {
           <SimilarProduct />
           <Details />
           <ProductDescription />
+          <CustomerReview />
         </Container>
       </div>
     </CommonLayout>

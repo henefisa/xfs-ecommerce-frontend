@@ -161,4 +161,11 @@
       @apply text-xl font-medium tracking-wide mb-4;
     }
   }
+
+  .customer-review {
+    @apply bg-white mt-4 rounded-sm p-4;
+    &__title {
+      @apply text-xl font-medium tracking-wide mb-4;
+    }
+  }
 }
