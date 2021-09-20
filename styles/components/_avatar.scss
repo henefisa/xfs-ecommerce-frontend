@@ -1,0 +1,11 @@
+.avatar {
+  @apply w-16 h-16 rounded-full relative overflow-hidden;
+
+  &--small {
+    @apply w-12 h-12;
+  }
+
+  &--large {
+    @apply w-20 h-20;
+  }
+}

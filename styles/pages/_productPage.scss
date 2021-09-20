@@ -147,7 +147,7 @@
         td {
           @apply px-4 py-2.5;
           &:first-child {
-            width: 220px;
+            width: 150px;
             @apply bg-gray-200 border-r border-gray-300;
           }
         }
@@ -166,6 +166,96 @@
     @apply bg-white mt-4 rounded-sm p-4;
     &__title {
       @apply text-xl font-medium tracking-wide mb-4;
+    }
+
+    &__top {
+      @apply pb-6;
+    }
+
+    .review-rating {
+      @apply flex flex-col items-center;
+    }
+
+    .review-images {
+      &__title {
+        @apply text-lg font-medium mb-2;
+      }
+
+      &__item {
+        @apply w-32 h-32 rounded-md mr-4 relative overflow-hidden;
+      }
+
+      .swiper-slide {
+        @apply w-auto;
+      }
+    }
+
+    .review-comment {
+      @apply py-6 border-t border-gray-300;
+
+      &__user {
+        @apply md:pl-4;
+
+        &-inner {
+          @apply flex items-center;
+        }
+
+        &-avatar {
+          @apply mr-2;
+        }
+
+        &-name {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          @apply text-sm font-medium capitalize overflow-ellipsis overflow-hidden;
+        }
+
+        &-date {
+          @apply text-xs text-gray-400;
+        }
+
+        &-info {
+          @apply flex items-center text-xs text-gray-400 mt-3;
+          & > svg {
+            @apply mr-2;
+          }
+
+          & > span {
+            @apply ml-1 text-gray-600;
+          }
+        }
+      }
+
+      &__content-wrap {
+        .stars {
+          @apply mb-2 text-sm;
+        }
+      }
+
+      &__content {
+        @apply text-sm mb-2;
+      }
+
+      &__images {
+        @apply flex items-center overflow-x-auto space-x-4;
+      }
+
+      &__image {
+        @apply w-36 h-36 rounded-md relative flex-shrink-0 overflow-hidden;
+      }
+
+      &__created-date {
+        @apply text-xs mb-4 mt-2 text-gray-500;
+      }
+
+      &__attributes {
+        @apply flex items-center space-x-2;
+      }
+
+      &__thank {
+        @apply px-6 font-medium;
+      }
     }
   }
 }
