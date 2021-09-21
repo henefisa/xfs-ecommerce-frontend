@@ -1,0 +1,17 @@
+.pagination {
+  @apply flex items-center space-x-1.5 select-none;
+  &__item {
+    @apply text-center rounded font-medium text-sm flex items-center justify-center cursor-pointer w-8 h-8 bg-white transition-colors duration-300;
+    &:not(&.pagination__item--disabled) {
+      @apply hover:bg-blue-500 hover:text-white;
+    }
+
+    &.pagination__item--active {
+      @apply bg-blue-500 text-white;
+    }
+
+    &.pagination__item--disabled {
+      @apply opacity-50 cursor-not-allowed;
+    }
+  }
+}
