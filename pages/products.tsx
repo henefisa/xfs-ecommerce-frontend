@@ -1,4 +1,5 @@
-import React from "react";
+import clsx from "clsx";
+import React, { useState } from "react";
 
 // components
 import Card from "../components/Card/Card";
@@ -11,7 +12,29 @@ import CommonLayout from "../layouts/CommonLayout";
 
 interface ProductsProps {}
 
+const SortBy = ["Popular", "Newest", "Bestseller", "Low Price", "High Price"];
+const Categories = [
+  "Fashion",
+  "Bikes",
+  "Accessories",
+  "Smartphone",
+  "Electric",
+  "Toys",
+  "Pets",
+];
+
 const Products: React.FC<ProductsProps> = ({}) => {
+  const [activeCategory, setActiveCategory] = useState(0);
+  const [sortBy, setSortBy] = useState(0);
+
+  const handleChangeSortBy = (idx: number) => {
+    setSortBy(idx);
+  };
+
+  const handleChangeCategory = (category: number) => {
+    setActiveCategory(category);
+  };
+
   return (
     <CommonLayout>
       <div className="products-page">
@@ -21,27 +44,29 @@ const Products: React.FC<ProductsProps> = ({}) => {
               <Card>
                 <div className="filter-panel">
                   <div className="category-list">
-                    <div className="category-list__header">All Categories</div>
+                    <div
+                      className={clsx(
+                        "category-list__header",
+                        0 === activeCategory && "active"
+                      )}
+                      onClick={() => handleChangeCategory(0)}
+                    >
+                      All Categories
+                    </div>
                     <div className="category-list__body">
                       <ul className="category-list__categories">
-                        <li className="category-list__category">
-                          Sample category
-                        </li>
-                        <li className="category-list__category">
-                          Sample category
-                        </li>
-                        <li className="category-list__category">
-                          Sample category
-                        </li>
-                        <li className="category-list__category">
-                          Sample category
-                        </li>
-                        <li className="category-list__category">
-                          Sample category
-                        </li>
-                        <li className="category-list__category">
-                          Sample category
-                        </li>
+                        {Categories.map((category, idx) => (
+                          <li
+                            className={clsx(
+                              "category-list__category",
+                              idx + 1 === activeCategory && "active"
+                            )}
+                            key={idx}
+                            onClick={() => handleChangeCategory(idx + 1)}
+                          >
+                            {category}
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   </div>
@@ -53,11 +78,18 @@ const Products: React.FC<ProductsProps> = ({}) => {
                 <div className="sort-bar">
                   <span className="sort-bar__label">Sort by</span>
                   <div className="sort-bar__sort-options">
-                    <div className="sort-bar__sort-option active">Popular</div>
-                    <div className="sort-bar__sort-option">Newest</div>
-                    <div className="sort-bar__sort-option">Bestseller</div>
-                    <div className="sort-bar__sort-option">Low Price</div>
-                    <div className="sort-bar__sort-option">High Price</div>
+                    {SortBy.map((type, idx) => (
+                      <div
+                        className={clsx(
+                          "sort-bar__sort-option",
+                          idx === sortBy && "active"
+                        )}
+                        key={idx}
+                        onClick={() => handleChangeSortBy(idx)}
+                      >
+                        {type}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </Card>
@@ -73,7 +105,9 @@ const Products: React.FC<ProductsProps> = ({}) => {
                       </Col>
                     ))}
                   </Row>
-                  <Pagination current={1} total={100} pageSize={10} />
+                  <Row className="products-pagination" justify="end">
+                    <Pagination current={1} total={100} pageSize={10} />
+                  </Row>
                 </div>
               </Card>
             </Col>

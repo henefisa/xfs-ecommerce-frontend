@@ -5,7 +5,7 @@
   .filter-panel {
     .category-list {
       &__header {
-        @apply pb-2 border-b border-gray-300 text-base font-medium;
+        @apply pb-2 border-b border-gray-300 text-base cursor-pointer transition duration-300;
       }
 
       &__body {
@@ -17,6 +17,14 @@
       }
 
       &__category {
+        cursor: pointer;
+      }
+
+      &__header,
+      &__category {
+        &.active {
+          @apply font-medium;
+        }
       }
     }
   }
@@ -34,10 +42,14 @@
     }
 
     &__sort-option {
-      @apply px-4 py-2 rounded-sm mr-3 bg-gray-300 cursor-pointer transition-colors duration-300 hover:bg-blue-500 hover:text-white;
+      @apply px-4 py-2 rounded-sm mr-3 bg-gray-300 cursor-pointer transition-colors duration-300 select-none hover:bg-blue-500 hover:text-white;
       &.active {
         @apply bg-blue-500 text-white;
       }
     }
+  }
+
+  .products-pagination {
+    @apply mt-4;
   }
 }

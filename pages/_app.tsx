@@ -15,6 +15,9 @@ import "swiper/components/navigation/navigation.scss";
 import "../styles/global.scss";
 import "tailwindcss/tailwind.css";
 
+// font
+import "typeface-roboto";
+
 config.autoAddCss = false;
 
 SwiperCore.use([Pagination, Navigation, Autoplay]);
