@@ -1,0 +1,112 @@
+.drawer {
+  z-index: 1000;
+  transition: width 0s ease 0.3s;
+  @apply fixed inset-0 w-0;
+
+  &__content-wrapper {
+    @apply bg-white shadow-sm fixed transform transition duration-300;
+  }
+
+  &__content {
+    z-index: 9999;
+    @apply relative bg-white;
+  }
+
+  &__toggle {
+    box-shadow: 2px 0 8px rgb(0 0 0 / 15%);
+    z-index: 9998;
+    @apply absolute w-10 h-10 bg-white flex items-center justify-center cursor-pointer;
+    .bars__line {
+      @apply bg-gray-600;
+    }
+  }
+
+  &__mask {
+    background-color: rgba($color: #000000, $alpha: 0.3);
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+  }
+
+  &--left,
+  &--right {
+    .drawer__content-wrapper {
+      @apply w-80 h-full;
+    }
+
+    .drawer__content {
+      @apply h-full;
+    }
+  }
+
+  &--top,
+  &--bottom {
+    .drawer__content-wrapper {
+      @apply h-64 w-full;
+    }
+
+    .drawer__content {
+      @apply w-full;
+    }
+  }
+
+  &--left {
+    .drawer__toggle {
+      @apply top-20 -right-10 rounded-r;
+    }
+
+    .drawer__content-wrapper {
+      @apply -translate-x-full left-0 top-0;
+    }
+  }
+
+  &--right {
+    .drawer__toggle {
+      @apply top-20 -left-10 rounded-l;
+    }
+
+    .drawer__content-wrapper {
+      @apply translate-x-full right-0 top-0;
+    }
+  }
+
+  &--top {
+    .drawer__toggle {
+      @apply left-1/2 -bottom-10 transform -translate-x-1/2;
+    }
+
+    .drawer__content-wrapper {
+      @apply -translate-y-full top-0 left-0;
+    }
+  }
+
+  &--bottom {
+    .drawer__toggle {
+      @apply left-1/2 -top-10 transform -translate-x-1/2;
+    }
+
+    .drawer__content-wrapper {
+      @apply translate-y-full bottom-0 left-0;
+    }
+  }
+
+  &--open {
+    transition-delay: 0s;
+    @apply w-full opacity-100;
+
+    &.drawer--left,
+    &.drawer--right {
+      .drawer__content-wrapper {
+        @apply translate-x-0;
+      }
+    }
+
+    &.drawer--top,
+    &.drawer--bottom {
+      .drawer__content-wrapper {
+        @apply translate-y-0;
+      }
+    }
+    .drawer__mask {
+      @apply opacity-100;
+    }
+  }
+}
