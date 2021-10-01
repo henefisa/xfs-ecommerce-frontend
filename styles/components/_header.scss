@@ -17,14 +17,6 @@
           @apply w-5 h-5;
         }
       }
-
-      .name {
-        @apply capitalize font-medium tracking-wide;
-      }
-
-      &.account {
-        @apply hidden md:flex;
-      }
     }
   }
 
@@ -34,17 +26,6 @@
 
   .header__logo {
     @apply text-xl text-white uppercase tracking-widest font-bold cursor-pointer transition-all duration-300 ease-out sm:text-3xl md:text-3xl;
-  }
-
-  .header__left {
-    @apply md:hidden;
-    .header__toggle .bars .bars__line {
-      @apply bg-white;
-    }
-  }
-
-  .header__center {
-    @apply flex items-center;
   }
 
   .navbar {
@@ -59,30 +40,9 @@
         }
       }
     }
+  }
 
-    &--sticky {
-      @apply py-4;
-    }
-
-    &--mobile {
-      @apply bg-blue-500 fixed px-4 top-16 left-0 bottom-0 right-0 transform-gpu transition duration-300 opacity-0 -translate-x-full z-10 text-white overflow-y-auto h-full block md:hidden;
-      &.active {
-        @apply opacity-100 translate-x-0;
-      }
-      .navbar__tabs {
-        background-color: inherit;
-        @apply flex items-center top-0 left-0 w-full pt-2 mb-2;
-        &-item {
-          @apply w-1/3 text-center font-medium px-1 py-2 transition-colors duration-300 whitespace-nowrap cursor-pointer rounded;
-          &.active {
-            @apply bg-white text-gray-600;
-          }
-        }
-      }
-
-      .navbar__menu {
-        @apply divide-y divide-gray-100;
-      }
-    }
+  .mobile-navbar {
+    @apply md:hidden;
   }
 }

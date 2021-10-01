@@ -1,5 +1,5 @@
 .menu {
-  @apply bg-white outline-none;
+  @apply bg-white outline-none h-full overflow-auto;
 
   &__item {
     @apply p-3 cursor-pointer text-gray-500 transition-colors duration-300 hover:text-blue-600 hover:bg-gray-200;
