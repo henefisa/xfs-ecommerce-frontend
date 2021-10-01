@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
+import { debounce } from "../../utils/debounce";
 
 // components
 import Toggle from "../Toggle/Toggle";
@@ -56,6 +57,27 @@ const Drawer: React.FC<DrawerProps> = ({
       document.body.classList.remove("overflow-hidden");
     }
   }, [isOpen, open]);
+
+  useEffect(() => {
+    const resize = () => {
+      if (!contentWrapRef.current) return;
+      const width = contentWrapRef.current.offsetWidth;
+      if (window.innerWidth <= width) {
+        contentWrapRef.current.style.width = window.innerWidth - 40 + "px";
+      } else {
+        contentWrapRef.current.style.width = "";
+      }
+    };
+
+    resize();
+
+    const debouncedResize = debounce(resize, 300);
+    window.addEventListener("resize", debouncedResize, false);
+
+    return () => {
+      window.removeEventListener("resize", debouncedResize, false);
+    };
+  }, []);
 
   if (portal) {
     return root
