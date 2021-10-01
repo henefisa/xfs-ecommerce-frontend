@@ -2,13 +2,47 @@
   @apply bg-white outline-none;
 
   &__item {
-    @apply p-3 cursor-pointer font-medium text-gray-500 transition-colors duration-300 hover:text-gray-600 hover:bg-gray-200;
-    &.active {
-      @apply text-white bg-gray-600;
-    }
+    @apply p-3 cursor-pointer text-gray-500 transition-colors duration-300 hover:text-blue-600 hover:bg-gray-200;
 
     &-icon {
       @apply mr-2;
+    }
+  }
+
+  &__sub-menu {
+    @apply w-full relative;
+    &-title {
+      @apply p-3 flex items-center justify-between cursor-pointer text-gray-500 transition-colors duration-300 hover:text-blue-600 hover:bg-gray-200;
+      .icon {
+        @apply transition-transform duration-300;
+      }
+    }
+
+    &-list {
+      transition-property: max-height, opacity, visibility;
+      @apply max-h-0 w-full overflow-hidden opacity-0 invisible bg-white z-10 duration-300 ease-in-out;
+      .menu__item {
+        @apply pl-6;
+      }
+
+      &--float {
+        box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014,
+          0 9px 28px 8px #0000000d;
+        .menu__item {
+          @apply p-3;
+        }
+      }
+    }
+
+    &--open {
+      .menu__sub-menu-title .icon {
+        @apply transform rotate-180;
+      }
+
+      .menu__sub-menu-list {
+        max-height: 40rem;
+        @apply opacity-100 visible;
+      }
     }
   }
 

@@ -5,37 +5,26 @@ import clsx from "clsx";
 import MenuContext from "../../contexts/MenuContext";
 
 export interface MenuItemProps {
-  id: string;
   children: React.ReactNode;
   className?: string;
-  onClick?: (id: string) => void;
+  onClick?: () => void;
   icon?: React.ReactNode;
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({
   children,
   className,
-  id,
   icon,
   onClick,
 }) => {
   const { currentActive, changeActive } = useContext(MenuContext);
 
   const handleClick = () => {
-    onClick?.(id);
-    changeActive?.(id);
+    onClick?.();
   };
 
   return (
-    <li
-      data-id={id}
-      className={clsx(
-        "menu__item",
-        currentActive === id && "active",
-        className
-      )}
-      onClick={handleClick}
-    >
+    <li className={clsx("menu__item", className)} onClick={handleClick}>
       {icon && <span className="menu__item-icon">{icon}</span>}
       <span className="menu__item-label">{children}</span>
     </li>

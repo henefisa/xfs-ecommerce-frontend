@@ -19,6 +19,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // utils
 import { currencyFormat } from "../utils/currencyFormat";
 import Drawer from "../components/Drawer/Drawer";
+import { Menu, MenuItem, SubMenu } from "../components/Menu";
 
 interface CartProps {}
 
@@ -70,7 +71,6 @@ const Cart: React.FC<CartProps> = ({}) => {
   return (
     <CommonLayout>
       <div className="cart-page">
-        <Drawer handler position="bottom">Sample drawer content</Drawer>
         <Container>
           <div className="cart">
             {!products.length ? (
