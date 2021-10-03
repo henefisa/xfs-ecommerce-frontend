@@ -233,6 +233,17 @@ const SellerWrap: React.FC<SellerWrapProps> = ({
             prevEl: prevEl.current,
           }}
           breakpoints={breakpoints}
+          onInit={(swiper) => {
+            if (
+              typeof swiper.params.navigation !== "boolean" &&
+              swiper.params.navigation
+            ) {
+              swiper.params.navigation.prevEl = prevEl.current;
+              swiper.params.navigation.nextEl = nextEl.current;
+              swiper.navigation.init();
+              swiper.navigation.update();
+            }
+          }}
         >
           <SwiperSlide>
             <Service
@@ -403,18 +414,32 @@ const SimilarProduct: React.FC = () => {
           slidesPerView={1}
           spaceBetween={16}
           breakpoints={{
-            640: { slidesPerView: 3 },
-            1024: { slidesPerView: 4 },
+            640: { slidesPerView: 3, autoplay: false },
+            1024: {
+              slidesPerView: 4,
+              autoplay: {
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+                delay: 2000,
+              },
+            },
             1536: { slidesPerView: 5 },
           }}
-          autoplay={{
-            delay: 2000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          }}
           navigation={{
-            nextEl: nextEl.current,
             prevEl: prevEl.current,
+            nextEl: nextEl.current,
+          }}
+          loop
+          onInit={(swiper) => {
+            if (
+              typeof swiper.params.navigation !== "boolean" &&
+              swiper.params.navigation
+            ) {
+              swiper.params.navigation.prevEl = prevEl.current;
+              swiper.params.navigation.nextEl = nextEl.current;
+              swiper.navigation.init();
+              swiper.navigation.update();
+            }
           }}
         >
           <SwiperSlide>
