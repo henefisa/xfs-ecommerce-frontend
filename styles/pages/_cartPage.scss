@@ -1,7 +1,7 @@
 .cart-page {
+  min-height: inherit;
+  @apply bg-gray-100 py-6;
   .cart {
-    @apply py-4;
-
     &__title {
       @apply mb-4 font-semibold text-2xl;
     }
@@ -80,9 +80,9 @@
     }
 
     .summary {
-      @apply w-full border border-gray-300 p-4 rounded;
+      @apply w-full p-4;
       &__title {
-        @apply text-base font-semibold mb-4;
+        @apply mb-4 font-semibold text-2xl;
       }
 
       &__price {

@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import Link from "next/link";
 import clsx from "clsx";
 
 // components
@@ -464,9 +465,13 @@ const TopRatedProducts = () => {
       className="products"
       title="Top Rated Products"
       extra={
-        <Button type="outline" color="primary">
-          More product
-        </Button>
+        <Link href="/products">
+          <a>
+            <Button type="link" color="primary">
+              More product
+            </Button>
+          </a>
+        </Link>
       }
     >
       <div className="products__wrap">

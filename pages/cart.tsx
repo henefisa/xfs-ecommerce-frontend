@@ -20,6 +20,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { currencyFormat } from "../utils/currencyFormat";
 import Drawer from "../components/Drawer/Drawer";
 import { Menu, MenuItem, SubMenu } from "../components/Menu";
+import Card from "../components/Card/Card";
 
 interface CartProps {}
 
@@ -74,7 +75,7 @@ const Cart: React.FC<CartProps> = ({}) => {
         <Container>
           <div className="cart">
             {!products.length ? (
-              <div className="cart__empty">
+              <Card className="cart__empty">
                 <h5>Your cart is empty</h5>
                 <Button>
                   <Link href="/">Continue shopping</Link>
@@ -88,80 +89,84 @@ const Cart: React.FC<CartProps> = ({}) => {
                     objectFit="cover"
                   />
                 </div>
-              </div>
+              </Card>
             ) : (
               <>
-                <h4 className="cart__title">Your Cart</h4>
                 <Row gutter={[32, 16]}>
                   <Col span={12} md={7} lg={8}>
-                    <div className="products">
-                      <table className="products-table">
-                        <thead>
-                          <tr>
-                            <th className="products-table__product">Product</th>
-                            <th className="products-table__price">Price</th>
-                            <th className="products-table__quantity">
-                              Quantity
-                            </th>
-                            <th className="products-table__subtotal">
-                              Subtotal
-                            </th>
-                            <th className="products-table__delete">
-                              <Button
-                                type="link"
-                                color="error"
-                                onClick={handleDeleteAll}
-                              >
-                                <FontAwesomeIcon icon={faTrash} />
-                              </Button>
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {products.map((product, idx) => (
-                            <tr key={idx}>
-                              <td className="products-table__product">
-                                <Product
-                                  direction="horizontal"
-                                  showPrice={false}
-                                />
-                              </td>
-                              <td className="products-table__price">
-                                {currencyFormat.format(product.price)}
-                              </td>
-                              <td className="products-table__quantity">
-                                <InputNumber
-                                  min={1}
-                                  max={99}
-                                  value={product.quantity}
-                                  onChange={(value: number) =>
-                                    handleQuantityChange(value, idx)
-                                  }
-                                />
-                              </td>
-                              <td className="products-table__subtotal">
-                                {currencyFormat.format(
-                                  product.price * product.quantity
-                                )}
-                              </td>
-                              <td className="products-table__delete">
+                    <Card>
+                      <h4 className="cart__title">Your Cart</h4>
+                      <div className="products">
+                        <table className="products-table">
+                          <thead>
+                            <tr>
+                              <th className="products-table__product">
+                                Product
+                              </th>
+                              <th className="products-table__price">Price</th>
+                              <th className="products-table__quantity">
+                                Quantity
+                              </th>
+                              <th className="products-table__subtotal">
+                                Subtotal
+                              </th>
+                              <th className="products-table__delete">
                                 <Button
                                   type="link"
                                   color="error"
-                                  onClick={() => handleDelete(idx)}
+                                  onClick={handleDeleteAll}
                                 >
                                   <FontAwesomeIcon icon={faTrash} />
                                 </Button>
-                              </td>
+                              </th>
                             </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
+                          </thead>
+                          <tbody>
+                            {products.map((product, idx) => (
+                              <tr key={idx}>
+                                <td className="products-table__product">
+                                  <Product
+                                    direction="horizontal"
+                                    showPrice={false}
+                                  />
+                                </td>
+                                <td className="products-table__price">
+                                  {currencyFormat.format(product.price)}
+                                </td>
+                                <td className="products-table__quantity">
+                                  <InputNumber
+                                    min={1}
+                                    max={99}
+                                    value={product.quantity}
+                                    onChange={(value: number) =>
+                                      handleQuantityChange(value, idx)
+                                    }
+                                  />
+                                </td>
+                                <td className="products-table__subtotal">
+                                  {currencyFormat.format(
+                                    product.price * product.quantity
+                                  )}
+                                </td>
+                                <td className="products-table__delete">
+                                  <Button
+                                    type="link"
+                                    color="error"
+                                    onClick={() => handleDelete(idx)}
+                                  >
+                                    <FontAwesomeIcon icon={faTrash} />
+                                  </Button>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </Card>
                   </Col>
                   <Col span={12} md={5} lg={4}>
-                    <div className="summary">
-                      <h4 className="summary__title">Cart totals</h4>
+                    <Card className="summary">
+                      <h4 className="summary__title">Summary</h4>
                       <div className="summary__subtotal summary__price">
                         <span>Subtotal</span>
                         <span>{currencyFormat.format(subTotal)}</span>
@@ -175,14 +180,18 @@ const Cart: React.FC<CartProps> = ({}) => {
                         <span>Total</span>
                         <span>{currencyFormat.format(subTotal + 30000)}</span>
                       </div>
-                      <Button type="solid" className="summary__button">
-                        <span>Proceed to checkout</span>
-                        <FontAwesomeIcon
-                          icon={faArrowRight}
-                          className="summary__button-icon"
-                        />
-                      </Button>
-                    </div>
+                      <Link href="/checkout">
+                        <a>
+                          <Button type="solid" className="summary__button">
+                            <span>Proceed to checkout</span>
+                            <FontAwesomeIcon
+                              icon={faArrowRight}
+                              className="summary__button-icon"
+                            />
+                          </Button>
+                        </a>
+                      </Link>
+                    </Card>
                   </Col>
                 </Row>
               </>
