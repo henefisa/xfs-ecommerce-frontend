@@ -4,12 +4,13 @@
 
   .filter-panel {
     .category-list {
+      @apply -mx-2;
       &__header {
-        @apply pb-2 border-b border-gray-300 text-base cursor-pointer transition duration-300;
+        @apply p-2 text-base cursor-pointer transition duration-300;
       }
 
       &__body {
-        @apply py-2 text-sm;
+        @apply text-sm;
       }
 
       &__categories {
@@ -17,14 +18,18 @@
       }
 
       &__category {
-        cursor: pointer;
+        @apply cursor-pointer p-2 transition-colors duration-300 hover:text-blue-600 hover:bg-gray-200;
       }
 
       &__header,
       &__category {
         &.active {
-          @apply font-medium;
+          @apply text-blue-500 bg-gray-200 font-medium;
         }
+      }
+
+      .divider {
+        @apply my-1;
       }
     }
   }

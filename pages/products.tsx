@@ -9,6 +9,7 @@ import Pagination from "../components/Pagination/Pagination";
 import Product from "../components/Product/Product";
 import Row from "../components/Row/Row";
 import CommonLayout from "../layouts/CommonLayout";
+import Divider from "../components/Divider/Divider";
 
 interface ProductsProps {}
 
@@ -53,6 +54,7 @@ const Products: React.FC<ProductsProps> = ({}) => {
                     >
                       All Categories
                     </div>
+                    <Divider />
                     <div className="category-list__body">
                       <ul className="category-list__categories">
                         {Categories.map((category, idx) => (
