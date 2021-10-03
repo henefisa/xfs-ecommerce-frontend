@@ -1,8 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import clsx from "clsx";
-
-// context
-import MenuContext from "../../contexts/MenuContext";
 
 export interface MenuItemProps {
   children: React.ReactNode;
@@ -17,8 +14,6 @@ const MenuItem: React.FC<MenuItemProps> = ({
   icon,
   onClick,
 }) => {
-  const { currentActive, changeActive } = useContext(MenuContext);
-
   const handleClick = () => {
     onClick?.();
   };

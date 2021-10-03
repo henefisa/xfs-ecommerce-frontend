@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import Link from "next/link";
 
 // icons
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // components
@@ -12,6 +12,7 @@ import Badge from "../Badge/Badge";
 import Row from "../Row/Row";
 import Drawer from "../Drawer/Drawer";
 import Input from "../Input/Input";
+import Dropdown from "../Dropdown/Dropdown";
 
 const MobileNavbar = () => {
   return (
@@ -100,6 +101,30 @@ const Header: React.FC = () => {
                     </Badge>
                   </a>
                 </Link>
+              </div>
+              <div className="user__item">
+                <Dropdown
+                  overlay={
+                    <Menu>
+                      <MenuItem>
+                        <Link href="/account/me">
+                          <a>Your account</a>
+                        </Link>
+                      </MenuItem>
+                      <MenuItem>
+                        <Link href="/account/settings">
+                          <a>Settings</a>
+                        </Link>
+                      </MenuItem>
+                      <MenuItem>Logout</MenuItem>
+                    </Menu>
+                  }
+                  onClickOverlay={() => true}
+                  overlayWidth={200}
+                  triggers="click"
+                >
+                  <FontAwesomeIcon icon={faUser} />
+                </Dropdown>
               </div>
             </div>
           </div>
