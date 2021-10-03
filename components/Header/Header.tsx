@@ -24,6 +24,7 @@ const MobileNavbar = () => {
           <MenuItem>Sample</MenuItem>
           <SubMenu title="Categoires">
             {[
+              "All Categories",
               "Fashion",
               "Bikes",
               "Accessories",
@@ -36,8 +37,16 @@ const MobileNavbar = () => {
             ))}
           </SubMenu>
           <SubMenu title="Account">
-            <MenuItem>Your account</MenuItem>
-            <MenuItem>Settings</MenuItem>
+            <MenuItem>
+              <Link href="/account/me">
+                <a>Your account</a>
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link href="/account/settings">
+                <a>Settings</a>
+              </Link>
+            </MenuItem>
             <MenuItem>Logout</MenuItem>
           </SubMenu>
         </Menu>
@@ -63,6 +72,7 @@ const Header: React.FC = () => {
               <Menu mode="vertical" className="navbar__menu">
                 <SubMenu title="Categories" portal overlayWidth={300}>
                   {[
+                    "All Categories",
                     "Fashion",
                     "Bikes",
                     "Accessories",

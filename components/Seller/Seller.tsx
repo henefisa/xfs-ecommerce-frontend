@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import clsx from "clsx";
+import Link from "next/link";
 
 // componenets
 import Image from "next/image";
 import Rating from "../Rating/Rating";
-import clsx from "clsx";
 
 interface SellerProps {
   name: string;
@@ -12,6 +13,7 @@ interface SellerProps {
   products: string[];
   hoverable?: boolean;
   bordered?: boolean;
+  stats?: boolean;
   direction?: "vertical" | "horizontal";
 }
 
@@ -22,6 +24,7 @@ const Seller: React.FC<SellerProps> = ({
   products,
   hoverable,
   bordered,
+  stats,
   direction = "horizontal",
 }) => {
   return (
@@ -48,26 +51,32 @@ const Seller: React.FC<SellerProps> = ({
           <Rating value={rating} size="small" />
         </div>
       </div>
-      <div className="seller__stats">
-        <div className="seller__stats-item">
-          <div className="title">111</div>
-          <div className="sub-title">Follower</div>
+      {stats && (
+        <div className="seller__stats">
+          <div className="seller__stats-item">
+            <div className="title">111</div>
+            <div className="sub-title">Follower</div>
+          </div>
+          <div className="seller__stats-item">
+            <div className="title">100%</div>
+            <div className="sub-title">Chat Response</div>
+          </div>
         </div>
-        <div className="seller__stats-item">
-          <div className="title">100%</div>
-          <div className="sub-title">Chat Response</div>
-        </div>
-      </div>
+      )}
       <div className="seller__products">
         {products.map((product, idx) => (
           <div className="seller__product" key={idx}>
-            <Image
-              layout="fill"
-              src={product}
-              objectFit="contain"
-              objectPosition="center"
-              alt={product}
-            />
+            <Link href="/product/sample_product_id">
+              <a>
+                <Image
+                  layout="fill"
+                  src={product}
+                  objectFit="contain"
+                  objectPosition="center"
+                  alt={product}
+                />
+              </a>
+            </Link>
           </div>
         ))}
       </div>

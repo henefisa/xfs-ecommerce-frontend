@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import clsx from "clsx";
 
 // components
@@ -19,6 +19,8 @@ import Countdown from "../components/Countdown/Countdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBriefcase,
+  faChevronLeft,
+  faChevronRight,
   faComments,
   faMoneyCheckAlt,
   faShippingFast,
@@ -32,6 +34,14 @@ const Introduction = () => {
     swiper?.slideTo(idx);
   };
 
+  const handleNextSlide = () => {
+    swiper?.slideNext();
+  };
+
+  const handlePrevSlide = () => {
+    swiper?.slidePrev();
+  };
+
   return (
     <section className="introduction">
       <Swiper
@@ -41,6 +51,12 @@ const Introduction = () => {
           setActiveSlide(swiper.activeIndex);
         }}
       >
+        <div className="navigation navigation--next" onClick={handleNextSlide}>
+          <FontAwesomeIcon icon={faChevronRight} />
+        </div>
+        <div className="navigation navigation--prev" onClick={handlePrevSlide}>
+          <FontAwesomeIcon icon={faChevronLeft} />
+        </div>
         <SwiperSlide>
           <div
             className="introduction__banner"
@@ -159,8 +175,17 @@ const Introduction = () => {
 };
 
 const Services = () => {
+  const nextEl = useRef<HTMLDivElement | null>(null);
+  const prevEl = useRef<HTMLDivElement | null>(null);
+
   return (
     <Section className="services">
+      <div className="navigation navigation--next" ref={nextEl}>
+        <FontAwesomeIcon icon={faChevronRight} />
+      </div>
+      <div className="navigation navigation--prev" ref={prevEl}>
+        <FontAwesomeIcon icon={faChevronLeft} />
+      </div>
       <Swiper
         slidesPerView={1}
         spaceBetween={16}
@@ -168,6 +193,21 @@ const Services = () => {
           640: { slidesPerView: 2 },
           1024: { slidesPerView: 3 },
           1536: { slidesPerView: 4 },
+        }}
+        navigation={{
+          nextEl: nextEl.current,
+          prevEl: prevEl.current,
+        }}
+        onInit={(swiper) => {
+          if (
+            swiper.params.navigation &&
+            typeof swiper.params.navigation !== "boolean"
+          ) {
+            swiper.params.navigation.nextEl = nextEl.current;
+            swiper.params.navigation.prevEl = prevEl.current;
+            swiper.init();
+            swiper.update();
+          }
         }}
       >
         <SwiperSlide>
@@ -240,8 +280,11 @@ const TopBanners = () => {
 };
 
 const TopSellers = () => {
+  const nextEl = useRef<HTMLDivElement | null>(null);
+  const prevEl = useRef<HTMLDivElement | null>(null);
+
   return (
-    <Section className="top-vendors" title="Top Weekly Sellers">
+    <Section className="top-sellers" title="Top Weekly Sellers">
       <Swiper
         slidesPerView={1}
         spaceBetween={16}
@@ -250,9 +293,32 @@ const TopSellers = () => {
           1024: { slidesPerView: 3 },
           1536: { slidesPerView: 4 },
         }}
+        navigation={{
+          nextEl: nextEl.current,
+          prevEl: prevEl.current,
+        }}
+        onInit={(swiper) => {
+          if (
+            swiper.params.navigation &&
+            typeof swiper.params.navigation !== "boolean"
+          ) {
+            swiper.params.navigation.nextEl = nextEl.current;
+            swiper.params.navigation.prevEl = prevEl.current;
+            swiper.init();
+            swiper.update();
+          }
+        }}
       >
+        <div className="navigation navigation--next" ref={nextEl}>
+          <FontAwesomeIcon icon={faChevronRight} />
+        </div>
+        <div className="navigation navigation--prev" ref={prevEl}>
+          <FontAwesomeIcon icon={faChevronLeft} />
+        </div>
         <SwiperSlide>
           <Seller
+            bordered
+            hoverable
             name="Sample"
             rating={4}
             logo="/vendor-1.jpg"
@@ -261,6 +327,8 @@ const TopSellers = () => {
         </SwiperSlide>
         <SwiperSlide>
           <Seller
+            bordered
+            hoverable
             name="Sample"
             rating={4}
             logo="/vendor-2.jpg"
@@ -269,6 +337,8 @@ const TopSellers = () => {
         </SwiperSlide>
         <SwiperSlide>
           <Seller
+            bordered
+            hoverable
             name="Sample"
             rating={4}
             logo="/vendor-3.jpg"
@@ -277,6 +347,8 @@ const TopSellers = () => {
         </SwiperSlide>
         <SwiperSlide>
           <Seller
+            bordered
+            hoverable
             name="Sample"
             rating={4}
             logo="/vendor-4.jpg"
@@ -285,6 +357,8 @@ const TopSellers = () => {
         </SwiperSlide>
         <SwiperSlide>
           <Seller
+            bordered
+            hoverable
             name="Sample"
             rating={4}
             logo="/slide-image-1.png"
@@ -297,6 +371,9 @@ const TopSellers = () => {
 };
 
 const Deals = () => {
+  const nextEl = useRef<HTMLDivElement | null>(null);
+  const prevEl = useRef<HTMLDivElement | null>(null);
+
   return (
     <Section
       className="deals"
@@ -313,7 +390,29 @@ const Deals = () => {
           1024: { slidesPerView: 4 },
           1536: { slidesPerView: 5 },
         }}
+        navigation={{
+          nextEl: nextEl.current,
+          prevEl: prevEl.current,
+        }}
+        onInit={(swiper) => {
+          if (
+            swiper.params.navigation &&
+            typeof swiper.params.navigation !== "boolean"
+          ) {
+            swiper.params.navigation.nextEl = nextEl.current;
+            swiper.params.navigation.prevEl = prevEl.current;
+            swiper.init();
+            swiper.update();
+          }
+        }}
       >
+        <div className="navigation navigation--next" ref={nextEl}>
+          <FontAwesomeIcon icon={faChevronRight} />
+        </div>
+        <div className="navigation navigation--prev" ref={prevEl}>
+          <FontAwesomeIcon icon={faChevronLeft} />
+        </div>
+
         <SwiperSlide>
           <Product image="/product-1.jpg" hoverable />
         </SwiperSlide>

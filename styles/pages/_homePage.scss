@@ -2,6 +2,17 @@
   .introduction {
     @apply relative mt-0;
     .carousel {
+      .navigation {
+        @apply absolute top-1/2 transform -translate-y-1/2 z-50 text-3xl cursor-pointer text-gray-400 transition-colors duration-300 hover:text-gray-600;
+        &--prev {
+          @apply left-10;
+        }
+
+        &--next {
+          @apply right-10;
+        }
+      }
+
       &__dots-custom {
         @apply absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10 flex items-center space-x-6;
         &-item {
@@ -51,7 +62,60 @@
   }
 
   .services {
-    @apply rounded border border-gray-300 p-4;
+    @apply rounded border border-gray-300 p-4 relative;
+
+    .navigation {
+      @apply absolute top-1/2 transform -translate-y-1/2 z-50 text-3xl cursor-pointer text-gray-500 transition-colors duration-300 hover:text-gray-600;
+      &.swiper-button-disabled {
+        @apply text-gray-300 cursor-not-allowed;
+      }
+
+      &--prev {
+        @apply left-10;
+      }
+
+      &--next {
+        @apply right-10;
+      }
+    }
+  }
+
+  .top-sellers {
+    @apply relative;
+
+    .navigation {
+      @apply absolute top-1/2 transform -translate-y-1/2 z-50 text-3xl cursor-pointer text-gray-400 transition-colors duration-300 hover:text-gray-600;
+      &.swiper-button-disabled {
+        @apply text-gray-300 cursor-not-allowed;
+      }
+
+      &--prev {
+        @apply left-2;
+      }
+
+      &--next {
+        @apply right-2;
+      }
+    }
+  }
+
+  .deals {
+    @apply relative;
+
+    .navigation {
+      @apply absolute top-1/2 transform -translate-y-1/2 z-50 text-3xl cursor-pointer text-gray-400 transition-colors duration-300 hover:text-gray-600;
+      &.swiper-button-disabled {
+        @apply text-gray-300 cursor-not-allowed;
+      }
+
+      &--prev {
+        @apply left-2;
+      }
+
+      &--next {
+        @apply right-2;
+      }
+    }
   }
 
   .top-banners {
