@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { VariationPlacement } from "@popperjs/core";
 import { usePopper } from "react-popper";
@@ -13,12 +13,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // contexts
 import MenuContext from "../../contexts/MenuContext";
 import Portal from "../Portal/Portal";
+import { debounce } from "../../utils/debounce";
 
 export interface SubMenuProps {
   children: React.ReactNode;
   portal?: boolean;
   title: string;
   overlayWidth?: number | string;
+  onHidden?: () => void;
 }
 
 const Placement = {
@@ -31,12 +33,14 @@ const SubMenu: React.FC<SubMenuProps> = ({
   title,
   portal,
   overlayWidth,
+  onHidden,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMount, setIsMount] = useState(false);
   const [root, setRoot] = useState<HTMLDivElement | null>(null);
   const [contentRef, setContentRef] = useState<HTMLDivElement | null>(null);
   const [overlayRef, setOverlayRef] = useState<HTMLUListElement | null>(null);
+  const subMenuRef = useRef<HTMLLIElement | null>(null);
 
   const { mode } = useContext(MenuContext);
 
@@ -103,8 +107,34 @@ const SubMenu: React.FC<SubMenuProps> = ({
     }
   }, [overlayRef, isMount]);
 
+  useEffect(() => {
+    const resize = () => {
+      setIsOpen((prevState) => {
+        if (!subMenuRef.current) return prevState;
+        if (
+          prevState &&
+          subMenuRef.current.getBoundingClientRect().width === 0
+        ) {
+          return false;
+        }
+        update?.();
+        return prevState;
+      });
+    };
+
+    const debouncedResize = debounce(resize, 300);
+
+    window.addEventListener("resize", debouncedResize, false);
+    return () => {
+      window.removeEventListener("resize", debouncedResize, false);
+    };
+  }, [update]);
+
   return (
-    <li className={clsx("menu__sub-menu", `menu__sub-menu--${mode}`)}>
+    <li
+      className={clsx("menu__sub-menu", `menu__sub-menu--${mode}`)}
+      ref={subMenuRef}
+    >
       <div
         className={clsx(
           "menu__sub-menu-title",

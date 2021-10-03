@@ -11,11 +11,15 @@ import { Menu, MenuItem, SubMenu } from "../Menu";
 import Badge from "../Badge/Badge";
 import Row from "../Row/Row";
 import Drawer from "../Drawer/Drawer";
+import Input from "../Input/Input";
 
 const MobileNavbar = () => {
   return (
     <nav className="mobile-navbar">
       <Drawer handler>
+        <div className="mobile-navbar__search-wrap">
+          <Input placeholder="Search" className="mobile-navbar__search" />
+        </div>
         <Menu>
           <MenuItem>Sample</MenuItem>
           <SubMenu title="Categoires">
@@ -56,7 +60,7 @@ const Header: React.FC = () => {
               </Link>
             </h1>
             <div className="navbar">
-              <Menu mode="vertical">
+              <Menu mode="vertical" className="navbar__menu">
                 <SubMenu title="Categories" portal overlayWidth={300}>
                   {[
                     "Fashion",
@@ -71,6 +75,7 @@ const Header: React.FC = () => {
                   ))}
                 </SubMenu>
               </Menu>
+              <Input placeholder="Search" className="navbar__search" />
             </div>
           </div>
           <div className="header__right">

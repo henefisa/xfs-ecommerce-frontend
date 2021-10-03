@@ -22,6 +22,31 @@
 
   .header__left {
     @apply flex items-center;
+    .navbar {
+      @apply ml-3 space-x-2 hidden md:flex md:items-center;
+
+      &__menu {
+        @apply flex-shrink-0 flex-grow bg-transparent;
+        .menu__sub-menu-title {
+          @apply text-white p-2 rounded hover:bg-white hover:text-blue-600 text-sm font-medium;
+          &--open {
+            @apply bg-white text-blue-600;
+          }
+        }
+      }
+
+      &__search {
+        border: none;
+        border-bottom: 1px solid white;
+        @apply focus:border-white;
+        input {
+          @apply bg-transparent text-white focus:ring-0;
+          &::placeholder {
+            @apply text-white;
+          }
+        }
+      }
+    }
   }
 
   .header__row {
@@ -34,5 +59,12 @@
 
   .mobile-navbar {
     @apply md:hidden;
+    &__search-wrap {
+      @apply px-2 py-4;
+    }
+
+    &__search{
+      @apply text-gray-600;
+    }
   }
 }
