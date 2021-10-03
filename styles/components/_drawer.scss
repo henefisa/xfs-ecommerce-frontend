@@ -9,7 +9,7 @@
 
   &__content {
     z-index: 9999;
-    @apply relative bg-white;
+    @apply relative bg-white overflow-auto;
   }
 
   &__toggle {
