@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import clsx from "clsx";
 import { VariationPlacement } from "@popperjs/core";
 import { usePopper } from "react-popper";
@@ -12,11 +12,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // contexts
 import MenuContext from "../../contexts/MenuContext";
+import Portal from "../Portal/Portal";
 
 export interface SubMenuProps {
   children: React.ReactNode;
-  float?: boolean;
+  portal?: boolean;
   title: string;
+  overlayWidth?: number | string;
 }
 
 const Placement = {
@@ -24,14 +26,21 @@ const Placement = {
   horizontal: "right-start",
 };
 
-const SubMenu: React.FC<SubMenuProps> = ({ children, title, float }) => {
+const SubMenu: React.FC<SubMenuProps> = ({
+  children,
+  title,
+  portal,
+  overlayWidth,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMount, setIsMount] = useState(false);
+  const [root, setRoot] = useState<HTMLDivElement | null>(null);
   const [contentRef, setContentRef] = useState<HTMLDivElement | null>(null);
   const [overlayRef, setOverlayRef] = useState<HTMLUListElement | null>(null);
 
   const { mode } = useContext(MenuContext);
 
-  const { styles, attributes } = usePopper(contentRef, overlayRef, {
+  const { styles, attributes, update } = usePopper(contentRef, overlayRef, {
     placement: Placement[mode] as VariationPlacement,
   });
 
@@ -39,16 +48,68 @@ const SubMenu: React.FC<SubMenuProps> = ({ children, title, float }) => {
     setIsOpen((prevState) => !prevState);
   };
 
-  return (
-    <li
+  const handleTransitionEnd = () => {
+    if (!isOpen) {
+      setIsMount(false);
+    }
+  };
+
+  const overlay = portal ? (
+    isMount ? (
+      <Portal root={root}>
+        <ul
+          className={clsx(
+            "menu__sub-menu-list",
+            portal && "menu__sub-menu-list--portal"
+          )}
+          ref={setOverlayRef}
+          {...attributes.popper}
+          style={{ ...styles.popper, width: overlayWidth }}
+          onClick={toggleOpen}
+          onTransitionEnd={handleTransitionEnd}
+        >
+          {children}
+        </ul>
+      </Portal>
+    ) : null
+  ) : (
+    <ul
       className={clsx(
-        "menu__sub-menu",
-        isOpen && "menu__sub-menu--open",
-        `menu__sub-menu--${mode}`
+        "menu__sub-menu-list",
+        isOpen && "menu__sub-menu-list--open"
       )}
     >
+      {children}
+    </ul>
+  );
+
+  useEffect(() => {
+    setRoot(document.getElementById("menu-root") as HTMLDivElement);
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) {
+      overlayRef?.classList.remove("menu__sub-menu-list--open");
+      return;
+    } else {
+      update?.();
+      setIsMount(true);
+    }
+  }, [isOpen, overlayRef, update]);
+
+  useEffect(() => {
+    if (isMount) {
+      overlayRef?.classList.add("menu__sub-menu-list--open");
+    }
+  }, [overlayRef, isMount]);
+
+  return (
+    <li className={clsx("menu__sub-menu", `menu__sub-menu--${mode}`)}>
       <div
-        className="menu__sub-menu-title"
+        className={clsx(
+          "menu__sub-menu-title",
+          isOpen && `menu__sub-menu-title--open`
+        )}
         ref={setContentRef}
         onClick={toggleOpen}
       >
@@ -59,22 +120,7 @@ const SubMenu: React.FC<SubMenuProps> = ({ children, title, float }) => {
           />
         </div>
       </div>
-      {float ? (
-        <ul
-          className={clsx(
-            "menu__sub-menu-list",
-            float && "menu__sub-menu-list--float"
-          )}
-          ref={setOverlayRef}
-          {...attributes.popper}
-          style={{ ...styles.popper }}
-          onClick={toggleOpen}
-        >
-          {children}
-        </ul>
-      ) : (
-        <ul className="menu__sub-menu-list">{children}</ul>
-      )}
+      {overlay}
     </li>
   );
 };

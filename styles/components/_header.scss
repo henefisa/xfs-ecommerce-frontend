@@ -20,26 +20,16 @@
     }
   }
 
+  .header__left {
+    @apply flex items-center;
+  }
+
   .header__row {
     @apply h-16 transition-all duration-300 ease-in-out;
   }
 
   .header__logo {
     @apply text-xl text-white uppercase tracking-widest font-bold cursor-pointer transition-all duration-300 ease-out sm:text-3xl md:text-3xl;
-  }
-
-  .navbar {
-    @apply hidden md:block md:ml-5;
-    .navbar__list {
-      @apply flex items-center space-x-2;
-      &-item {
-        @apply font-semibold text-base relative cursor-pointer h-10 flex items-center px-2 rounded transition-colors duration-300;
-        &.active,
-        &:hover {
-          @apply text-blue-500 bg-white;
-        }
-      }
-    }
   }
 
   .mobile-navbar {

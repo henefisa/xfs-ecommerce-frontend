@@ -55,6 +55,23 @@ const Header: React.FC = () => {
                 <a>Ecommerce</a>
               </Link>
             </h1>
+            <div className="navbar">
+              <Menu mode="vertical">
+                <SubMenu title="Categories" portal overlayWidth={300}>
+                  {[
+                    "Fashion",
+                    "Bikes",
+                    "Accessories",
+                    "Smartphone",
+                    "Electric",
+                    "Toys",
+                    "Pets",
+                  ].map((category, idx) => (
+                    <MenuItem key={idx}>{category}</MenuItem>
+                  ))}
+                </SubMenu>
+              </Menu>
+            </div>
           </div>
           <div className="header__right">
             <div className="user">

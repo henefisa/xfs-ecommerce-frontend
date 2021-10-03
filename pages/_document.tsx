@@ -9,6 +9,7 @@ class MyDocument extends Document {
           <Main />
           <div id="modal-root" />
           <div id="select-root" />
+          <div id="menu-root"></div>
           <div id="drawer-root" />
           <NextScript />
         </body>
