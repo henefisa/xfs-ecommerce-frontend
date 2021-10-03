@@ -39,7 +39,7 @@
       &__search {
         border: none;
         border-bottom: 1px solid white;
-        @apply focus:border-white;
+        @apply rounded-none focus:border-white;
         input {
           @apply bg-transparent text-white focus:ring-0;
           &::placeholder {
@@ -61,7 +61,7 @@
   .mobile-navbar {
     @apply md:hidden;
     &__search-wrap {
-      @apply px-2 py-4;
+      @apply px-3 py-4;
     }
 
     &__search{

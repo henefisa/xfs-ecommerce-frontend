@@ -38,16 +38,24 @@ const Seller: React.FC<SellerProps> = ({
     >
       <div className="seller__details">
         <div className="seller__logo">
-          <Image
-            layout="fill"
-            src={logo}
-            alt={name}
-            objectFit="contain"
-            objectPosition="center"
-          />
+          <Link href="/seller/sample_seller_id">
+            <a>
+              <Image
+                layout="fill"
+                src={logo}
+                alt={name}
+                objectFit="contain"
+                objectPosition="center"
+              />
+            </a>
+          </Link>
         </div>
         <div className="seller__personal">
-          <h5 className="seller__name">{name}</h5>
+          <h5 className="seller__name">
+            <Link href="/seller/sample_seller_id">
+              <a>{name}</a>
+            </Link>
+          </h5>
           <Rating value={rating} size="small" />
         </div>
       </div>

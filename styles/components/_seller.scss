@@ -10,7 +10,7 @@
   }
 
   &__name {
-    @apply text-lg font-medium cursor-pointer;
+    @apply text-lg font-medium cursor-pointer transition-colors duration-300 hover:text-blue-600;
   }
 
   &__stats {
