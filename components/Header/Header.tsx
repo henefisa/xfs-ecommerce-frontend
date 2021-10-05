@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Link from "next/link";
 
 // icons
@@ -57,6 +57,7 @@ const MobileNavbar = () => {
 };
 
 const Header: React.FC = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
 
   return (
@@ -106,17 +107,34 @@ const Header: React.FC = () => {
                 <Dropdown
                   overlay={
                     <Menu>
-                      <MenuItem>
-                        <Link href="/account/me">
-                          <a>Your account</a>
-                        </Link>
-                      </MenuItem>
-                      <MenuItem>
-                        <Link href="/account/settings">
-                          <a>Settings</a>
-                        </Link>
-                      </MenuItem>
-                      <MenuItem>Logout</MenuItem>
+                      {isLoggedIn ? (
+                        <>
+                          <MenuItem>
+                            <Link href="/account/me">
+                              <a>Your account</a>
+                            </Link>
+                          </MenuItem>
+                          <MenuItem>
+                            <Link href="/account/settings">
+                              <a>Settings</a>
+                            </Link>
+                          </MenuItem>
+                          <MenuItem onClick={() => setIsLoggedIn(false)}>
+                            Logout
+                          </MenuItem>
+                        </>
+                      ) : (
+                        <>
+                          <MenuItem onClick={() => setIsLoggedIn(true)}>
+                            Login
+                          </MenuItem>
+                          <MenuItem>
+                            <Link href="/register">
+                              <a>Register</a>
+                            </Link>
+                          </MenuItem>
+                        </>
+                      )}
                     </Menu>
                   }
                   onClickOverlay={() => true}

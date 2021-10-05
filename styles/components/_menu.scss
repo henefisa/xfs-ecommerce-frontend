@@ -4,7 +4,11 @@
     @apply flex items-center p-3 cursor-pointer text-gray-500 transition-colors duration-300 hover:text-blue-600 hover:bg-gray-200;
 
     &-label {
-      @apply flex-grow;
+      @apply flex-grow inline-flex items-center;
+
+      & > * {
+        @apply w-full;
+      }
     }
 
     &-icon {

@@ -11,6 +11,7 @@ import Row from "../components/Row/Row";
 import Col from "../components/Col/Col";
 import Button from "../components/Button/Button";
 import CommonLayout from "../layouts/CommonLayout";
+import Card from "../components/Card/Card";
 
 // icons
 import { faArrowRight, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -18,9 +19,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // utils
 import { currencyFormat } from "../utils/currencyFormat";
-import Drawer from "../components/Drawer/Drawer";
-import { Menu, MenuItem, SubMenu } from "../components/Menu";
-import Card from "../components/Card/Card";
 
 interface CartProps {}
 
