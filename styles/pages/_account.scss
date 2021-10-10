@@ -1,0 +1,100 @@
+.my-account-page {
+  min-height: inherit;
+  @apply bg-gray-100 py-6;
+
+  &__menu {
+    @apply space-y-2;
+    &-item {
+      @apply flex items-center space-x-2 py-4 px-6 rounded border text-gray-500 border-gray-300 cursor-pointer transition-colors duration-300;
+
+      &.active {
+        @apply bg-blue-500 text-white;
+      }
+
+      & > span:first-child {
+        @apply w-6 h-6 inline-flex items-center justify-center;
+      }
+    }
+  }
+
+  &__title {
+    @apply text-xl font-semibold mb-4;
+  }
+
+  &__dashboard {
+    &-statistic {
+      &-item {
+        @apply h-28 flex items-center justify-center flex-col bg-white border border-gray-300 rounded;
+        &--red {
+          @apply bg-red-500;
+        }
+
+        &--green {
+          @apply bg-green-500;
+        }
+
+        &--yellow {
+          @apply bg-yellow-500;
+        }
+
+        &--indigo {
+          @apply bg-indigo-500;
+        }
+      }
+
+      &-title {
+        @apply text-white font-medium;
+      }
+
+      &-content {
+        @apply text-white text-xl font-bold;
+      }
+    }
+
+    &-review {
+      @apply mt-6;
+
+      &-title {
+        @apply text-lg font-medium truncate mb-3;
+      }
+
+      &-list {
+        @apply divide-y divide-gray-300;
+        &-item {
+          @apply p-2 transition-colors duration-300 hover:bg-gray-100;
+        }
+      }
+
+      &-meta {
+        @apply flex items-center space-x-3;
+      }
+
+      &-date {
+        @apply text-gray-400 text-xs;
+      }
+
+      &-rate {
+        @apply flex items-center space-x-1;
+        &-value {
+          @apply font-semibold text-xs text-gray-400;
+        }
+
+        .stars {
+          @apply text-xs;
+        }
+      }
+    }
+
+    &-recently-product {
+      @apply mt-6;
+
+      &-title {
+        @apply text-lg font-medium truncate mb-3;
+      }
+
+      &-list {
+        @apply -mx-2;
+      }
+    }
+  }
+}

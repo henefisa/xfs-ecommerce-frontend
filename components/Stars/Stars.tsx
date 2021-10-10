@@ -21,7 +21,7 @@ const Stars: React.FC<StarsProps> = ({
     if (type === "solid") return faStarSolid;
     if (type === "regular") return faStarRegular;
 
-    return idx < active ? faStarSolid : faStarRegular;
+    return idx <= active ? faStarSolid : faStarRegular;
   };
 
   return (
