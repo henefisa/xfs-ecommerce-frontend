@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import clsx from "clsx";
 
 // components
@@ -6,6 +6,9 @@ import Card from "../../components/Card/Card";
 import Col from "../../components/Col/Col";
 import Container from "../../components/Container/Container";
 import Row from "../../components/Row/Row";
+import Stars from "../../components/Stars/Stars";
+import Product from "../../components/Product/Product";
+import Table from "../../components/Table/Table";
 import CommonLayout from "../../layouts/CommonLayout";
 
 // icons
@@ -17,8 +20,6 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Stars from "../../components/Stars/Stars";
-import Product from "../../components/Product/Product";
 
 const Dashboard: React.FC = () => {
   return (
@@ -131,9 +132,76 @@ const Dashboard: React.FC = () => {
 };
 
 const Orders: React.FC = () => {
+  const columns = useMemo(
+    () => [
+      {
+        Header: "Order ID",
+        accessor: "orderId",
+      },
+      {
+        Header: "Date",
+        accessor: "date",
+      },
+      {
+        Header: "Status",
+        accessor: "status",
+      },
+      {
+        Header: "Total",
+        accessor: "total",
+      },
+      {
+        Header: "Actions",
+        accessor: "actions",
+      },
+    ],
+    []
+  );
+
+  const data = useMemo(
+    () => [
+      {
+        orderId: "123",
+        date: new Date().toLocaleString(),
+        status: "Inprogress",
+        total: 100000,
+        actions: (
+          <>
+            <button>hello</button>
+          </>
+        ),
+      },
+      {
+        orderId: "123",
+        date: new Date().toLocaleString(),
+        status: "Inprogress",
+        total: 100000,
+        actions: (
+          <>
+            <button>hello</button>
+          </>
+        ),
+      },
+      {
+        orderId: "123",
+        date: new Date().toLocaleString(),
+        status: "Inprogress",
+        total: 100000,
+        actions: (
+          <>
+            <button>hello</button>
+          </>
+        ),
+      },
+    ],
+    []
+  );
+
   return (
     <div className="my-account-page__orders">
       <h2 className="my-account-page__title">Orders</h2>
+      <div className="my-account-page__content"></div>
+      <Table columns={columns} data={data} />
     </div>
   );
 };

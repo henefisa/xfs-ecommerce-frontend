@@ -1,0 +1,25 @@
+.table {
+  @apply w-full border-collapse;
+
+  thead {
+    @apply text-left bg-gray-100;
+    th {
+      @apply pt-2 pb-3 text-base sticky top-0 z-10;
+    }
+  }
+
+  tbody {
+    tr {
+      @apply transition-colors duration-300 ease-in hover:bg-gray-50;
+    }
+
+    td {
+      @apply border-t border-gray-100 text-sm;
+    }
+  }
+
+  tbody td,
+  thead th {
+    @apply p-4;
+  }
+}
