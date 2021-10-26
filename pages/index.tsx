@@ -26,151 +26,104 @@ import {
   faMoneyCheckAlt,
   faShippingFast,
 } from "@fortawesome/free-solid-svg-icons";
+import Input from "../components/Input/Input";
+import { Form, FormItem } from "../components/Form";
 
 const Introduction = () => {
-  const [activeSlide, setActiveSlide] = useState(0);
-  const [swiper, setSwiper] = useState<S>();
-
-  const handleChangeSlide = (idx: number) => {
-    swiper?.slideTo(idx);
-  };
-
-  const handleNextSlide = () => {
-    swiper?.slideNext();
-  };
-
-  const handlePrevSlide = () => {
-    swiper?.slidePrev();
-  };
+  const nextEl = useRef<HTMLDivElement>(null);
+  const prevEl = useRef<HTMLDivElement>(null);
 
   return (
     <section className="introduction">
       <Swiper
-        className="carousel"
-        onSwiper={setSwiper}
-        onSlideChange={(swiper) => {
-          setActiveSlide(swiper.activeIndex);
+        navigation={{
+          nextEl: nextEl.current,
+          prevEl: prevEl.current,
+        }}
+        onInit={(swiper) => {
+          if (
+            swiper.params.navigation &&
+            typeof swiper.params.navigation !== "boolean"
+          ) {
+            swiper.params.navigation.nextEl = nextEl.current;
+            swiper.params.navigation.prevEl = prevEl.current;
+            swiper.init();
+            swiper.update();
+          }
         }}
       >
-        <div className="navigation navigation--next" onClick={handleNextSlide}>
-          <FontAwesomeIcon icon={faChevronRight} />
+        <SwiperSlide>
+          <div className="introduction__slide">
+            <div
+              className="introduction__slide-image"
+              style={{ overflow: "hidden", borderRadius: "24px" }}
+            >
+              <Image
+                src="/images/home/slider-1.png"
+                layout="fill"
+                alt="Slide image 1"
+                objectFit="cover"
+                objectPosition="center"
+                quality="100"
+              />
+            </div>
+            <div className="introduction__slide-content">
+              <h1 className="introduction__slide-content-title">
+                Don&apos;t miss <br /> amazing deals
+              </h1>
+              <h4 className="introduction__slide-content-subtitle">
+                Subscribe for newsletter
+              </h4>
+              <Form className="introduction__slide-content-form" type="inline">
+                <FormItem name="email">
+                  <Input type="email" placeholder="Email..." />
+                </FormItem>
+                <Button htmlType="submit" type="solid" color="success">
+                  Subscribe
+                </Button>
+              </Form>
+            </div>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="introduction__slide">
+            <div className="introduction__slide-image">
+              <Image
+                src="/images/home/slider-2.png"
+                layout="fill"
+                alt="Slide image 2"
+                objectFit="cover"
+                objectPosition="center"
+                quality="100"
+              />
+            </div>
+            <div className="introduction__slide-content">
+              <h1 className="introduction__slide-content-title">
+                Amazing products
+              </h1>
+              <h4 className="introduction__slide-content-subtitle">
+                Subscribe for newsletter
+              </h4>
+              <Form className="introduction__slide-content-form" type="inline">
+                <FormItem name="email">
+                  <Input type="email" placeholder="Email..." />
+                </FormItem>
+                <Button htmlType="submit" type="solid" color="success">
+                  Subscribe
+                </Button>
+              </Form>
+            </div>
+          </div>
+        </SwiperSlide>
+        <div className="introduction__navigation">
+          <div className="introduction__navigation-item" ref={prevEl}>
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </div>
+          <div className="introduction__navigation-item" ref={nextEl}>
+            <FontAwesomeIcon icon={faChevronRight} />
+          </div>
         </div>
-        <div className="navigation navigation--prev" onClick={handlePrevSlide}>
-          <FontAwesomeIcon icon={faChevronLeft} />
-        </div>
-        <SwiperSlide>
-          <div
-            className="introduction__banner"
-            style={{ backgroundImage: `url(/slide-1.jpg)` }}
-          >
-            <Container className="introduction__banner-container">
-              <div className="introduction__banner-content">
-                <h5 className="subtitle">Sample subtitle</h5>
-                <h2 className="title">Sample title</h2>
-                <Button type="outline">Sample button</Button>
-              </div>
-              <div className="introduction__banner-image">
-                <Image
-                  src="/slide-image-1.png"
-                  layout="fill"
-                  alt="Sample image"
-                  objectFit="contain"
-                  objectPosition="center"
-                />
-              </div>
-            </Container>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div
-            className="introduction__banner"
-            style={{ backgroundImage: `url(/slide-2.jpg)` }}
-          >
-            <Container className="introduction__banner-container">
-              <div className="introduction__banner-content">
-                <h5 className="subtitle">Sample subtitle</h5>
-                <h2 className="title">Sample title</h2>
-                <Button type="outline">Sample button</Button>
-              </div>
-              <div className="introduction__banner-image">
-                <Image
-                  src="/slide-image-2.png"
-                  layout="fill"
-                  alt="Sample image"
-                  objectFit="contain"
-                  objectPosition="center"
-                />
-              </div>
-            </Container>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div
-            className="introduction__banner"
-            style={{ backgroundImage: `url(/slide-3.jpg)` }}
-          >
-            <Container className="introduction__banner-container">
-              <div className="introduction__banner-content">
-                <h5 className="subtitle">Sample subtitle</h5>
-                <h2 className="title">Sample title</h2>
-                <Button type="outline">Sample button</Button>
-              </div>
-              <div className="introduction__banner-image">
-                <Image
-                  src="/slide-image-3.png"
-                  layout="fill"
-                  alt="Sample image"
-                  objectFit="contain"
-                  objectPosition="center"
-                />
-              </div>
-            </Container>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div
-            className="introduction__banner"
-            style={{ backgroundImage: `url(/slide-1.jpg)` }}
-          >
-            <Container className="introduction__banner-container">
-              <div className="introduction__banner-content">
-                <h5 className="subtitle">Sample subtitle</h5>
-                <h2 className="title">Sample title</h2>
-                <Button type="outline">Sample button</Button>
-              </div>
-              <div className="introduction__banner-image">
-                <Image
-                  src="/slide-image-1.png"
-                  layout="fill"
-                  alt="Sample image"
-                  objectFit="contain"
-                  objectPosition="center"
-                />
-              </div>
-            </Container>
-          </div>
-        </SwiperSlide>
       </Swiper>
-      <ul className="carousel__dots-custom">
-        {[...new Array(4)].map((_, idx) => (
-          <li
-            key={idx}
-            className={clsx(
-              "carousel__dots-custom-item",
-              idx === activeSlide && "active"
-            )}
-            onClick={() => handleChangeSlide(idx)}
-          >
-            <Image
-              src={`/slide-image-${(idx % 3) + 1}.png`}
-              layout="fill"
-              objectFit="cover"
-              objectPosition="center"
-              alt="Custom dots image"
-            />
-          </li>
-        ))}
-      </ul>
     </section>
   );
 };
@@ -492,8 +445,8 @@ export default function Home() {
   return (
     <CommonLayout>
       <div className="home-page">
-        <Introduction />
         <Container>
+          <Introduction />
           <Services />
           <TopBanners />
           <TopSellers />

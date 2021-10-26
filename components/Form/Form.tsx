@@ -20,7 +20,8 @@ export interface FormProps {
 
 const Form = React.forwardRef<
   UseFormReturn,
-  FormProps & Partial<Omit<HTMLFormElement, "className" | "name">>
+  FormProps &
+    Partial<Omit<React.HTMLAttributes<HTMLFormElement>, "className" | "name">>
 >(
   (
     { children, schema, name, onSubmit, className, type = "default", ...rest },
