@@ -6,11 +6,18 @@
     }
 
     &-field {
-      @apply mt-2;
+      @apply mb-2;
     }
 
     &-error {
       @apply absolute top-full left-0 text-xs text-red-500 mt-1;
+    }
+  }
+
+  &--inline {
+    @apply flex items-center space-x-2;
+    .form__item {
+      @apply mb-0;
     }
   }
 }

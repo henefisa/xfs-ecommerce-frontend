@@ -1,5 +1,6 @@
 import React, { useImperativeHandle } from "react";
 import { useForm, FormProvider, UseFormReturn } from "react-hook-form";
+import clsx from "clsx";
 
 // validation
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,11 +13,19 @@ export interface FormProps {
   children: React.ReactNode;
   schema?: yup.AnyObjectSchema;
   name?: string;
+  type?: "inline" | "default";
+  className?: string;
   onSubmit?: (values: any) => void;
 }
 
-const Form = React.forwardRef<UseFormReturn, FormProps>(
-  ({ children, schema, name, onSubmit }, ref) => {
+const Form = React.forwardRef<
+  UseFormReturn,
+  FormProps & Partial<Omit<HTMLFormElement, "className" | "name">>
+>(
+  (
+    { children, schema, name, onSubmit, className, type = "default", ...rest },
+    ref
+  ) => {
     const methods = useForm({
       resolver: schema && yupResolver(schema),
     });
@@ -27,7 +36,11 @@ const Form = React.forwardRef<UseFormReturn, FormProps>(
       <FormContext.Provider value={{ name }}>
         <FormProvider {...methods}>
           <form
-            className="form"
+            className={clsx(
+              "form",
+              type !== "default" && `form--${type}`,
+              className
+            )}
             onSubmit={methods.handleSubmit((values) => {
               onSubmit?.(values);
             })}

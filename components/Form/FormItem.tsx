@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useFormContext } from "react-hook-form";
+import { motion } from "framer-motion";
 
 // context
 import FormContext from "../../contexts/FormContext";
@@ -17,7 +18,7 @@ const FormItem: React.FC<FormItemProps> = ({ label, name, children }) => {
 
   if (!React.isValidElement(children)) return null;
   return (
-    <div className="form__item">
+    <motion.div className="form__item" layout>
       {label && (
         <label
           className="form__item-label"
@@ -26,14 +27,18 @@ const FormItem: React.FC<FormItemProps> = ({ label, name, children }) => {
           {label}
         </label>
       )}
-      <div className="form__item-field">
+      <motion.div className="form__item-field" key="field">
         {React.cloneElement(children, {
           ...register(name),
           id: formContext.name && `${formContext.name}-${name}`,
         })}
-      </div>
-      <div className="form__item-error">{formState.errors[name]?.message}</div>
-    </div>
+      </motion.div>
+      {formState.errors[name] && (
+        <motion.div className="form__item-error" key="error">
+          {formState.errors[name]?.message}
+        </motion.div>
+      )}
+    </motion.div>
   );
 };
 
