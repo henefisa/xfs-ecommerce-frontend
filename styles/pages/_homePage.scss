@@ -37,6 +37,18 @@
           }
         }
       }
+
+      &-pagination {
+        @apply w-4 h-4 bg-gray-200 inline-block rounded-full cursor-pointer transition-colors duration-300 hover:bg-gray-400;
+
+        &.active {
+          @apply bg-gray-400;
+        }
+
+        &:not(:first-child) {
+          @apply ml-2;
+        }
+      }
     }
 
     &__navigation {

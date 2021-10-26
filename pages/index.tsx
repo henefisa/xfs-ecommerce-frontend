@@ -51,6 +51,11 @@ const Introduction = () => {
             swiper.update();
           }
         }}
+        pagination={{
+          clickable: true,
+          bulletClass: "introduction__slide-pagination",
+          bulletActiveClass: "active",
+        }}
       >
         <SwiperSlide>
           <div className="introduction__slide">
