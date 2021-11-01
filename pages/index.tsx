@@ -6,7 +6,6 @@ import clsx from "clsx";
 import Image from "next/image";
 import Button from "../components/Button/Button";
 import Container from "../components/Container/Container";
-import { Swiper as S } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Banner, BannerGroup } from "../components/Banner";
 import Service from "../components/Service/Service";
@@ -64,7 +63,7 @@ const Introduction = () => {
               style={{ overflow: "hidden", borderRadius: "24px" }}
             >
               <Image
-                src="/images/home/slider-1.png"
+                src="/images/home/slider-1.jpg"
                 layout="fill"
                 alt="Slide image 1"
                 objectFit="cover"
@@ -94,7 +93,7 @@ const Introduction = () => {
           <div className="introduction__slide">
             <div className="introduction__slide-image">
               <Image
-                src="/images/home/slider-2.png"
+                src="/images/home/slider-2.jpg"
                 layout="fill"
                 alt="Slide image 2"
                 objectFit="cover"
@@ -104,7 +103,7 @@ const Introduction = () => {
             </div>
             <div className="introduction__slide-content">
               <h1 className="introduction__slide-content-title">
-                Amazing products
+                Dress like it is <br /> your day
               </h1>
               <h4 className="introduction__slide-content-subtitle">
                 Subscribe for newsletter
