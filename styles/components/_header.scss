@@ -1,6 +1,6 @@
 .header {
   z-index: 1000;
-  @apply w-full bg-blue-500 text-white shadow-md;
+  @apply sticky top-0 left-0 w-full bg-blue-500 text-white shadow-md;
 
   .user {
     @apply flex items-center text-white transition-all duration-300 space-x-4;

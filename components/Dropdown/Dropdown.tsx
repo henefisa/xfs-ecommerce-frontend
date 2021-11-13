@@ -31,6 +31,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement | null>(null);
   const { styles, attributes, update } = usePopper(contentRef, overlayRef, {
     placement,
+    modifiers: [{ name: "flip", enabled: true }],
   });
 
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -72,10 +73,16 @@ const Dropdown: React.FC<DropdownProps> = ({
   }, []);
 
   useEffect(() => {
-    const resize = debounce(() => update?.(), 300);
-    window.addEventListener("resize", resize, false);
+    const resize = () => {
+      update?.();
+    };
+
+    const debouncedResize = debounce(resize, 300);
+    resize();
+
+    window.addEventListener("resize", debouncedResize, false);
     return () => {
-      window.removeEventListener("resize", resize, false);
+      window.removeEventListener("resize", debouncedResize, false);
     };
   }, [update]);
 

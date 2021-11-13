@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useFormContext } from "react-hook-form";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 // context
 import FormContext from "../../contexts/FormContext";
@@ -18,7 +18,7 @@ const FormItem: React.FC<FormItemProps> = ({ label, name, children }) => {
 
   if (!React.isValidElement(children)) return null;
   return (
-    <motion.div className="form__item" layout>
+    <div className="form__item">
       {label && (
         <label
           className="form__item-label"
@@ -33,12 +33,20 @@ const FormItem: React.FC<FormItemProps> = ({ label, name, children }) => {
           id: formContext.name && `${formContext.name}-${name}`,
         })}
       </motion.div>
-      {formState.errors[name] && (
-        <motion.div className="form__item-error" key="error">
-          {formState.errors[name]?.message}
-        </motion.div>
-      )}
-    </motion.div>
+      <AnimatePresence>
+        {formState.errors[name] && (
+          <motion.div
+            className="form__item-error"
+            key="error"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {formState.errors[name]?.message}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
 

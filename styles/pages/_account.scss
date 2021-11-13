@@ -21,6 +21,17 @@
     @apply text-xl font-semibold mb-4;
   }
 
+  &__description {
+    @apply text-gray-500 text-sm;
+  }
+
+  &__form {
+    @apply mt-4 max-w-md;
+    .button {
+      @apply mt-2;
+    }
+  }
+
   &__dashboard {
     &-statistic {
       &-item {

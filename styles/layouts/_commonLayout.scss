@@ -1,4 +1,5 @@
 .common-layout {
+  @apply overflow-hidden;
   .main {
     min-height: calc(100vh - 142px);
   }
