@@ -33,7 +33,6 @@ const SubMenu: React.FC<SubMenuProps> = ({
   title,
   portal,
   overlayWidth,
-  onHidden,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMount, setIsMount] = useState(false);

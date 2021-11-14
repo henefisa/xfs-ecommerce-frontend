@@ -27,14 +27,13 @@ const Dropdown: React.FC<DropdownProps> = ({
   onClickOverlay,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
   const [contentRef, setContentRef] = useState<HTMLDivElement | null>(null);
   const [overlayRef, setOverlayRef] = useState<HTMLDivElement | null>(null);
   const { styles, attributes, update } = usePopper(contentRef, overlayRef, {
     placement,
     modifiers: [{ name: "flip", enabled: true }],
   });
-
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleToggleDropdown = () => {
     if (triggers !== "click") return;
@@ -60,19 +59,6 @@ const Dropdown: React.FC<DropdownProps> = ({
   };
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (!dropdownRef.current?.contains(e.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
-
-  useEffect(() => {
     const resize = () => {
       update?.();
     };
@@ -91,7 +77,6 @@ const Dropdown: React.FC<DropdownProps> = ({
       className="dropdown"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      ref={dropdownRef}
     >
       <div
         className="dropdown__content"
@@ -100,6 +85,10 @@ const Dropdown: React.FC<DropdownProps> = ({
       >
         {children}
       </div>
+      <div
+        className={clsx("dropdown__mask", isOpen && "dropdown__mask--show")}
+        onClick={() => setIsOpen(false)}
+      ></div>
       <div
         {...attributes.popper}
         className={clsx(

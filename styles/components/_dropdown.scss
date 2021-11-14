@@ -1,13 +1,21 @@
 .dropdown {
+  @apply z-30;
   &__content {
     @apply inline-block relative;
   }
 
   &__overlay {
     transition-property: opacity, visibility;
-    @apply invisible bg-white opacity-0 duration-300 z-30 rounded-sm shadow-md pointer-events-none;
+    @apply invisible bg-white opacity-0 duration-300 rounded-sm shadow-md pointer-events-none;
     &--show {
       @apply visible opacity-100 pointer-events-auto;
+    }
+  }
+
+  &__mask {
+    @apply hidden fixed inset-0;
+    &--show {
+      @apply block;
     }
   }
 }
