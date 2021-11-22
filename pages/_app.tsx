@@ -1,5 +1,4 @@
 import type { AppProps } from "next/app";
-
 import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
 
 // icons css
@@ -18,6 +17,9 @@ import "tailwindcss/tailwind.css";
 // font
 import "typeface-roboto";
 
+// wrapper
+import { wrapper } from "../store";
+
 config.autoAddCss = false;
 
 SwiperCore.use([Pagination, Navigation, Autoplay]);
@@ -25,4 +27,4 @@ SwiperCore.use([Pagination, Navigation, Autoplay]);
 function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />;
 }
-export default MyApp;
+export default wrapper.withRedux(MyApp);

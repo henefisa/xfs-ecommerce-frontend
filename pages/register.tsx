@@ -12,6 +12,10 @@ import { Form, FormItem } from "../components/Form";
 import Container from "../components/Container/Container";
 import Row from "../components/Row/Row";
 
+// store
+import { wrapper } from "../store";
+import { Creators } from "../store/actions/authAction";
+
 interface RegisterProps {}
 
 interface RegisterInputs {
@@ -67,3 +71,11 @@ const Register: React.FC<RegisterProps> = ({}) => {
 };
 
 export default React.memo(Register);
+
+export const getStaticProps = wrapper.getStaticProps((store) => async () => {
+  store.dispatch(Creators.registerRequest());
+
+  return {
+    props: {},
+  };
+});
