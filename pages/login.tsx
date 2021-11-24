@@ -1,5 +1,8 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import Link from "next/link";
+import { connect, ConnectedProps } from "react-redux";
+import { NextPage } from "next";
+import { AnyAction } from "redux";
 
 // validation
 import * as yup from "yup";
@@ -12,7 +15,9 @@ import { Form, FormItem } from "../components/Form";
 import Container from "../components/Container/Container";
 import Row from "../components/Row/Row";
 
-interface LoginProps {}
+// stores
+import { RootState } from "../store/reducers";
+import { Creators } from "../store/actions/authAction";
 
 interface LoginInputs {
   username: string;
@@ -24,9 +29,9 @@ const loginSchema = yup.object().shape({
   password: yup.string().required("Password is required!"),
 });
 
-const Login: React.FC<LoginProps> = ({}) => {
+const Login: NextPage<LoginProps> = ({ isLoading, loginRequest }) => {
   const handleSubmit = (values: LoginInputs) => {
-    console.log(values);
+    loginRequest(values.username, values.password);
   };
 
   return (
@@ -51,7 +56,7 @@ const Login: React.FC<LoginProps> = ({}) => {
                     <a>Doesn&apos;t have an account? Register now</a>
                   </Link>
                 </Button>
-                <Button htmlType="submit">Login</Button>
+                <Button loading={isLoading}>Login</Button>
               </Row>
             </Form>
           </div>
@@ -61,4 +66,21 @@ const Login: React.FC<LoginProps> = ({}) => {
   );
 };
 
-export default React.memo(Login);
+const mapStateToProps = (state: RootState) => {
+  return {
+    isLoading: state.auth.isLoading,
+  };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
+  return {
+    loginRequest: (username: string, password: string) => {
+      dispatch(Creators.loginRequest({ username, password }));
+    },
+  };
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export type LoginProps = ConnectedProps<typeof connector>;
+export default connector(Login);

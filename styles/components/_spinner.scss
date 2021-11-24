@@ -1,0 +1,19 @@
+.spinner {
+  @apply text-white text-xs w-10 h-10 rounded-full;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  animation: spin 2s linear infinite;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg) translateZ(0);
+    }
+    100% {
+      transform: rotate(360deg) translateZ(0);
+    }
+  }
+
+  &--small {
+    @apply w-6 h-6;
+  }
+}

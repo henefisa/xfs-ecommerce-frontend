@@ -119,14 +119,14 @@ const Header: React.FC = () => {
                               <a>Settings</a>
                             </Link>
                           </MenuItem>
-                          <MenuItem onClick={() => setIsLoggedIn(false)}>
-                            Logout
-                          </MenuItem>
+                          <MenuItem>Logout</MenuItem>
                         </>
                       ) : (
                         <>
-                          <MenuItem onClick={() => setIsLoggedIn(true)}>
-                            Login
+                          <MenuItem>
+                            <Link href="/login">
+                              <a>Login</a>
+                            </Link>
                           </MenuItem>
                           <MenuItem>
                             <Link href="/register">

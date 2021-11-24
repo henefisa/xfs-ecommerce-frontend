@@ -1,4 +1,5 @@
 import type { AppProps } from "next/app";
+import { ToastContainer } from "react-toastify";
 import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
 
 // icons css
@@ -11,6 +12,7 @@ import "swiper/components/pagination/pagination.scss";
 import "swiper/components/navigation/navigation.scss";
 
 // global css
+import "react-toastify/dist/ReactToastify.css";
 import "../styles/global.scss";
 import "tailwindcss/tailwind.css";
 
@@ -19,12 +21,19 @@ import "typeface-roboto";
 
 // wrapper
 import { wrapper } from "../store";
+import { Context } from "../libs/Context";
 
 config.autoAddCss = false;
 
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Component {...pageProps} />
+      <ToastContainer />
+    </>
+  );
 }
+
 export default wrapper.withRedux(MyApp);
