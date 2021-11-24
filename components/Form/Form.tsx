@@ -1,4 +1,4 @@
-import React, { useImperativeHandle } from "react";
+import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
 import { useForm, FormProvider, UseFormReturn } from "react-hook-form";
 import clsx from "clsx";
 
@@ -35,11 +35,21 @@ const Form = React.forwardRef<
     const methods = useForm({
       resolver: schema && yupResolver(schema),
     });
+    const [requiredFields, setRequiredFields] = useState<string[]>([]);
+
+    useEffect(() => {
+      if (!schema) return;
+      const _requiredFields: string[] = Object.keys(schema.fields).filter(
+        (key) => schema.fields[key].exclusiveTests.required
+      );
+
+      setRequiredFields(_requiredFields);
+    }, [schema]);
 
     useImperativeHandle(ref, () => methods);
 
     return (
-      <FormContext.Provider value={{ name }}>
+      <FormContext.Provider value={{ name, requiredFields }}>
         <FormProvider {...methods}>
           <form
             className={clsx(

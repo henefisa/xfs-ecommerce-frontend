@@ -25,8 +25,12 @@ const FormItem: React.FC<FormItemProps> = ({ label, name, children }) => {
           htmlFor={formContext.name && `${formContext.name}-${name}`}
         >
           {label}
+          {formContext.requiredFields?.includes(name) && (
+            <span className="form__item-label-required">*</span>
+          )}
         </label>
       )}
+
       <motion.div className="form__item-field" key="field">
         {React.cloneElement(children, {
           ...register(name),

@@ -3,10 +3,13 @@
     @apply mb-6 relative;
     &-label {
       @apply pb-2;
+      &-required {
+        @apply text-red-500 ml-1;
+      }
     }
 
     &-field {
-      @apply my-2;
+      @apply mb-2;
     }
 
     &-error {

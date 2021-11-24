@@ -11,4 +11,5 @@ export interface RegisterPayload {
   lastName: string;
   passwordConfirm: string;
   phoneNumber: string;
+  birthday: string;
 }
