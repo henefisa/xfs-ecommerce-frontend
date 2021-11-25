@@ -1,6 +1,5 @@
 import { Reducer } from "redux";
 import { createReducer } from "reduxsauce";
-import { boolean } from "yup/lib/locale";
 import { User } from "../../models/UserModel";
 import {
   GetAuthenticatedUserFailure,
@@ -9,18 +8,24 @@ import {
   LoginFailureAction,
   LoginRequestAction,
   LoginSuccessAction,
+  RegisterFailureAction,
   RegisterRequestAction,
+  RegisterSuccessAction,
   Types,
 } from "../actions/authAction";
 
 export interface IAuthState {
   isLoading: boolean;
+  isError: boolean;
+  errors: Record<string, string>;
   user: User | null;
   message: string;
 }
 
 const INITIAL_STATE: IAuthState = {
   isLoading: false,
+  isError: false,
+  errors: {},
   user: null,
   message: "",
 };
@@ -32,6 +37,31 @@ const registerRequest: Reducer<IAuthState, RegisterRequestAction> = (
   return {
     ...state,
     isLoading: true,
+    isError: false,
+    errors: {},
+  };
+};
+
+const registerSuccess: Reducer<IAuthState, RegisterSuccessAction> = (
+  state = INITIAL_STATE,
+  action
+) => {
+  return {
+    ...state,
+    isLoading: false,
+  };
+};
+
+const registerFailure: Reducer<IAuthState, RegisterFailureAction> = (
+  state = INITIAL_STATE,
+  action
+) => {
+  return {
+    ...state,
+    message: action.payload.message,
+    isLoading: false,
+    isError: true,
+    errors: action.payload.errors,
   };
 };
 
@@ -42,6 +72,7 @@ const loginRequest: Reducer<IAuthState, LoginRequestAction> = (
   return {
     ...state,
     isLoading: true,
+    isError: false,
   };
 };
 
@@ -63,6 +94,7 @@ const loginFailure: Reducer<IAuthState, LoginFailureAction> = (
   return {
     ...state,
     isLoading: false,
+    isError: true,
     user: null,
     message: action.payload,
   };
@@ -101,6 +133,8 @@ const getAuthenticatedUserFailure: Reducer<
 
 const HANLDERS = {
   [Types.REGISTER_REQUEST]: registerRequest,
+  [Types.REGISTER_SUCCESS]: registerSuccess,
+  [Types.REGISTER_FAILURE]: registerFailure,
   [Types.LOGIN_REQUEST]: loginRequest,
   [Types.LOGIN_SUCCESS]: loginSuccess,
   [Types.LOGIN_FAILURE]: loginFailure,

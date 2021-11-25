@@ -13,23 +13,27 @@ export interface FormProps {
   children: React.ReactNode;
   schema?: yup.AnyObjectSchema;
   name?: string;
+  errors?: Record<string, string>;
   type?: "inline" | "default";
-  className?: string;
   onSubmit?: (values: any) => void;
 }
 
 const Form = React.forwardRef<
   UseFormReturn,
   FormProps &
-    Partial<
-      Omit<
-        React.HTMLAttributes<HTMLFormElement>,
-        "className" | "name" | "onSubmit"
-      >
-    >
+    Partial<Omit<React.HTMLAttributes<HTMLFormElement>, "name" | "onSubmit">>
 >(
   (
-    { children, schema, name, onSubmit, className, type = "default", ...rest },
+    {
+      children,
+      schema,
+      name,
+      onSubmit,
+      className,
+      errors,
+      type = "default",
+      ...rest
+    },
     ref
   ) => {
     const methods = useForm({
@@ -49,7 +53,7 @@ const Form = React.forwardRef<
     useImperativeHandle(ref, () => methods);
 
     return (
-      <FormContext.Provider value={{ name, requiredFields }}>
+      <FormContext.Provider value={{ name, requiredFields, errors }}>
         <FormProvider {...methods}>
           <form
             className={clsx(

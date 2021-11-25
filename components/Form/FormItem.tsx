@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useFormContext } from "react-hook-form";
 import { motion, AnimatePresence } from "framer-motion";
+import clsx from "clsx";
 
 // context
 import FormContext from "../../contexts/FormContext";
@@ -8,15 +9,25 @@ import FormContext from "../../contexts/FormContext";
 export interface FormItemProps {
   label?: string;
   name: string;
+  error?: string;
   children: React.ReactNode;
 }
 
-const FormItem: React.FC<FormItemProps> = ({ label, name, children }) => {
+const FormItem: React.FC<FormItemProps> = ({
+  label,
+  name,
+  children,
+  error,
+}) => {
   const { register, formState } = useFormContext();
 
   const formContext = useContext(FormContext);
 
+  const errorMessage =
+    error || formState.errors[name]?.message || formContext.errors?.[name];
+
   if (!React.isValidElement(children)) return null;
+
   return (
     <div className="form__item">
       {label && (
@@ -31,14 +42,19 @@ const FormItem: React.FC<FormItemProps> = ({ label, name, children }) => {
         </label>
       )}
 
-      <motion.div className="form__item-field" key="field">
+      <div
+        className={clsx(
+          "form__item-field",
+          !!errorMessage && `form__item-field--error`
+        )}
+      >
         {React.cloneElement(children, {
           ...register(name),
           id: formContext.name && `${formContext.name}-${name}`,
         })}
-      </motion.div>
+      </div>
       <AnimatePresence>
-        {formState.errors[name] && (
+        {errorMessage && (
           <motion.div
             className="form__item-error"
             key="error"
@@ -46,7 +62,7 @@ const FormItem: React.FC<FormItemProps> = ({ label, name, children }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            {formState.errors[name]?.message}
+            {errorMessage}
           </motion.div>
         )}
       </AnimatePresence>

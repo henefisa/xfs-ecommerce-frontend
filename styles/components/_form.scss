@@ -10,6 +10,11 @@
 
     &-field {
       @apply mb-2;
+      &--error {
+        .input {
+          @apply ring-2 ring-red-500;
+        }
+      }
     }
 
     &-error {

@@ -21,7 +21,6 @@ import "typeface-roboto";
 
 // wrapper
 import { wrapper } from "../store";
-import { Context } from "../libs/Context";
 
 config.autoAddCss = false;
 

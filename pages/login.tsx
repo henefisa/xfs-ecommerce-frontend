@@ -25,8 +25,8 @@ interface LoginInputs {
 }
 
 const loginSchema = yup.object().shape({
-  username: yup.string().required("Username is required!"),
-  password: yup.string().required("Password is required!"),
+  username: yup.string().required("Username is required!").trim(),
+  password: yup.string().required("Password is required!").trim(),
 });
 
 const Login: NextPage<LoginProps> = ({ isLoading, loginRequest }) => {

@@ -2,7 +2,7 @@
   min-height: inherit;
   @apply flex items-center justify-center bg-cover bg-center;
   .login-register-box {
-    @apply max-w-lg mx-auto w-full p-4 shadow bg-white rounded relative;
+    @apply max-w-lg mx-auto w-full p-4 shadow bg-white rounded relative my-4;
 
     &__title {
       @apply text-xl mb-4 font-medium;

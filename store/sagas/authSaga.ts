@@ -7,7 +7,7 @@ import {
   put,
 } from "redux-saga/effects";
 import Router from "next/router";
-import axios, { AxiosResponse } from "axios";
+import axios, { Axios, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 
 import {
@@ -18,11 +18,18 @@ import {
   LoginFailureAction,
   LoginRequestAction,
   LoginSuccessAction,
+  RegisterFailureAction,
+  RegisterRequestAction,
+  RegisterSuccessAction,
   Types,
 } from "../actions/authAction";
 
 import * as apis from "../../apis";
+
+// models
 import { User } from "../../models/UserModel";
+
+// libs
 import { Context } from "../../libs/Context";
 
 function* loginRequest(
@@ -43,14 +50,17 @@ function* loginRequest(
     yield put(Creators.loginSuccess(response.data));
     toast.success("Login success!");
     Router.push("/");
-  } catch (error) {
+  } catch (error: any) {
     if (axios.isAxiosError(error)) {
       yield put(Creators.loginFailure(error?.response?.data?.message));
       toast.error(error.response?.data?.message, {
         position: "top-right",
         autoClose: 5000,
       });
+      return;
     }
+
+    yield put(Creators.loginFailure(error.message));
   }
 }
 
@@ -85,6 +95,38 @@ function* getAuthenticatedUserRequest(): Generator<
   }
 }
 
+function* registerRequest(
+  action: RegisterRequestAction
+): Generator<
+  | CallEffect<AxiosResponse<User>>
+  | PutEffect<RegisterSuccessAction>
+  | PutEffect<RegisterFailureAction>,
+  void,
+  unknown
+> {
+  try {
+    yield call(apis.registerRequest, action.payload);
+    yield put(Creators.registerSuccess());
+    toast.success("Register success", {
+      position: "top-right",
+      autoClose: 5000,
+    });
+    Router.push("/login");
+  } catch (error: any) {
+    if (axios.isAxiosError(error)) {
+      yield put(
+        Creators.registerFailure({
+          message: error?.response?.data?.message,
+          errors: error?.response?.data?.errors,
+        })
+      );
+      return;
+    }
+
+    yield put(Creators.registerFailure({ message: error.message, errors: {} }));
+  }
+}
+
 function* refreshToken(): Generator<
   CallEffect<AxiosResponse<User>>,
   void,
@@ -114,6 +156,7 @@ function* authSaga() {
       Types.GET_AUTHENTICATED_USER_REQUEST,
       getAuthenticatedUserRequest
     ),
+    takeLatest(Types.REGISTER_REQUEST, registerRequest),
   ]);
 }
 

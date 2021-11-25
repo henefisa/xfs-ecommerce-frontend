@@ -2,7 +2,7 @@ import { AnyAction } from "redux";
 import { createActions } from "reduxsauce";
 
 // models
-import { LoginPayload } from "../../models/AuthModel";
+import { LoginPayload, RegisterPayload } from "../../models/AuthModel";
 
 import { User } from "../../models/UserModel";
 
@@ -23,19 +23,19 @@ export interface AuthTypes {
 
 export interface RegisterRequestAction extends AnyAction {
   type: AuthTypes["REGISTER_REQUEST"];
-  payload: Record<string, unknown>;
+  payload: RegisterPayload;
 }
 
 export interface RegisterSuccessAction extends AnyAction {
   type: AuthTypes["REGISTER_SUCCESS"];
-  payload: {
-    data: Record<string, unknown>;
-  };
 }
 
 export interface RegisterFailureAction extends AnyAction {
   type: AuthTypes["REGISTER_FAILURE"];
-  payload: Record<string, unknown>;
+  payload: {
+    message: string;
+    errors: Record<string, string>;
+  };
 }
 
 export interface LoginRequestAction extends AnyAction {
@@ -67,9 +67,12 @@ export interface GetAuthenticatedUserFailure extends AnyAction {
 }
 
 interface AuthActions {
-  registerRequest(): RegisterRequestAction;
+  registerRequest(payload: RegisterPayload): RegisterRequestAction;
   registerSuccess(): RegisterSuccessAction;
-  registerFailure(): RegisterFailureAction;
+  registerFailure(payload: {
+    message: string;
+    errors: Record<string, string>;
+  }): RegisterFailureAction;
   loginRequest(payload: LoginPayload): LoginRequestAction;
   loginSuccess(payload: User): LoginSuccessAction;
   loginFailure(payload: string): LoginFailureAction;
@@ -79,9 +82,9 @@ interface AuthActions {
 }
 
 export const { Creators, Types } = createActions<AuthTypes, AuthActions>({
-  registerRequest: [],
+  registerRequest: ["payload"],
   registerSuccess: [],
-  registerFailure: [],
+  registerFailure: ["payload"],
   loginRequest: ["payload"],
   loginSuccess: ["payload"],
   loginFailure: ["payload"],

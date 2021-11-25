@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 
 // models
-import { LoginPayload } from "../models/AuthModel";
+import { LoginPayload, RegisterPayload } from "../models/AuthModel";
 import { User } from "../models/UserModel";
 
 export const instance = axios.create({
@@ -22,4 +22,8 @@ export const getAuthenticatedUserRequest = () => {
 
 export const refreshTokenRequest = () => {
   return instance.get("/authentication/refresh-token");
+};
+
+export const registerRequest = (body: RegisterPayload) => {
+  return instance.post<User>("/authentication/register", body);
 };
