@@ -7,7 +7,7 @@ import {
   put,
 } from "redux-saga/effects";
 import Router from "next/router";
-import axios, { Axios, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 
 import {
@@ -51,7 +51,7 @@ function* loginRequest(
 
     yield put(Creators.loginSuccess(response.data));
     toast.success("Login success!");
-    Router.push("/");
+    Router.back();
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
       yield put(Creators.loginFailure(error?.response?.data?.message));
@@ -80,7 +80,9 @@ function* getAuthenticatedUserRequest(): Generator<
       apis.getAuthenticatedUserRequest
     )) as AxiosResponse<User>;
     yield put(Creators.getAuthenticatedUserSuccess(response.data));
+    Context.isAuthenticated = true;
   } catch (error) {
+    Context.isAuthenticated = false;
     if (axios.isAxiosError(error)) {
       if (error.response?.status === 401) {
         try {
@@ -92,7 +94,6 @@ function* getAuthenticatedUserRequest(): Generator<
         }
       }
     }
-
     yield put(Creators.getAuthenticatedUserFailure());
   }
 }
@@ -122,6 +123,7 @@ function* registerRequest(
           errors: error?.response?.data?.errors,
         })
       );
+      toast.error(error?.response?.data?.message);
       return;
     }
 
@@ -165,10 +167,9 @@ function* refreshToken(): Generator<
     if (response.headers["set-cookie"]) {
       context.res.setHeader("Set-Cookie", response.headers["set-cookie"]);
     }
+    Context.isAuthenticated = true;
   } catch (error) {
-    if (!context) return;
-    context.res.writeHead(301, { Location: "/login" });
-    context.res.end();
+    Context.isAuthenticated = false;
     throw error;
   }
 }

@@ -1,5 +1,9 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { NextPage } from "next";
+import { useRouter } from "next/router";
 import clsx from "clsx";
+import { END } from "redux-saga";
+import { connect, ConnectedProps } from "react-redux";
 
 // components
 import Card from "../../components/Card/Card";
@@ -11,9 +15,19 @@ import Product from "../../components/Product/Product";
 import Table from "../../components/Table/Table";
 import CommonLayout from "../../layouts/CommonLayout";
 import { Form, FormItem } from "../../components/Form";
+import Input from "../../components/Input/Input";
+import Button from "../../components/Button/Button";
 
 // validation
 import * as yup from "yup";
+
+// store
+import { SagaStore, wrapper } from "../../store";
+import { Creators } from "../../store/actions/authAction";
+import { RootState } from "../../store/reducers";
+
+// libs
+import { Context } from "../../libs/Context";
 
 // icons
 import {
@@ -24,8 +38,6 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Input from "../../components/Input/Input";
-import Button from "../../components/Button/Button";
 
 const Dashboard: React.FC = () => {
   return (
@@ -274,12 +286,18 @@ const Menu = [
   { title: "Account Details", icon: faUser, content: <AccountDetails /> },
 ];
 
-const MyAccount: React.FC = () => {
+const MyAccount: NextPage<MyAccountProps> = ({ user }) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
-
+  const router = useRouter();
   const handleChangeTab = (idx: number) => {
     setActiveTabIndex(idx);
   };
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [user, router]);
 
   return (
     <CommonLayout>
@@ -317,4 +335,37 @@ const MyAccount: React.FC = () => {
   );
 };
 
-export default MyAccount;
+const mapStateToProps = (state: RootState) => {
+  return {
+    user: state.auth.user,
+  };
+};
+
+const connector = connect(mapStateToProps);
+
+export type MyAccountProps = ConnectedProps<typeof connector>;
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (context) => {
+    Context.setContext(context, { setCookie: true });
+    store.dispatch(Creators.getAuthenticatedUserRequest());
+    store.dispatch(END);
+    await (store as SagaStore).sagaTask?.toPromise();
+    if (!Context.isAuthenticated) {
+      Context.clearContext();
+      return {
+        props: {},
+        redirect: {
+          destination: "/login",
+          permanent: false,
+        },
+      };
+    }
+    Context.clearContext();
+    return {
+      props: {},
+    };
+  }
+);
+
+export default connector(MyAccount);
