@@ -27,3 +27,7 @@ export const refreshTokenRequest = () => {
 export const registerRequest = (body: RegisterPayload) => {
   return instance.post<User>("/authentication/register", body);
 };
+
+export const logoutRequest = () => {
+  return instance.post("/authentication/log-out");
+};

@@ -12,12 +12,14 @@ import { toast } from "react-toastify";
 
 import {
   Creators,
-  GetAuthenticatedUserFailure,
-  GetAuthenticatedUserRequest,
-  GetAuthenticatedUserSuccess,
+  GetAuthenticatedUserFailureAction,
+  GetAuthenticatedUserRequestAction,
+  GetAuthenticatedUserSuccessAction,
   LoginFailureAction,
   LoginRequestAction,
   LoginSuccessAction,
+  LogoutFailureAction,
+  LogoutSuccessAction,
   RegisterFailureAction,
   RegisterRequestAction,
   RegisterSuccessAction,
@@ -67,9 +69,9 @@ function* loginRequest(
 function* getAuthenticatedUserRequest(): Generator<
   | CallEffect<AxiosResponse<User>>
   | CallEffect<void>
-  | PutEffect<GetAuthenticatedUserSuccess>
-  | PutEffect<GetAuthenticatedUserFailure>
-  | PutEffect<GetAuthenticatedUserRequest>,
+  | PutEffect<GetAuthenticatedUserSuccessAction>
+  | PutEffect<GetAuthenticatedUserFailureAction>
+  | PutEffect<GetAuthenticatedUserRequestAction>,
   void,
   unknown
 > {
@@ -127,22 +129,44 @@ function* registerRequest(
   }
 }
 
+function* logoutRequest(): Generator<
+  | CallEffect<AxiosResponse<void>>
+  | PutEffect<LogoutSuccessAction>
+  | PutEffect<LogoutFailureAction>,
+  void,
+  unknown
+> {
+  const context = Context.getContext();
+  try {
+    const response = (yield call(apis.logoutRequest)) as AxiosResponse<void>;
+    toast.success("Logged out!");
+    yield put(Creators.logoutSuccess());
+    if (!context) return;
+    if (response.headers["set-cookie"]) {
+      context.res.setHeader("Set-Cookie", response.headers["set-cookie"]);
+    }
+  } catch (error) {
+    toast.error("Failed to logout!");
+    yield put(Creators.logoutFailure());
+  }
+}
+
 function* refreshToken(): Generator<
   CallEffect<AxiosResponse<User>>,
   void,
   unknown
 > {
   const context = Context.getContext();
-  if (!context) return;
   try {
     const response = (yield call(
       apis.refreshTokenRequest
     )) as AxiosResponse<User>;
-
+    if (!context) return;
     if (response.headers["set-cookie"]) {
       context.res.setHeader("Set-Cookie", response.headers["set-cookie"]);
     }
   } catch (error) {
+    if (!context) return;
     context.res.writeHead(301, { Location: "/login" });
     context.res.end();
     throw error;
@@ -157,6 +181,7 @@ function* authSaga() {
       getAuthenticatedUserRequest
     ),
     takeLatest(Types.REGISTER_REQUEST, registerRequest),
+    takeLatest(Types.LOGOUT_REQUEST, logoutRequest),
   ]);
 }
 

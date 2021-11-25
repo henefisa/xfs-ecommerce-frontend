@@ -19,6 +19,9 @@ export interface AuthTypes {
   REFRESH_TOKEN_REQUEST: "REFRESH_TOKEN_REQUEST";
   REFRESH_TOKEN_SUCCESS: "REFRESH_TOKEN_SUCCESS";
   REFRESH_TOKEN_FAILURE: "REFRESH_TOKEN_FAILURE";
+  LOGOUT_REQUEST: "LOGOUT_REQUEST";
+  LOGOUT_SUCCESS: "LOGOUT_SUCCESS";
+  LOGOUT_FAILURE: "LOGOUT_FAILURE";
 }
 
 export interface RegisterRequestAction extends AnyAction {
@@ -53,17 +56,29 @@ export interface LoginFailureAction extends AnyAction {
   payload: string;
 }
 
-export interface GetAuthenticatedUserRequest extends AnyAction {
+export interface GetAuthenticatedUserRequestAction extends AnyAction {
   type: AuthTypes["GET_AUTHENTICATED_USER_REQUEST"];
 }
 
-export interface GetAuthenticatedUserSuccess extends AnyAction {
+export interface GetAuthenticatedUserSuccessAction extends AnyAction {
   type: AuthTypes["GET_AUTHENTICATED_USER_SUCCESS"];
   payload: User;
 }
 
-export interface GetAuthenticatedUserFailure extends AnyAction {
+export interface GetAuthenticatedUserFailureAction extends AnyAction {
   type: AuthTypes["GET_AUTHENTICATED_USER_FAILURE"];
+}
+
+export interface LogoutRequestAction extends AnyAction {
+  type: AuthTypes["LOGOUT_REQUEST"];
+}
+
+export interface LogoutSuccessAction extends AnyAction {
+  type: AuthTypes["LOGOUT_SUCCESS"];
+}
+
+export interface LogoutFailureAction extends AnyAction {
+  type: AuthTypes["LOGIN_FAILURE"];
 }
 
 interface AuthActions {
@@ -76,9 +91,12 @@ interface AuthActions {
   loginRequest(payload: LoginPayload): LoginRequestAction;
   loginSuccess(payload: User): LoginSuccessAction;
   loginFailure(payload: string): LoginFailureAction;
-  getAuthenticatedUserRequest(): GetAuthenticatedUserRequest;
-  getAuthenticatedUserSuccess(payload: User): GetAuthenticatedUserSuccess;
-  getAuthenticatedUserFailure(): GetAuthenticatedUserFailure;
+  getAuthenticatedUserRequest(): GetAuthenticatedUserRequestAction;
+  getAuthenticatedUserSuccess(payload: User): GetAuthenticatedUserSuccessAction;
+  getAuthenticatedUserFailure(): GetAuthenticatedUserFailureAction;
+  logoutRequest(): LogoutRequestAction;
+  logoutSuccess(): LogoutSuccessAction;
+  logoutFailure(): LogoutFailureAction;
 }
 
 export const { Creators, Types } = createActions<AuthTypes, AuthActions>({
@@ -91,4 +109,7 @@ export const { Creators, Types } = createActions<AuthTypes, AuthActions>({
   getAuthenticatedUserRequest: [],
   getAuthenticatedUserSuccess: ["payload"],
   getAuthenticatedUserFailure: [],
+  logoutRequest: [],
+  logoutSuccess: [],
+  logoutFailure: [],
 });

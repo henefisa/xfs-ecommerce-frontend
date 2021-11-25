@@ -2,12 +2,15 @@ import { Reducer } from "redux";
 import { createReducer } from "reduxsauce";
 import { User } from "../../models/UserModel";
 import {
-  GetAuthenticatedUserFailure,
-  GetAuthenticatedUserRequest,
-  GetAuthenticatedUserSuccess,
+  GetAuthenticatedUserFailureAction,
+  GetAuthenticatedUserRequestAction,
+  GetAuthenticatedUserSuccessAction,
   LoginFailureAction,
   LoginRequestAction,
   LoginSuccessAction,
+  LogoutFailureAction,
+  LogoutRequestAction,
+  LogoutSuccessAction,
   RegisterFailureAction,
   RegisterRequestAction,
   RegisterSuccessAction,
@@ -102,7 +105,7 @@ const loginFailure: Reducer<IAuthState, LoginFailureAction> = (
 
 const getAuthenticatedUserRequest: Reducer<
   IAuthState,
-  GetAuthenticatedUserRequest
+  GetAuthenticatedUserRequestAction
 > = (state = INITIAL_STATE, action) => {
   return {
     ...state,
@@ -112,7 +115,7 @@ const getAuthenticatedUserRequest: Reducer<
 
 const getAuthenticatedUserSuccess: Reducer<
   IAuthState,
-  GetAuthenticatedUserSuccess
+  GetAuthenticatedUserSuccessAction
 > = (state = INITIAL_STATE, action) => {
   return {
     ...state,
@@ -123,8 +126,39 @@ const getAuthenticatedUserSuccess: Reducer<
 
 const getAuthenticatedUserFailure: Reducer<
   IAuthState,
-  GetAuthenticatedUserFailure
+  GetAuthenticatedUserFailureAction
 > = (state = INITIAL_STATE, action) => {
+  return {
+    ...state,
+    isLoading: false,
+  };
+};
+
+const logoutRequest: Reducer<IAuthState, LogoutRequestAction> = (
+  state = INITIAL_STATE,
+  action
+) => {
+  return {
+    ...state,
+    isLoading: false,
+  };
+};
+
+const logoutSuccess: Reducer<IAuthState, LogoutSuccessAction> = (
+  state = INITIAL_STATE,
+  action
+) => {
+  return {
+    ...state,
+    isLoading: false,
+    user: null,
+  };
+};
+
+const logoutFailure: Reducer<IAuthState, LogoutFailureAction> = (
+  state = INITIAL_STATE,
+  action
+) => {
   return {
     ...state,
     isLoading: false,
@@ -141,6 +175,9 @@ const HANLDERS = {
   [Types.GET_AUTHENTICATED_USER_REQUEST]: getAuthenticatedUserRequest,
   [Types.GET_AUTHENTICATED_USER_SUCCESS]: getAuthenticatedUserSuccess,
   [Types.GET_AUTHENTICATED_USER_FAILURE]: getAuthenticatedUserFailure,
+  [Types.LOGOUT_REQUEST]: logoutRequest,
+  [Types.LOGOUT_SUCCESS]: logoutSuccess,
+  [Types.LOGOUT_FAILURE]: logoutFailure,
 };
 
 const reducer = createReducer(INITIAL_STATE, HANLDERS);

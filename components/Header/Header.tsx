@@ -1,5 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { Dispatch, useRef } from "react";
+import { AnyAction } from "redux";
 import Link from "next/link";
+import { connect, ConnectedProps } from "react-redux";
 
 // icons
 import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -13,6 +15,10 @@ import Row from "../Row/Row";
 import Drawer from "../Drawer/Drawer";
 import Input from "../Input/Input";
 import Dropdown from "../Dropdown/Dropdown";
+
+// store
+import { RootState } from "../../store/reducers";
+import { Creators } from "../../store/actions/authAction";
 
 const MobileNavbar = () => {
   return (
@@ -56,8 +62,7 @@ const MobileNavbar = () => {
   );
 };
 
-const Header: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const Header: React.FC<HeaderProps> = ({ isAuthenticated, logoutRequest }) => {
   const headerRef = useRef<HTMLElement>(null);
 
   return (
@@ -107,7 +112,7 @@ const Header: React.FC = () => {
                 <Dropdown
                   overlay={
                     <Menu>
-                      {isLoggedIn ? (
+                      {isAuthenticated ? (
                         <>
                           <MenuItem>
                             <Link href="/account/me">
@@ -119,7 +124,7 @@ const Header: React.FC = () => {
                               <a>Settings</a>
                             </Link>
                           </MenuItem>
-                          <MenuItem>Logout</MenuItem>
+                          <MenuItem onClick={logoutRequest}>Logout</MenuItem>
                         </>
                       ) : (
                         <>
@@ -153,4 +158,20 @@ const Header: React.FC = () => {
   );
 };
 
-export default React.memo(Header);
+const mapStateToProps = (state: RootState) => {
+  return {
+    isAuthenticated: !!state.auth.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
+  return {
+    logoutRequest: () => dispatch(Creators.logoutRequest()),
+  };
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export type HeaderProps = ConnectedProps<typeof connector>;
+
+export default connector(React.memo(Header));
