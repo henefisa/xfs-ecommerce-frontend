@@ -1,24 +1,19 @@
-import React, { Dispatch, useRef } from "react";
-import { AnyAction } from "redux";
-import Link from "next/link";
-import { connect, ConnectedProps } from "react-redux";
-
 // icons
 import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import Link from "next/link";
+import React, { useRef } from "react";
+import { RootState } from "../../store";
+import { authActions } from "../../store/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
+import Badge from "../Badge/Badge";
 // components
 import Container from "../Container/Container";
-import { Menu, MenuItem, SubMenu } from "../Menu";
-import Badge from "../Badge/Badge";
-import Row from "../Row/Row";
 import Drawer from "../Drawer/Drawer";
-import Input from "../Input/Input";
 import Dropdown from "../Dropdown/Dropdown";
-
-// store
-import { RootState } from "../../store/reducers";
-import { Creators } from "../../store/actions/authAction";
+import Input from "../Input/Input";
+import { Menu, MenuItem, SubMenu } from "../Menu";
+import Row from "../Row/Row";
 
 const MobileNavbar = () => {
   return (
@@ -62,7 +57,11 @@ const MobileNavbar = () => {
   );
 };
 
-const Header: React.FC<HeaderProps> = ({ isAuthenticated, logoutRequest }) => {
+const Header = () => {
+  const isAuthenticated = useAppSelector(
+    (state: RootState) => !!state.auth.user
+  );
+  const dispatch = useAppDispatch();
   const headerRef = useRef<HTMLElement>(null);
 
   return (
@@ -124,7 +123,13 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated, logoutRequest }) => {
                               <a>Settings</a>
                             </Link>
                           </MenuItem>
-                          <MenuItem onClick={logoutRequest}>Logout</MenuItem>
+                          <MenuItem
+                            onClick={() =>
+                              dispatch(authActions.logoutRequest({}))
+                            }
+                          >
+                            Logout
+                          </MenuItem>
                         </>
                       ) : (
                         <>
@@ -158,20 +163,4 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated, logoutRequest }) => {
   );
 };
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    isAuthenticated: !!state.auth.user,
-  };
-};
-
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
-  return {
-    logoutRequest: () => dispatch(Creators.logoutRequest()),
-  };
-};
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-export type HeaderProps = ConnectedProps<typeof connector>;
-
-export default connector(React.memo(Header));
+export default React.memo(Header);

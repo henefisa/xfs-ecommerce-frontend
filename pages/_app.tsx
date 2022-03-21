@@ -20,19 +20,31 @@ import "tailwindcss/tailwind.css";
 import "typeface-roboto";
 
 // wrapper
-import { wrapper } from "../store";
+import { store } from "../store";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
+import { initialInterceptor, instance } from "../apis";
+import ProtectedRoute from "../routes/ProtectedRoute";
 
 config.autoAddCss = false;
+initialInterceptor(instance);
+
+const persistor = persistStore(store);
 
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, router }: AppProps) {
   return (
-    <>
-      <Component {...pageProps} />
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor} />
+      <ProtectedRoute router={router}>
+        <Component {...pageProps} />
+      </ProtectedRoute>
+
       <ToastContainer />
-    </>
+    </Provider>
   );
 }
 
-export default wrapper.withRedux(MyApp);
+export default MyApp;

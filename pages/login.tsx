@@ -1,8 +1,5 @@
-import React, { Dispatch } from "react";
+import React, { Dispatch, useEffect, useLayoutEffect } from "react";
 import Link from "next/link";
-import { connect, ConnectedProps } from "react-redux";
-import { NextPage } from "next";
-import { AnyAction } from "redux";
 
 // validation
 import * as yup from "yup";
@@ -16,8 +13,10 @@ import Container from "../components/Container/Container";
 import Row from "../components/Row/Row";
 
 // stores
-import { RootState } from "../store/reducers";
-import { Creators } from "../store/actions/authAction";
+import { RootState } from "../store";
+import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
+import { authActions } from "../store/auth/authSlice";
+import Router from "next/router";
 
 interface LoginInputs {
   username: string;
@@ -29,58 +28,62 @@ const loginSchema = yup.object().shape({
   password: yup.string().required("Password is required!").trim(),
 });
 
-const Login: NextPage<LoginProps> = ({ isLoading, loginRequest }) => {
+const Login = () => {
+  const authSelector = useAppSelector((state: RootState) => state.auth);
+  const isAuthenticated = useAppSelector(
+    (state: RootState) => !!state.auth.user
+  );
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      Router.push("/");
+    }
+  }, [isAuthenticated]);
+
   const handleSubmit = (values: LoginInputs) => {
-    loginRequest(values.username, values.password);
+    dispatch(
+      authActions.loginRequest({
+        username: values.username,
+        password: values.password,
+      })
+    );
   };
 
   return (
-    <CommonLayout>
-      <div
-        className="login-register-page"
-        style={{ backgroundImage: `url("/login-bg.jpg")` }}
-      >
-        <Container>
-          <div className="login-register-box">
-            <div className="login-register-box__title">Login</div>
-            <Form onSubmit={handleSubmit} schema={loginSchema} name="login">
-              <FormItem name="username" label="Username">
-                <Input />
-              </FormItem>
-              <FormItem name="password" label="Password">
-                <Input type="password" />
-              </FormItem>
-              <Row justify="between" gutter={[0, 12]}>
-                <Button type="link" className="login-register-box__btn">
-                  <Link href="/register">
-                    <a>Doesn&apos;t have an account? Register now</a>
-                  </Link>
-                </Button>
-                <Button loading={isLoading}>Login</Button>
-              </Row>
-            </Form>
+    <>
+      {isAuthenticated ? null : (
+        <CommonLayout>
+          <div
+            className="login-register-page"
+            style={{ backgroundImage: `url("/login-bg.jpg")` }}
+          >
+            <Container>
+              <div className="login-register-box">
+                <div className="login-register-box__title">Login</div>
+                <Form onSubmit={handleSubmit} schema={loginSchema} name="login">
+                  <FormItem name="username" label="Username">
+                    <Input />
+                  </FormItem>
+                  <FormItem name="password" label="Password">
+                    <Input type="password" />
+                  </FormItem>
+                  <Row justify="between" gutter={[0, 12]}>
+                    <Button type="link" className="login-register-box__btn">
+                      <Link href="/register">
+                        <a>Doesn&apos;t have an account? Register now</a>
+                      </Link>
+                    </Button>
+                    <Button loading={authSelector.isLoading}>Login</Button>
+                  </Row>
+                </Form>
+              </div>
+            </Container>
           </div>
-        </Container>
-      </div>
-    </CommonLayout>
+        </CommonLayout>
+      )}
+    </>
   );
 };
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    isLoading: state.auth.isLoading,
-  };
-};
-
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
-  return {
-    loginRequest: (username: string, password: string) => {
-      dispatch(Creators.loginRequest({ username, password }));
-    },
-  };
-};
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-export type LoginProps = ConnectedProps<typeof connector>;
-export default connector(Login);
+export default Login;

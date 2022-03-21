@@ -1,22 +1,3 @@
-import { useRef, useState } from "react";
-import Link from "next/link";
-import clsx from "clsx";
-
-// components
-import Image from "next/image";
-import Button from "../components/Button/Button";
-import Container from "../components/Container/Container";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Banner, BannerGroup } from "../components/Banner";
-import Service from "../components/Service/Service";
-import CommonLayout from "../layouts/CommonLayout";
-import Seller from "../components/Seller/Seller";
-import Section from "../components/Section/Section";
-import Product from "../components/Product/Product";
-import Countdown from "../components/Countdown/Countdown";
-
-// icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBriefcase,
   faChevronLeft,
@@ -25,8 +6,28 @@ import {
   faMoneyCheckAlt,
   faShippingFast,
 } from "@fortawesome/free-solid-svg-icons";
-import Input from "../components/Input/Input";
+// icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// components
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useRef } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { getUserInfo } from "../apis";
+import { Banner, BannerGroup } from "../components/Banner";
+import Button from "../components/Button/Button";
+import Container from "../components/Container/Container";
+import Countdown from "../components/Countdown/Countdown";
 import { Form, FormItem } from "../components/Form";
+import Input from "../components/Input/Input";
+import Product from "../components/Product/Product";
+import Section from "../components/Section/Section";
+import Seller from "../components/Seller/Seller";
+import Service from "../components/Service/Service";
+import CommonLayout from "../layouts/CommonLayout";
+import { RootState } from "../store";
+import { authActions } from "../store/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
 
 const Introduction = () => {
   const nextEl = useRef<HTMLDivElement>(null);
@@ -446,6 +447,18 @@ const TopRatedProducts = () => {
 };
 
 export default function Home() {
+  const isAuthenticated = useAppSelector(
+    (store: RootState) => !!store.auth.user
+  );
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log("->>>>>");
+      dispatch(authActions.getUserInfoRequest());
+    }
+  }, []);
+
   return (
     <CommonLayout>
       <div className="home-page">

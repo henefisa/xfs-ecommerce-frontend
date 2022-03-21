@@ -1,21 +1,36 @@
-import { Context, createWrapper } from "next-redux-wrapper";
-import { applyMiddleware, createStore, Store } from "redux";
-import logger from "redux-logger";
+import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, Store } from "redux";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import createSagaMiddleware, { Task } from "redux-saga";
-import reducer, { RootState } from "./reducers";
+import authReducer from "./auth/authSlice";
 import saga from "./sagas";
+
+const sagaMiddleware = createSagaMiddleware();
 
 export interface SagaStore extends Store {
   sagaTask?: Task;
 }
 
-const makeStore = (context: Context) => {
-  const sagaMiddleware = createSagaMiddleware();
-  const store = createStore(reducer, applyMiddleware(logger, sagaMiddleware));
-  (store as SagaStore).sagaTask = sagaMiddleware.run(saga);
-  return store;
+const reducers = combineReducers({
+  auth: authReducer,
+});
+
+const persistConfig = {
+  key: "root",
+  storage,
 };
 
-export const wrapper = createWrapper<Store<RootState>>(makeStore, {
-  debug: true,
+const persistedReducer = persistReducer(persistConfig, reducers);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(sagaMiddleware),
 });
+
+sagaMiddleware.run(saga);
+
+export type RootState = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;
