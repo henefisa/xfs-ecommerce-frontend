@@ -3,8 +3,6 @@ import { appRoutes } from "../constants/appRoutes";
 import { RootState } from "../store";
 import { useAppSelector } from "../store/hooks/hooks";
 
-const isBrowser = () => typeof window !== "undefined";
-
 interface Props {
   router: Router;
   children: any;
@@ -16,7 +14,7 @@ const ProtectedRoute = (props: Props) => {
   );
   const { router, children } = props;
 
-  if (isBrowser() && !isAuthenticated) {
+  if (!isAuthenticated) {
     router.push(appRoutes.LOGIN);
   }
 

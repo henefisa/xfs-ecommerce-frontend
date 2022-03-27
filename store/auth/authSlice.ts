@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { WritableDraft } from "immer/dist/internal";
+import { RegisterPayload } from "../../models/AuthModel";
 import { User } from "../../models/UserModel";
 
 export interface IAuthState {
@@ -21,15 +23,18 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    registerRequest(state, action: PayloadAction<any>) {
+    registerRequest(state, action: PayloadAction<RegisterPayload>) {
       state.isLoading = true;
       state.isError = false;
       state.errors = {};
     },
-    registerSuccess(state, action: PayloadAction<any>) {
+    registerSuccess(state) {
       state.isLoading = false;
     },
-    registerFailure(state, action: PayloadAction<any>) {
+    registerFailure(state, action: PayloadAction<{
+      message: string;
+      errors: WritableDraft<Record<string, string>>;
+    }>) {
       state.message = action.payload.message;
       state.isLoading = false;
       state.isError = true;

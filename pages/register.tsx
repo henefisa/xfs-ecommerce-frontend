@@ -1,4 +1,4 @@
-import React, { Dispatch } from "react";
+import React from "react";
 import Link from "next/link";
 
 // validation
@@ -14,13 +14,13 @@ import Row from "../components/Row/Row";
 import Col from "../components/Col/Col";
 
 // store
-import { Creators } from "../store/actions/authAction";
 
 // models
 import { RegisterPayload } from "../models/AuthModel";
-import { RootState } from "../store/reducers";
-import { AnyAction } from "redux";
-import { connect, ConnectedProps } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "../store/hooks/hooks";
+import { RootState } from "../store";
+import { authActions } from "../store/auth/authSlice";
 
 type RegisterInputs = RegisterPayload & { birthday: Date };
 
@@ -52,16 +52,17 @@ const registerSchema = yup.object().shape({
     .transform((curr, orig) => (orig === "" ? null : curr)),
 });
 
-const Register: React.FC<RegisterProps> = ({
-  isLoading,
-  errors,
-  registerRequest,
-}) => {
+const Register = () => {
+  const authSelector = useAppSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
+
   const handleSubmit = (values: RegisterInputs) => {
-    registerRequest({
-      ...values,
-      birthday: values.birthday.toISOString(),
-    });
+    dispatch(
+      authActions.registerRequest({
+        ...values,
+        birthday: values.birthday.toISOString(),
+      })
+    );
   };
 
   return (
@@ -77,7 +78,7 @@ const Register: React.FC<RegisterProps> = ({
               onSubmit={handleSubmit}
               schema={registerSchema}
               name="login"
-              errors={errors}
+              errors={authSelector.errors}
             >
               <Row gutter={12}>
                 <Col span={12} md={6}>
@@ -115,7 +116,7 @@ const Register: React.FC<RegisterProps> = ({
                     <a>Have an account? Login now</a>
                   </Link>
                 </Button>
-                <Button htmlType="submit" loading={isLoading}>
+                <Button htmlType="submit" loading={authSelector.isLoading}>
                   Register
                 </Button>
               </Row>
@@ -127,22 +128,4 @@ const Register: React.FC<RegisterProps> = ({
   );
 };
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    isLoading: state.auth.isLoading,
-    errors: state.auth.errors,
-  };
-};
-
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
-  return {
-    registerRequest: (payload: RegisterPayload) =>
-      dispatch(Creators.registerRequest(payload)),
-  };
-};
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type RegisterProps = ConnectedProps<typeof connector>;
-
-export default connector(Register);
+export default Register;

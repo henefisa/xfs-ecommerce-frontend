@@ -1,3 +1,5 @@
+import { authActions } from './../auth/authSlice';
+import { ActionTypeRegisterRequest, GetUserProfileSuccessType, RegisterFailureType, RegisterSuccessType } from './../types/auth';
 import {
   all,
   takeLatest,
@@ -5,7 +7,6 @@ import {
   CallEffect,
   PutEffect,
   put,
-  take,
 } from "redux-saga/effects";
 import Router from "next/router";
 import axios, { AxiosResponse } from "axios";
@@ -18,7 +19,6 @@ import { User } from "../../models/UserModel";
 
 // libs
 import { Context } from "../../libs/Context";
-import { authActions } from "../auth/authSlice";
 import {
   ActionTypeLoginRequest,
   LoginFailureType,
@@ -43,8 +43,8 @@ function* loginRequest(
     )) as AxiosResponse<User>;
 
     yield put(authActions.loginSuccess(response.data));
-    toast.success("Login success!");
     Router.push("/");
+    toast.success("Login success!");
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
       yield put(authActions.loginFailure(error?.response?.data?.message));
@@ -90,37 +90,37 @@ function* loginRequest(
 //   }
 // }
 
-// function* registerRequest(
-//   action: RegisterRequestAction
-// ): Generator<
-//   | CallEffect<AxiosResponse<User>>
-//   | PutEffect<RegisterSuccessAction>
-//   | PutEffect<RegisterFailureAction>,
-//   void,
-//   unknown
-// > {
-//   try {
-//     yield call(apis.registerRequest, action.payload);
-//     yield put(Creators.registerSuccess());
-//     toast.success("Register success", {
-//       position: "top-right",
-//       autoClose: 5000,
-//     });
-//     Router.push("/login");
-//   } catch (error: any) {
-//     if (axios.isAxiosError(error)) {
-//       yield put(
-//         Creators.registerFailure({
-//           message: error?.response?.data?.message,
-//           errors: error?.response?.data?.errors,
-//         })
-//       );
-//       return;
-//     }
+function* registerRequest(
+  action: ActionTypeRegisterRequest
+): Generator<
+  | CallEffect<AxiosResponse<User>>
+  | PutEffect<RegisterSuccessType>
+  | PutEffect<RegisterFailureType>,
+  void,
+  unknown
+> {
+  try {
+    yield call(apis.registerRequest, action.payload);
+    yield put(authActions.registerSuccess());
+    toast.success("Register success", {
+      position: "top-right",
+      autoClose: 5000,
+    });
+    Router.push("/login");
+  } catch (error: any) {
+    if (axios.isAxiosError(error)) {
+      yield put(
+        authActions.registerFailure({
+          message: error?.response?.data?.message,
+          errors: error?.response?.data?.errors,
+        })
+      );
+      return;
+    }
 
-//     yield put(Creators.registerFailure({ message: error.message, errors: {} }));
-//   }
-// }
+    yield put(authActions.registerFailure({ message: error.message, errors: {} }));
+  }
+}
 
 function* logoutRequest(): Generator<
   | CallEffect<AxiosResponse<void>>
@@ -146,17 +146,17 @@ function* logoutRequest(): Generator<
 
 function* getUserInfoRequest(): Generator<
   | CallEffect<AxiosResponse<void>>
-  | PutEffect<LogoutSuccessType>
+  | PutEffect<GetUserProfileSuccessType>
   | PutEffect<LogoutFailureType>,
   void,
   unknown
 > {
   try {
-    (yield call(apis.getUserInfo)) as AxiosResponse<void>;
+    const response = (yield call(apis.getUserInfo)) as AxiosResponse<User>;
+    yield put(authActions.getUserInfoSuccess(response.data));
   } catch (error) {
-    console.log("error");
-    // toast.error("Unauthorized");
-    // Router.push("/login");
+    Router.push('/login')
+    toast.error("Unauthorized");
   }
 }
 
@@ -192,6 +192,7 @@ function* authSaga() {
     // takeLatest(Types.REGISTER_REQUEST, registerRequest),
     takeLatest(authActions.logoutRequest.type, logoutRequest),
     takeLatest(authActions.getUserInfoRequest.type, getUserInfoRequest),
+    takeLatest(authActions.registerRequest.type, registerRequest)
   ]);
 }
 

@@ -51,7 +51,7 @@ export const refreshTokenRequest = () => {
 };
 
 export const registerRequest = (body: RegisterPayload) => {
-  return instance.post<User>("/authentication/register", body);
+  return axios.post<User>(`${baseURL}/authentication/register`, body);
 };
 
 export const logoutRequest = () => {
@@ -59,6 +59,5 @@ export const logoutRequest = () => {
 };
 
 export const getUserInfo = () => {
-  console.log("run");
   return instance.get("/authentication/user/profile");
 };

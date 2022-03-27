@@ -1,3 +1,5 @@
+import { authActions } from './../auth/authSlice';
+import { RegisterPayload } from './../../models/AuthModel';
 import { User } from "../../models/UserModel";
 import { LoginPayload } from "../../models/AuthModel";
 
@@ -22,4 +24,24 @@ export interface LogoutSuccessType {
 
 export interface LogoutFailureType {
   type: string;
+}
+
+
+export interface ActionTypeRegisterRequest {
+  type: string;
+  payload: RegisterPayload;
+}
+
+export interface RegisterSuccessType {
+  type: string;
+}
+
+export interface RegisterFailureType {
+  type: string;
+  payload: string;
+}
+
+export interface GetUserProfileSuccessType {
+  type: string;
+  payload: User;
 }

@@ -38,9 +38,9 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor} />
-      <ProtectedRoute router={router}>
-        <Component {...pageProps} />
-      </ProtectedRoute>
+      {/* <ProtectedRoute router={router}> */}
+      <Component {...pageProps} />
+      {/* </ProtectedRoute> */}
 
       <ToastContainer />
     </Provider>

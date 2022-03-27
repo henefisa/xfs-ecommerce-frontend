@@ -13,7 +13,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { getUserInfo } from "../apis";
 import { Banner, BannerGroup } from "../components/Banner";
 import Button from "../components/Button/Button";
 import Container from "../components/Container/Container";
@@ -454,7 +453,6 @@ export default function Home() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log("->>>>>");
       dispatch(authActions.getUserInfoRequest());
     }
   }, []);
