@@ -31,10 +31,13 @@ export const authSlice = createSlice({
     registerSuccess(state) {
       state.isLoading = false;
     },
-    registerFailure(state, action: PayloadAction<{
-      message: string;
-      errors: WritableDraft<Record<string, string>>;
-    }>) {
+    registerFailure(
+      state,
+      action: PayloadAction<{
+        message: string;
+        errors: WritableDraft<Record<string, string>>;
+      }>
+    ) {
       state.message = action.payload.message;
       state.isLoading = false;
       state.isError = true;
@@ -68,7 +71,7 @@ export const authSlice = createSlice({
       state.isLoading = false;
       state.user = action.payload;
     },
-    getAuthenticatedUserFailure(state, action: PayloadAction<any>) {
+    getAuthenticatedUserFailure(state) {
       state.isLoading = false;
     },
     logoutRequest(state, action: PayloadAction<any>) {

@@ -1,4 +1,6 @@
+import { InferGetServerSidePropsType } from "next";
 import React, { useMemo, useState } from "react";
+import { END } from "redux-saga";
 import clsx from "clsx";
 
 // components
@@ -26,6 +28,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
+
+// store
+import { SagaStore, wrapper } from "../../store";
+import { authActions } from "../../store/auth/authSlice";
 
 const Dashboard: React.FC = () => {
   return (
@@ -295,7 +301,31 @@ const Menu = [
   { title: "Account Details", icon: faUser, content: <AccountDetails /> },
 ];
 
-const MyAccount: React.FC = () => {
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (context) => {
+    store.dispatch(authActions.getUserInfoRequest());
+    store.dispatch(END);
+    await (store as SagaStore).sagaTask?.toPromise();
+
+    if (store.getState().auth.user) {
+      return {
+        props: {},
+      };
+    }
+
+    return {
+      props: {},
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+);
+
+type AccountProps = InferGetServerSidePropsType<typeof getServerSideProps>;
+
+const MyAccount: React.FC<AccountProps> = () => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
 
   const handleChangeTab = (idx: number) => {

@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import {
   faBriefcase,
   faChevronLeft,
@@ -6,13 +8,14 @@ import {
   faMoneyCheckAlt,
   faShippingFast,
 } from "@fortawesome/free-solid-svg-icons";
+
 // icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { NextPage } from "next";
+
 // components
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { Banner, BannerGroup } from "../components/Banner";
 import Button from "../components/Button/Button";
 import Container from "../components/Container/Container";
@@ -24,6 +27,8 @@ import Section from "../components/Section/Section";
 import Seller from "../components/Seller/Seller";
 import Service from "../components/Service/Service";
 import CommonLayout from "../layouts/CommonLayout";
+
+// store
 import { RootState } from "../store";
 import { authActions } from "../store/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
@@ -445,18 +450,7 @@ const TopRatedProducts = () => {
   );
 };
 
-export default function Home() {
-  const isAuthenticated = useAppSelector(
-    (store: RootState) => !!store.auth.user
-  );
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      dispatch(authActions.getUserInfoRequest());
-    }
-  }, []);
-
+const Home: NextPage = ({}) => {
   return (
     <CommonLayout>
       <div className="home-page">
@@ -472,4 +466,6 @@ export default function Home() {
       </div>
     </CommonLayout>
   );
-}
+};
+
+export default Home;

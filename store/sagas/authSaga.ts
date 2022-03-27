@@ -1,5 +1,10 @@
-import { authActions } from './../auth/authSlice';
-import { ActionTypeRegisterRequest, GetUserProfileSuccessType, RegisterFailureType, RegisterSuccessType } from './../types/auth';
+import { authActions } from "./../auth/authSlice";
+import {
+  ActionTypeRegisterRequest,
+  GetUserProfileSuccessType,
+  RegisterFailureType,
+  RegisterSuccessType,
+} from "./../types/auth";
 import {
   all,
   takeLatest,
@@ -118,7 +123,9 @@ function* registerRequest(
       return;
     }
 
-    yield put(authActions.registerFailure({ message: error.message, errors: {} }));
+    yield put(
+      authActions.registerFailure({ message: error.message, errors: {} })
+    );
   }
 }
 
@@ -155,7 +162,7 @@ function* getUserInfoRequest(): Generator<
     const response = (yield call(apis.getUserInfo)) as AxiosResponse<User>;
     yield put(authActions.getUserInfoSuccess(response.data));
   } catch (error) {
-    Router.push('/login')
+    yield put(authActions.getAuthenticatedUserFailure());
     toast.error("Unauthorized");
   }
 }
@@ -192,7 +199,7 @@ function* authSaga() {
     // takeLatest(Types.REGISTER_REQUEST, registerRequest),
     takeLatest(authActions.logoutRequest.type, logoutRequest),
     takeLatest(authActions.getUserInfoRequest.type, getUserInfoRequest),
-    takeLatest(authActions.registerRequest.type, registerRequest)
+    takeLatest(authActions.registerRequest.type, registerRequest),
   ]);
 }
 
