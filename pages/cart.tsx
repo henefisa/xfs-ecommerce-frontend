@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -19,50 +19,36 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // utils
 import { currencyFormat } from "../utils/currencyFormat";
+import { Cart } from "../models/Cart";
+import { useAppSelector } from "../store/hooks/hooks";
+import { RootState } from "../store";
+import { useDispatch } from "react-redux";
+import { cartActions } from "../store/cart/cartSlice";
 
 interface CartProps {}
 
-const Cart: React.FC<CartProps> = ({}) => {
-  const [products, setProducts] = useState<
-    { price: number; quantity: number }[]
-  >([
-    {
-      price: 300000,
-      quantity: 1,
-    },
-    {
-      price: 300000,
-      quantity: 1,
-    },
-    {
-      price: 300000,
-      quantity: 1,
-    },
-    {
-      price: 300000,
-      quantity: 1,
-    },
-  ]);
+const CartPage = (props: CartProps) => {
+  const { carts } = useAppSelector((state: RootState) => state.carts);
+  const dispatch = useDispatch();
 
-  const handleQuantityChange = useCallback((value: number, idx: number) => {
-    setProducts((prevState) => {
-      prevState[idx] = {
-        ...prevState[idx],
+  const handleQuantityChange = useCallback((value: number, id: string) => {
+    dispatch(
+      cartActions.updateQuantityItem({
         quantity: value,
-      };
-      return [...prevState];
-    });
+        id,
+      })
+    );
   }, []);
 
-  const handleDelete = (idx: number) => {
-    setProducts((prevState) => prevState.filter((_, i) => i !== idx));
+  const handleDelete = (id: string) => {
+    dispatch(cartActions.removeProductToCartById(id));
   };
 
   const handleDeleteAll = () => {
-    setProducts([]);
+    dispatch(cartActions.removeAllProductToCart());
   };
 
-  const subTotal = products.reduce(
+  const subTotal = carts.reduce(
     (acc, val) => acc + val.price * val.quantity,
     0
   );
@@ -72,7 +58,7 @@ const Cart: React.FC<CartProps> = ({}) => {
       <div className="cart-page">
         <Container>
           <div className="cart">
-            {!products.length ? (
+            {!carts.length ? (
               <Card className="cart__empty">
                 <h5>Your cart is empty</h5>
                 <Button>
@@ -101,6 +87,7 @@ const Cart: React.FC<CartProps> = ({}) => {
                               <th className="products-table__product">
                                 Product
                               </th>
+                              <th className="products-table__price">Name</th>
                               <th className="products-table__price">Price</th>
                               <th className="products-table__quantity">
                                 Quantity
@@ -120,13 +107,23 @@ const Cart: React.FC<CartProps> = ({}) => {
                             </tr>
                           </thead>
                           <tbody>
-                            {products.map((product, idx) => (
+                            {carts.map((product, idx) => (
                               <tr key={idx}>
                                 <td className="products-table__product">
-                                  <Product
-                                    direction="horizontal"
-                                    showPrice={false}
-                                  />
+                                  <div className="product__image">
+                                    <Image
+                                      layout="fill"
+                                      alt="products"
+                                      src={
+                                        `${product.image}` || "/product-1.jpg"
+                                      }
+                                      objectFit="cover"
+                                      objectPosition="center"
+                                    />
+                                  </div>
+                                </td>
+                                <td className="products-table__price">
+                                  {product.name}
                                 </td>
                                 <td className="products-table__price">
                                   {currencyFormat.format(product.price)}
@@ -137,7 +134,7 @@ const Cart: React.FC<CartProps> = ({}) => {
                                     max={99}
                                     value={product.quantity}
                                     onChange={(value: number) =>
-                                      handleQuantityChange(value, idx)
+                                      handleQuantityChange(value, product.id)
                                     }
                                   />
                                 </td>
@@ -150,7 +147,7 @@ const Cart: React.FC<CartProps> = ({}) => {
                                   <Button
                                     type="link"
                                     color="error"
-                                    onClick={() => handleDelete(idx)}
+                                    onClick={() => handleDelete(product.id)}
                                   >
                                     <FontAwesomeIcon icon={faTrash} />
                                   </Button>
@@ -201,4 +198,4 @@ const Cart: React.FC<CartProps> = ({}) => {
   );
 };
 
-export default React.memo(Cart);
+export default React.memo(CartPage);

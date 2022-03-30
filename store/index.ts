@@ -11,6 +11,7 @@ import createSagaMiddleware, { Task } from "redux-saga";
 import authReducer from "./auth/authSlice";
 import saga from "./sagas";
 import productsReducer from "./product/productSlice";
+import cartsReducer from "./cart/cartSlice";
 
 export interface SagaStore extends Store {
   sagaTask?: Task;
@@ -22,7 +23,8 @@ export interface PeristStore extends Store {
 
 const combinedReducer = combineReducers({
   auth: authReducer,
-  products: productsReducer
+  products: productsReducer,
+  carts: cartsReducer
 });
 
 const rootReducer = (state: RootState | undefined, action: AnyAction) => {

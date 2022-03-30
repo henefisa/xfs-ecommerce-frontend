@@ -45,6 +45,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { DEFAULT_URL_BE } from "../../constants/env";
 import { productsActions } from "../../store/product/productSlice";
 import { LOCAL_STORAGE } from "../../constants/localStorage";
+import { cartActions } from "../../store/cart/cartSlice";
 
 interface ProductPageProps {}
 
@@ -292,19 +293,21 @@ const SellerWrap: React.FC<SellerWrapProps> = ({
 
 interface ProductViewProps {
   price?: number;
-  images?: string;
+  image?: string;
   description?: string;
   stock?: number;
   name?: string;
+  id?: string;
 }
 
 const ProductView = (props: ProductViewProps) => {
-  const { price, images, description, stock, name } = props;
+  const { price, image, description, stock, name, id } = props;
   const [currentIndex, setCurrentIndex] = useState(1);
   const [selectRoot, setSelectRoot] = useState<HTMLElement | null>(null);
-  const [quantity, setQuantity] = useState<number>(0);
+  const [quantity, setQuantity] = useState<number>(1);
+  const dispatch = useAppDispatch();
 
-  const imageDisplay = images ?? `/product-${currentIndex}.jpg`;
+  const imageDisplay = image ?? `/product-${currentIndex}.jpg`;
 
   const handleChangeImage = (index: number) => {
     setCurrentIndex(index);
@@ -314,7 +317,18 @@ const ProductView = (props: ProductViewProps) => {
     setSelectRoot(document.getElementById("select-root"));
   }, []);
 
-  const handleAddToCard = () => {};
+  const handleAddToCard = () => {
+    console.log("quantiy", quantity);
+    dispatch(
+      cartActions.addProductToCart({
+        id: id || "",
+        name: name || "",
+        quantity,
+        price: price || 0,
+        image: imageDisplay,
+      })
+    );
+  };
 
   return (
     <Card className="product-view">
@@ -395,6 +409,7 @@ const ProductView = (props: ProductViewProps) => {
                   min={1}
                   max={stock || 100000}
                   defaultValue={1}
+                  onChange={setQuantity}
                 />
               </div>
               <div className="product-view__actions">
@@ -753,7 +768,7 @@ const ProductPage: React.FC<ProductDetailProps> = ({ productId }) => {
         <Container>
           <ProductView
             description={productDetail.description}
-            images={
+            image={
               productDetail.images.length
                 ? `${DEFAULT_URL_BE}${productDetail.images[0]?.url}`
                 : undefined
@@ -761,6 +776,7 @@ const ProductPage: React.FC<ProductDetailProps> = ({ productId }) => {
             price={productDetail.price}
             stock={productDetail.stock}
             name={productDetail.name}
+            id={productDetail.id}
           />
           <SimilarProduct
             image={
