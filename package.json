@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_OPTIONS=--inspect next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+     "lint:write": "next lint --cache --fix && npm run check-types",
+    "check-types": "tsc --noemit"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -22,6 +24,7 @@
     "chroma-js": "^2.1.2",
     "clsx": "^1.1.1",
     "framer-motion": "^5.3.1",
+    "lodash": "^4.17.21",
     "next": "11.0.1",
     "next-redux-wrapper": "^7.0.5",
     "react": "17.0.2",
@@ -57,5 +60,12 @@
     "sass": "^1.37.0",
     "tailwindcss": "^2.2.7",
     "typescript": "4.3.5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "prettier --check"
+    ]
   }
 }
