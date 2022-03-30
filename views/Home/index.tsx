@@ -5,13 +5,13 @@ import CommonLayout from "../../layouts/CommonLayout";
 
 // components
 import Container from "../../components/common/Container/Container";
-import Introduction from "./Introduction";
-import Services from "./Services";
-import TopBanners from "./TopBanners";
-import TopSellers from "./TopSellers";
-import Deals from "./Deals";
-import BottomBanners from "./BottomBanners";
-import TopRatedProducts from "./TopRatedProduct";
+import Introduction from "./components/Introduction";
+import Services from "./components/Services";
+import TopBanners from "./components/TopBanners";
+import TopSellers from "./components/TopSellers";
+import Deals from "./components/Deals";
+import BottomBanners from "./components/BottomBanners";
+import TopRatedProducts from "./components/TopRatedProduct";
 
 const HomeView: React.FC = () => {
   return (
