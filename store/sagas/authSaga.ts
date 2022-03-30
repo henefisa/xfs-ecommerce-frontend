@@ -1,10 +1,5 @@
 import { authActions } from "./../auth/authSlice";
-import {
-  ActionTypeRegisterRequest,
-  GetUserProfileSuccessType,
-  RegisterFailureType,
-  RegisterSuccessType,
-} from "./../types/auth";
+
 import {
   all,
   takeLatest,
@@ -30,6 +25,10 @@ import {
   LoginSuccessType,
   LogoutFailureType,
   LogoutSuccessType,
+  ActionTypeRegisterRequest,
+  GetUserProfileSuccessType,
+  RegisterFailureType,
+  RegisterSuccessType,
 } from "../types/auth";
 
 function* loginRequest(
@@ -49,7 +48,9 @@ function* loginRequest(
 
     yield put(authActions.loginSuccess(response.data));
     Router.push("/");
-    toast.success("Login success!");
+    setTimeout(() => {
+      toast.success("Login success!");
+    },1000)
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
       yield put(authActions.loginFailure(error?.response?.data?.message));
@@ -139,8 +140,10 @@ function* logoutRequest(): Generator<
   const context = Context.getContext();
   try {
     const response = (yield call(apis.logoutRequest)) as AxiosResponse<void>;
-    toast.success("Logged out!");
     yield put(authActions.logoutSuccess());
+    toast.success("Logged out!");
+    Router.push("/login");
+    console.log('runnn')
     if (!context) return;
     if (response.headers["set-cookie"]) {
       context.res.setHeader("Set-Cookie", response.headers["set-cookie"]);

@@ -1,3 +1,4 @@
+import { ProductModel } from './../models/ProductModel';
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 
@@ -5,10 +6,11 @@ import { toast } from "react-toastify";
 import { LoginPayload, RegisterPayload } from "../models/AuthModel";
 import { User } from "../models/UserModel";
 
-const baseURL = "http://192.168.100.199:7998";
+const baseURL = process.env.defaultUrlBe || '';
+console.log('baseURL', baseURL)
 
 export const instance = axios.create({
-  baseURL: baseURL,
+  baseURL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -59,3 +61,11 @@ export const logoutRequest = () => {
 export const getUserInfo = () => {
   return instance.get("/authentication/user/profile");
 };
+
+export const getProducts = () => {
+  return axios.get<ProductModel[]>(`${baseURL}/product`);
+}
+
+export const getProductDetail = (id: string) => {
+  return axios.get<ProductModel>(`${baseURL}/product/${id}`);
+}

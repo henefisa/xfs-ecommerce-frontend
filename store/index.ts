@@ -10,6 +10,7 @@ import storage from "redux-persist/lib/storage";
 import createSagaMiddleware, { Task } from "redux-saga";
 import authReducer from "./auth/authSlice";
 import saga from "./sagas";
+import productsReducer from "./product/productSlice";
 
 export interface SagaStore extends Store {
   sagaTask?: Task;
@@ -21,6 +22,7 @@ export interface PeristStore extends Store {
 
 const combinedReducer = combineReducers({
   auth: authReducer,
+  products: productsReducer
 });
 
 const rootReducer = (state: RootState | undefined, action: AnyAction) => {

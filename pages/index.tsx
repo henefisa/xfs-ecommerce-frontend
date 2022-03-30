@@ -32,6 +32,8 @@ import CommonLayout from "../layouts/CommonLayout";
 import { RootState } from "../store";
 import { authActions } from "../store/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
+import { productsActions } from "../store/product/productSlice";
+import { DEFAULT_URL_BE } from "../constants/env";
 
 const Introduction = () => {
   const nextEl = useRef<HTMLDivElement>(null);
@@ -337,6 +339,8 @@ const Deals = () => {
   const nextEl = useRef<HTMLDivElement | null>(null);
   const prevEl = useRef<HTMLDivElement | null>(null);
 
+  const { products } = useAppSelector((state: RootState) => state.products);
+
   return (
     <Section
       className="deals"
@@ -376,24 +380,18 @@ const Deals = () => {
           <FontAwesomeIcon icon={faChevronLeft} />
         </div>
 
-        <SwiperSlide>
-          <Product image="/product-1.jpg" hoverable />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product image="/product-2.jpg" hoverable />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product image="/product-3.jpg" hoverable />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product image="/product-4.jpg" hoverable />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product image="/product-5.jpg" hoverable />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product image="/product-2.jpg" hoverable />
-        </SwiperSlide>
+        {products.map((e) => (
+          <SwiperSlide key={e.id}>
+            <Product
+              direction="horizontal"
+              image={`${DEFAULT_URL_BE}${e.images[0].url}`}
+              name={e.name}
+              price={e.price}
+              id={e.id}
+              hoverable
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </Section>
   );
@@ -422,6 +420,8 @@ const BottomBanners = () => {
 };
 
 const TopRatedProducts = () => {
+  const { products } = useAppSelector((state: RootState) => state.products);
+
   return (
     <Section
       className="products"
@@ -437,20 +437,29 @@ const TopRatedProducts = () => {
       }
     >
       <div className="products__wrap">
-        <Product direction="horizontal" image="/product-1.jpg" hoverable />
-        <Product direction="horizontal" image="/product-2.jpg" hoverable />
-        <Product direction="horizontal" image="/product-3.jpg" hoverable />
-        <Product direction="horizontal" image="/product-4.jpg" hoverable />
-        <Product direction="horizontal" image="/product-5.jpg" hoverable />
-        <Product direction="horizontal" image="/product-4.jpg" hoverable />
-        <Product direction="horizontal" image="/product-1.jpg" hoverable />
-        <Product direction="horizontal" image="/product-2.jpg" hoverable />
+        {products.map((e) => (
+          <Product
+            key={e.id}
+            direction="horizontal"
+            image={`${DEFAULT_URL_BE}${e.images[0].url}`}
+            name={e.name}
+            price={e.price}
+            id={e.id}
+            hoverable
+          />
+        ))}
       </div>
     </Section>
   );
 };
 
 const Home: NextPage = ({}) => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(productsActions.getProductsRequest());
+  }, []);
+
   return (
     <CommonLayout>
       <div className="home-page">

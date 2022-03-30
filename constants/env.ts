@@ -1,0 +1,1 @@
+export const DEFAULT_URL_BE = process.env.defaultUrlBe || "";

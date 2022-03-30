@@ -1,3 +1,4 @@
+import { ProductModel } from './../../models/ProductModel';
 import { authActions } from './../auth/authSlice';
 import { RegisterPayload } from './../../models/AuthModel';
 import { User } from "../../models/UserModel";

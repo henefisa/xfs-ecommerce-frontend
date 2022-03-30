@@ -38,6 +38,13 @@ import {
   faShippingFast,
 } from "@fortawesome/free-solid-svg-icons";
 import { faCommentAlt, faThumbsUp } from "@fortawesome/free-regular-svg-icons";
+import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
+import { RootState } from "../../store";
+import { ProductModel } from "../../models/ProductModel";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { DEFAULT_URL_BE } from "../../constants/env";
+import { productsActions } from "../../store/product/productSlice";
+import { LOCAL_STORAGE } from "../../constants/localStorage";
 
 interface ProductPageProps {}
 
@@ -45,6 +52,8 @@ interface SellerWrapProps {
   className?: string;
   breakpoints?: SwiperOptions["breakpoints"];
   query: string;
+  name?: string;
+  image?: string;
 }
 
 type ColorOption = {
@@ -171,6 +180,8 @@ const SellerWrap: React.FC<SellerWrapProps> = ({
   className,
   breakpoints,
   query,
+  name,
+  image,
 }) => {
   const nextEl = useRef<HTMLDivElement | null>(null);
   const prevEl = useRef<HTMLDivElement | null>(null);
@@ -200,7 +211,7 @@ const SellerWrap: React.FC<SellerWrapProps> = ({
   return (
     <div className={clsx("seller-wrap", className)}>
       <Seller
-        name="Sample"
+        name={name || "sample"}
         rating={4}
         logo="/vendor-1.jpg"
         products={["/product-1.jpg", "/product-2.jpg", "/product-3.jpg"]}
@@ -279,9 +290,21 @@ const SellerWrap: React.FC<SellerWrapProps> = ({
   );
 };
 
-const ProductView: React.FC = () => {
+interface ProductViewProps {
+  price?: number;
+  images?: string;
+  description?: string;
+  stock?: number;
+  name?: string;
+}
+
+const ProductView = (props: ProductViewProps) => {
+  const { price, images, description, stock, name } = props;
   const [currentIndex, setCurrentIndex] = useState(1);
   const [selectRoot, setSelectRoot] = useState<HTMLElement | null>(null);
+  const [quantity, setQuantity] = useState<number>(0);
+
+  const imageDisplay = images ?? `/product-${currentIndex}.jpg`;
 
   const handleChangeImage = (index: number) => {
     setCurrentIndex(index);
@@ -291,6 +314,8 @@ const ProductView: React.FC = () => {
     setSelectRoot(document.getElementById("select-root"));
   }, []);
 
+  const handleAddToCard = () => {};
+
   return (
     <Card className="product-view">
       <Row gutter={[32, 16]}>
@@ -298,7 +323,7 @@ const ProductView: React.FC = () => {
           <div className="product-view__image-wrap">
             <div className="product-view__thumbnail">
               <Image
-                src={`/product-${currentIndex}.jpg`}
+                src={`${imageDisplay}`}
                 layout="fill"
                 alt="Product"
                 objectFit="cover"
@@ -316,7 +341,7 @@ const ProductView: React.FC = () => {
                   key={idx}
                 >
                   <Image
-                    src={`/product-${idx + 1}.jpg`}
+                    src={`${imageDisplay}`}
                     layout="fill"
                     alt="Product"
                     objectFit="cover"
@@ -329,17 +354,14 @@ const ProductView: React.FC = () => {
         </Col>
         <Col sm={6} lg={8}>
           <div className="product-view__details">
-            <h3 className="product-view__title">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptatum nam quis ipsa neque impedit accusantium saepe
-            </h3>
+            <h3 className="product-view__title">{description}</h3>
             <Rating value={4} size="small" />
           </div>
           <Row gutter={[16, 16]}>
             <Col lg={6} xl={7}>
               <div className="product-view__price-wrap">
                 <div className="product-view__price">
-                  {currencyFormat.format(300000)}
+                  {currencyFormat.format(price || 0)}
                 </div>
               </div>
               <Divider />
@@ -368,16 +390,21 @@ const ProductView: React.FC = () => {
               <Divider />
               <div className="product-view__quantity">
                 <div className="quantity__title">Quantity: </div>
-                <InputNumber min={1} max={99} defaultValue={1} />
+                <InputNumber
+                  value={quantity}
+                  min={1}
+                  max={stock || 100000}
+                  defaultValue={1}
+                />
               </div>
               <div className="product-view__actions">
-                <Button type="solid" color="error">
+                <Button type="solid" color="error" onClick={handleAddToCard}>
                   Add to cart
                 </Button>
               </div>
             </Col>
             <Col lg={6} xl={5}>
-              <SellerWrap query="(min-width:1024px)" />
+              <SellerWrap query="(min-width:1024px)" name={name} />
             </Col>
           </Row>
         </Col>
@@ -385,14 +412,20 @@ const ProductView: React.FC = () => {
       <SellerWrap
         query="(max-width:1023px)"
         breakpoints={{ 640: { slidesPerView: 2 } }}
+        name={name}
       />
     </Card>
   );
 };
 
-const SimilarProduct: React.FC = () => {
+interface SimilarProductsProps {
+  image?: string;
+}
+
+const SimilarProduct = (props: SimilarProductsProps) => {
   const nextEl = useRef<HTMLDivElement | null>(null);
   const prevEl = useRef<HTMLDivElement | null>(null);
+  const { image } = props;
 
   return (
     <Card className="similar-products">
@@ -442,28 +475,23 @@ const SimilarProduct: React.FC = () => {
             }
           }}
         >
-          <SwiperSlide>
-            <Product hoverable image="/product-1.jpg" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Product hoverable image="/product-2.jpg" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Product hoverable image="/product-3.jpg" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Product hoverable image="/product-4.jpg" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Product hoverable image="/product-5.jpg" />
-          </SwiperSlide>
+          {[...new Array(5)].map((_, idx) => {
+            <SwiperSlide key={idx}>
+              <Product hoverable image={image ? image : "/product-1.jpg"} />
+            </SwiperSlide>;
+          })}
         </Swiper>
       </div>
     </Card>
   );
 };
 
-const Details: React.FC = () => {
+interface DetailsProps {
+  description?: string;
+}
+
+const Details = (props: DetailsProps) => {
+  const { description } = props;
   return (
     <Card className="details">
       <h4 className="details__title">Details</h4>
@@ -472,12 +500,7 @@ const Details: React.FC = () => {
           <tbody>
             <tr>
               <td>Trademark</td>
-              <td>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi
-                iusto porro qui blanditiis consequuntur itaque reprehenderit vel
-                corporis labore sequi temporibus sit cumque minima adipisci
-                totam asperiores, consequatur nobis. Sint.
-              </td>
+              <td>{description || "Lorem isum"}</td>
             </tr>
             <tr>
               <td>Origin</td>
@@ -490,21 +513,26 @@ const Details: React.FC = () => {
   );
 };
 
-const ProductDescription: React.FC = () => {
+interface ProductDescriptionProps {
+  description: string;
+}
+
+const ProductDescription = (props: ProductDescriptionProps) => {
+  const { description } = props;
   return (
     <Card className="product-description">
       <h4 className="product-description__title">Product Description</h4>
-      <div className="product-description__content">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi expedita
-        dicta facere adipisci iure eveniet magni quisquam fuga voluptatibus,
-        earum ea sunt! Iusto asperiores eligendi blanditiis voluptate dicta est
-        numquam?
-      </div>
+      <div className="product-description__content">{description}</div>
     </Card>
   );
 };
 
-const CustomerReview: React.FC = () => {
+interface CustomerReviewProps {
+  images?: string;
+}
+
+const CustomerReview = (props: CustomerReviewProps) => {
+  const { images } = props;
   return (
     <Card className="customer-review">
       <Row gutter={[16, 16]} className="customer-review__top">
@@ -517,17 +545,20 @@ const CustomerReview: React.FC = () => {
             <div className="review-images__wrap">
               {/*TODO: Click on review image open modal*/}
               <Swiper slidesPerView="auto">
-                <SwiperSlide>
-                  <div className="review-images__item">
-                    <Image
-                      src="/product-1.jpg"
-                      layout="fill"
-                      objectFit="cover"
-                      objectPosition="center"
-                      alt="Review Images"
-                    />
-                  </div>
-                </SwiperSlide>
+                {[...new Array(5)].map((_, idx) => (
+                  <SwiperSlide key={idx}>
+                    <div className="review-images__item">
+                      <Image
+                        src={images ? `${images}` : "/product-1.jpg"}
+                        layout="fill"
+                        objectFit="cover"
+                        objectPosition="center"
+                        alt="Review Images"
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))}
+
                 <SwiperSlide>
                   <div className="review-images__item">
                     <Image
@@ -673,16 +704,80 @@ const CustomerReview: React.FC = () => {
   );
 };
 
-const ProductPage: React.FC<ProductPageProps> = ({}) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const productId = context.params?.productId;
+  return {
+    props: {
+      productId,
+    },
+  };
+};
+
+type ProductDetailProps = InferGetServerSidePropsType<
+  typeof getServerSideProps
+>;
+
+const ProductPage: React.FC<ProductDetailProps> = ({ productId }) => {
+  const dispatch = useAppDispatch();
+  const product = useAppSelector((state: RootState) => state.products);
+
+  const [productDetail, setProductDetail] = useState<ProductModel>({
+    categories: [],
+    name: "",
+    stock: 0,
+    price: 0,
+    description: "",
+    details: "",
+    images: [],
+    deleteDate: "",
+    id: "",
+    createdAt: "",
+    updatedAt: "",
+  });
+
+  useEffect(() => {
+    if (productId) {
+      dispatch(productsActions.getProductDetailRequest(productId));
+    }
+  }, [productId]);
+
+  useEffect(() => {
+    if (product.productDetail) {
+      setProductDetail(product.productDetail);
+    }
+  }, [product]);
+
   return (
     <CommonLayout>
       <div className="product-page">
         <Container>
-          <ProductView />
-          <SimilarProduct />
-          <Details />
-          <ProductDescription />
-          <CustomerReview />
+          <ProductView
+            description={productDetail.description}
+            images={
+              productDetail.images.length
+                ? `${DEFAULT_URL_BE}${productDetail.images[0]?.url}`
+                : undefined
+            }
+            price={productDetail.price}
+            stock={productDetail.stock}
+            name={productDetail.name}
+          />
+          <SimilarProduct
+            image={
+              productDetail.images.length
+                ? `${DEFAULT_URL_BE}${productDetail.images[0]?.url}`
+                : undefined
+            }
+          />
+          <Details description={productDetail.description} />
+          <ProductDescription description={productDetail.description} />
+          <CustomerReview
+            images={
+              productDetail.images.length
+                ? `${DEFAULT_URL_BE}${productDetail.images[0]?.url}`
+                : undefined
+            }
+          />
         </Container>
       </div>
     </CommonLayout>
