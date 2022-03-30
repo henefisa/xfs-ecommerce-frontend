@@ -18,7 +18,7 @@ import Col from "../components/Col/Col";
 // models
 import { RegisterPayload } from "../models/AuthModel";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "../store/hooks/hooks";
+import { useAppSelector } from "../store/hooks";
 import { RootState } from "../store";
 import { authActions } from "../store/auth/authSlice";
 

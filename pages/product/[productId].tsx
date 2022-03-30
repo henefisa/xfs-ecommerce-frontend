@@ -38,7 +38,7 @@ import {
   faShippingFast,
 } from "@fortawesome/free-solid-svg-icons";
 import { faCommentAlt, faThumbsUp } from "@fortawesome/free-regular-svg-icons";
-import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { RootState } from "../../store";
 import { ProductModel } from "../../models/ProductModel";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";

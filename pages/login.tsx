@@ -14,7 +14,7 @@ import Row from "../components/Row/Row";
 
 // stores
 import { RootState } from "../store";
-import { useAppDispatch, useAppSelector } from "../store/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { authActions } from "../store/auth/authSlice";
 
 interface LoginInputs {

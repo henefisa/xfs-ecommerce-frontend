@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-     "lint:write": "next lint --cache --fix && npm run check-types",
+    "lint:write": "next lint --cache --fix && npm run check-types",
     "check-types": "tsc --noemit"
   },
   "dependencies": {
@@ -19,6 +19,8 @@
     "@hookform/resolvers": "^2.8.0",
     "@popperjs/core": "^2.9.3",
     "@reduxjs/toolkit": "^1.8.0",
+    "@stripe/react-stripe-js": "^1.7.0",
+    "@stripe/stripe-js": "^1.26.0",
     "@types/uuid": "^8.3.1",
     "axios": "^0.24.0",
     "chroma-js": "^2.1.2",

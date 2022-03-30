@@ -5,7 +5,7 @@ import Link from "next/link";
 import React, { useRef } from "react";
 import { RootState } from "../../store";
 import { authActions } from "../../store/auth/authSlice";
-import { useAppDispatch, useAppSelector } from "../../store/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import Badge from "../Badge/Badge";
 // components
 import Container from "../Container/Container";
