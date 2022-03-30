@@ -2,15 +2,15 @@ import * as React from "react";
 
 // components
 import Link from "next/link";
-import Button from "../../components/common/Button/Button";
-import Product from "../../components/modules/Product/Product";
-import Section from "../../components/common/Section/Section";
+import Button from "components/common/Button/Button";
+import Product from "components/modules/Product/Product";
+import Section from "components/common/Section/Section";
 
 // constants
-import { DEFAULT_URL_BE } from "../../constants/env";
+import { DEFAULT_URL_BE } from "constants/env";
 
 // store
-import { useAppSelector } from "../../store/hooks";
+import { useAppSelector } from "store/hooks";
 
 const TopRatedProducts = () => {
   const { products } = useAppSelector((state) => state.products);
