@@ -10,7 +10,7 @@ import Section from "components/common/Section/Section";
 import { DEFAULT_URL_BE } from "constants/env";
 
 // store
-import { useAppSelector } from "store/hooks";
+import { useAppSelector } from "hooks";
 
 const TopRatedProducts = () => {
   const { products } = useAppSelector((state) => state.products);

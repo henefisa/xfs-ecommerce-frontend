@@ -12,7 +12,7 @@ import Section from "components/common/Section/Section";
 import Product from "components/modules/Product/Product";
 
 // stores
-import { useAppSelector } from "store/hooks";
+import { useAppSelector } from "hooks";
 
 // constants
 import { DEFAULT_URL_BE } from "constants/env";
