@@ -1,9 +1,9 @@
 import * as React from "react";
 
 // components
-import { Banner, BannerGroup } from "../../components/Banner";
-import Button from "../../components/Button/Button";
-import Section from "../../components/Section/Section";
+import { Banner, BannerGroup } from "../../components/modules/Banner";
+import Button from "../../components/common/Button/Button";
+import Section from "../../components/common/Section/Section";
 
 const TopBanners: React.FC = () => {
   return (

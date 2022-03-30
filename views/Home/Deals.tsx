@@ -7,9 +7,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // components
-import Countdown from "components/Countdown/Countdown";
-import Section from "components/Section/Section";
-import Product from "components/Product/Product";
+import Countdown from "components/common/Countdown/Countdown";
+import Section from "components/common/Section/Section";
+import Product from "components/modules/Product/Product";
 
 // stores
 import { useAppSelector } from "store/hooks";

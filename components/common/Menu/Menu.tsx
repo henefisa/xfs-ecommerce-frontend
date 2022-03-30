@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 
 // context
-import MenuContext from "../../contexts/MenuContext";
+import MenuContext from "../../../contexts/MenuContext";
 
 export interface MenuProps {
   children: React.ReactNode;

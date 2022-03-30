@@ -4,7 +4,7 @@ import { Placement } from "@popperjs/core";
 import { usePopper } from "react-popper";
 
 // utils
-import { debounce } from "../../utils/debounce";
+import { debounce } from "../../../utils/debounce";
 
 interface DropdownProps {
   children: React.ReactNode;

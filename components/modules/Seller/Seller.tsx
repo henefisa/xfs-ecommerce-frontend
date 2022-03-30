@@ -4,7 +4,7 @@ import Link from "next/link";
 
 // componenets
 import Image from "next/image";
-import Rating from "../Rating/Rating";
+import Rating from "../../common/Rating/Rating";
 
 interface SellerProps {
   name: string;

@@ -3,14 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 // components
-import Container from "../components/Container/Container";
-import Divider from "../components/Divider/Divider";
-import InputNumber from "components/InputNumber/InputNumber";
-import Row from "components/Row/Row";
-import Col from "components/Col/Col";
-import Button from "components/Button/Button";
+import Container from "../components/common/Container/Container";
+import Divider from "../components/common/Divider/Divider";
+import InputNumber from "components/common/InputNumber/InputNumber";
+import Row from "components/common/Row/Row";
+import Col from "components/common/Col/Col";
+import Button from "components/common/Button/Button";
 import CommonLayout from "layouts/CommonLayout";
-import Card from "components/Card/Card";
+import Card from "components/common/Card/Card";
 
 // icons
 import { faArrowRight, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -19,7 +19,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // utils
 import { currencyFormat } from "../utils/currencyFormat";
 import { Cart } from "../models/Cart";
-import { useAppSelector } from "../store/hooks/hooks";
+import { useAppSelector } from "../store/hooks";
 import { RootState } from "../store";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../store/cart/cartSlice";

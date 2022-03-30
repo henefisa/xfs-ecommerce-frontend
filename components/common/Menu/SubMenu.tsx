@@ -11,9 +11,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // contexts
-import MenuContext from "../../contexts/MenuContext";
+import MenuContext from "../../../contexts/MenuContext";
 import Portal from "../Portal/Portal";
-import { debounce } from "../../utils/debounce";
+import { debounce } from "../../../utils/debounce";
 
 export interface SubMenuProps {
   children: React.ReactNode;

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import clsx from "clsx";
 
 // context
-import RowContext from "../../contexts/RowContext";
+import RowContext from "../../../contexts/RowContext";
 
 interface ColProps {
   children?: React.ReactNode;

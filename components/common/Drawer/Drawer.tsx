@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
-import { debounce } from "../../utils/debounce";
+import { debounce } from "../../../utils/debounce";
 
 // components
 import Toggle from "../Toggle/Toggle";

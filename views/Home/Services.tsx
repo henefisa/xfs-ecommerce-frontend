@@ -11,8 +11,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // components
-import Section from "../../components/Section/Section";
-import Service from "../../components/Service/Service";
+import Section from "../../components/common/Section/Section";
+import Service from "../../components/modules/Service/Service";
 
 const Services = () => {
   const nextEl = React.useRef<HTMLDivElement | null>(null);

@@ -4,7 +4,7 @@ import * as React from "react";
 import CommonLayout from "../../layouts/CommonLayout";
 
 // components
-import Container from "../../components/Container/Container";
+import Container from "../../components/common/Container/Container";
 import Introduction from "./Introduction";
 import Services from "./Services";
 import TopBanners from "./TopBanners";

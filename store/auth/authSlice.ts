@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { WritableDraft } from "immer/dist/internal";
-import { RegisterPayload } from "../../models/AuthModel";
-import { User } from "../../models/UserModel";
+import { RegisterPayload } from "../../models/Auth";
+import { User } from "../../models/User";
 
 export interface IAuthState {
   isLoading: boolean;

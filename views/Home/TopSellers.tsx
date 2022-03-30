@@ -7,8 +7,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // components
-import Section from "../../components/Section/Section";
-import Seller from "../../components/Seller/Seller";
+import Section from "../../components/common/Section/Section";
+import Seller from "../../components/modules/Seller/Seller";
 
 const TopSellers = () => {
   const nextEl = React.useRef<HTMLDivElement | null>(null);

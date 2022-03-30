@@ -2,7 +2,7 @@ import clsx from "clsx";
 import React, { useEffect, useRef } from "react";
 
 // context
-import RowContext from "../../contexts/RowContext";
+import RowContext from "../../../contexts/RowContext";
 
 interface RowProps {
   children?: React.ReactNode;

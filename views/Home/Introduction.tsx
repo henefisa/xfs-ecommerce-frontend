@@ -8,9 +8,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // components
 import Image from "next/image";
-import { Form, FormItem } from "../../components/Form";
-import Input from "../../components/Input/Input";
-import Button from "../../components/Button/Button";
+import { Form, FormItem } from "../../components/common/Form";
+import Input from "../../components/common/Input/Input";
+import Button from "../../components/common/Button/Button";
 
 const Introduction: React.FC = () => {
   const nextEl = React.useRef<HTMLDivElement>(null);

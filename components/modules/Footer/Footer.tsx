@@ -1,8 +1,8 @@
 import React from "react";
 
 // components
-import Container from "../Container/Container";
-import Row from "../Row/Row";
+import Container from "../../common/Container/Container";
+import Row from "../../common/Row/Row";
 
 // icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

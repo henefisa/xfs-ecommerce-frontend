@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 import * as apis from "../../apis";
 
 // models
-import { User } from "../../models/UserModel";
+import { User } from "../../models/User";
 
 // libs
 import { Context } from "../../libs/Context";

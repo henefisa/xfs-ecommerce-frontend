@@ -1,13 +1,13 @@
-import { ProductModel } from './../models/ProductModel';
+import { ProductModel } from "../models/Product";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 
 // models
-import { LoginPayload, RegisterPayload } from "../models/AuthModel";
-import { User } from "../models/UserModel";
+import { LoginPayload, RegisterPayload } from "../models/Auth";
+import { User } from "../models/User";
 
-const baseURL = process.env.defaultUrlBe || '';
-console.log('baseURL', baseURL)
+const baseURL = process.env.defaultUrlBe || "";
+console.log("baseURL", baseURL);
 
 export const instance = axios.create({
   baseURL,
@@ -64,8 +64,8 @@ export const getUserInfo = () => {
 
 export const getProducts = () => {
   return axios.get<ProductModel[]>(`${baseURL}/product`);
-}
+};
 
 export const getProductDetail = (id: string) => {
   return axios.get<ProductModel>(`${baseURL}/product/${id}`);
-}
+};

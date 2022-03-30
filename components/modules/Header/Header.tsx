@@ -3,17 +3,17 @@ import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React, { useRef } from "react";
-import { RootState } from "../../store";
-import { authActions } from "../../store/auth/authSlice";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import Badge from "../Badge/Badge";
+import { RootState } from "../../../store";
+import { authActions } from "../../../store/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import Badge from "../../common/Badge/Badge";
 // components
-import Container from "../Container/Container";
-import Drawer from "../Drawer/Drawer";
-import Dropdown from "../Dropdown/Dropdown";
-import Input from "../Input/Input";
-import { Menu, MenuItem, SubMenu } from "../Menu";
-import Row from "../Row/Row";
+import Container from "../../common/Container/Container";
+import Drawer from "../../common/Drawer/Drawer";
+import Dropdown from "../../common/Dropdown/Dropdown";
+import Input from "../../common/Input/Input";
+import { Menu, MenuItem, SubMenu } from "../../common/Menu";
+import Row from "../../common/Row/Row";
 
 const MobileNavbar = () => {
   return (

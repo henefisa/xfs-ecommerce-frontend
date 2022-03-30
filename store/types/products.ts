@@ -1,7 +1,7 @@
-import { ProductModel } from './../../models/ProductModel';
+import { ProductModel } from "../../models/Product";
 export interface ActionTypeGetProductsSuccess {
   type: string;
-  payload: ProductModel[]
+  payload: ProductModel[];
 }
 
 export interface ActionTypeGetProductsRequest {
@@ -14,13 +14,13 @@ export interface ActionTypeGetProductsFailure {
 }
 
 export interface ActionTypeGetProductDetailRequest {
-     type: string;
-     payload: string;
+  type: string;
+  payload: string;
 }
 
 export interface ActionTypeGetProductDetailSuccess {
-     type: string;
-     payload: ProductModel;
+  type: string;
+  payload: ProductModel;
 }
 
 export interface ActionTypeGetProductDetailFailure {

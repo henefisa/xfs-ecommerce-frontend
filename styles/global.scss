@@ -1,36 +1,39 @@
 // fonts
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap");
 
-// components
-@import "./components/header";
-@import "./components/footer";
-@import "./components/banner";
-@import "./components/product";
-@import "./components/input";
-@import "./components/toggle";
-@import "./components/service";
-@import "./components/rating";
-@import "./components/seller";
-@import "./components/section";
-@import "./components/countdown";
-@import "./components/button";
-@import "./components/dropdown";
-@import "./components/menu";
-@import "./components/modal";
-@import "./components/divider";
-@import "./components/inputNumber";
-@import "./components/badge";
-@import "./components/row";
-@import "./components/col";
-@import "./components/form";
-@import "./components/reviewRating";
-@import "./components/avatar";
-@import "./components/stars";
-@import "./components/card";
-@import "./components/pagination";
-@import "./components/drawer";
-@import "./components/table";
-@import "./components/spinner";
+// components common
+
+@import "./components/common/input";
+@import "./components/common/toggle";
+@import "./components/common/rating";
+@import "./components/common/section";
+@import "./components/common/countdown";
+@import "./components/common/button";
+@import "./components/common/dropdown";
+@import "./components/common/menu";
+@import "./components/common/modal";
+@import "./components/common/divider";
+@import "./components/common/inputNumber";
+@import "./components/common/badge";
+@import "./components/common/row";
+@import "./components/common/col";
+@import "./components/common/form";
+@import "./components/common/reviewRating";
+@import "./components/common/avatar";
+@import "./components/common/stars";
+@import "./components/common/card";
+@import "./components/common/pagination";
+@import "./components/common/drawer";
+@import "./components/common/table";
+@import "./components/common/spinner";
+
+// components module
+@import "./components/modules/header";
+@import "./components/modules/product";
+@import "./components/modules/footer";
+@import "./components/modules/seller";
+@import "./components/modules/service";
+@import "./components/modules/banner";
 
 // layouts
 @import "./layouts/commonLayout";

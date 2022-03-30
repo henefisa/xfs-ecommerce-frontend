@@ -1,8 +1,8 @@
 import React from "react";
 
 // componenets
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
+import Header from "../components/modules/Header/Header";
+import Footer from "../components/modules/Footer/Footer";
 
 interface CommonLayoutProps {
   children: React.ReactNode;

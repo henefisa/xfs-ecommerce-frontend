@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Banner, BannerGroup } from "../../components/Banner";
-import Section from "../../components/Section/Section";
+import { Banner, BannerGroup } from "../../components/modules/Banner";
+import Section from "../../components/common/Section/Section";
 
 const BottomBanners = () => {
   return (

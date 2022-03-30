@@ -5,18 +5,18 @@ import Link from "next/link";
 import * as yup from "yup";
 
 // components
-import Input from "../components/Input/Input";
-import Button from "../components/Button/Button";
+import Input from "../components/common/Input/Input";
+import Button from "../components/common/Button/Button";
 import CommonLayout from "../layouts/CommonLayout";
-import { Form, FormItem } from "../components/Form";
-import Container from "../components/Container/Container";
-import Row from "../components/Row/Row";
-import Col from "../components/Col/Col";
+import { Form, FormItem } from "../components/common/Form";
+import Container from "../components/common/Container/Container";
+import Row from "../components/common/Row/Row";
+import Col from "../components/common/Col/Col";
 
 // store
 
 // models
-import { RegisterPayload } from "../models/AuthModel";
+import { RegisterPayload } from "../models/Auth";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store/hooks";
 import { RootState } from "../store";

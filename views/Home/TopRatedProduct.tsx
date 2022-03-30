@@ -2,9 +2,9 @@ import * as React from "react";
 
 // components
 import Link from "next/link";
-import Button from "../../components/Button/Button";
-import Product from "../../components/Product/Product";
-import Section from "../../components/Section/Section";
+import Button from "../../components/common/Button/Button";
+import Product from "../../components/modules/Product/Product";
+import Section from "../../components/common/Section/Section";
 
 // constants
 import { DEFAULT_URL_BE } from "../../constants/env";

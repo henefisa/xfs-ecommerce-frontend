@@ -5,12 +5,12 @@ import Link from "next/link";
 import * as yup from "yup";
 
 // components
-import Input from "../components/Input/Input";
-import Button from "../components/Button/Button";
+import Input from "../components/common/Input/Input";
+import Button from "../components/common/Button/Button";
 import CommonLayout from "../layouts/CommonLayout";
-import { Form, FormItem } from "../components/Form";
-import Container from "../components/Container/Container";
-import Row from "../components/Row/Row";
+import { Form, FormItem } from "../components/common/Form";
+import Container from "../components/common/Container/Container";
+import Row from "../components/common/Row/Row";
 
 // stores
 import { RootState } from "../store";

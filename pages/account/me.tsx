@@ -4,15 +4,15 @@ import { END } from "redux-saga";
 import clsx from "clsx";
 
 // components
-import Card from "../../components/Card/Card";
-import Col from "../../components/Col/Col";
-import Container from "../../components/Container/Container";
-import Row from "../../components/Row/Row";
-import Stars from "../../components/Stars/Stars";
-import Product from "../../components/Product/Product";
-import Table from "../../components/Table/Table";
+import Card from "../../components/common/Card/Card";
+import Col from "../../components/common/Col/Col";
+import Container from "../../components/common/Container/Container";
+import Row from "../../components/common/Row/Row";
+import Stars from "../../components/common/Stars/Stars";
+import Product from "../../components/modules/Product/Product";
+import Table from "../../components/common/Table/Table";
 import CommonLayout from "../../layouts/CommonLayout";
-import { Form, FormItem } from "../../components/Form";
+import { Form, FormItem } from "../../components/common/Form";
 
 // validation
 import * as yup from "yup";
@@ -26,8 +26,8 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Input from "../../components/Input/Input";
-import Button from "../../components/Button/Button";
+import Input from "../../components/common/Input/Input";
+import Button from "../../components/common/Button/Button";
 
 // store
 import { SagaStore, wrapper } from "../../store";

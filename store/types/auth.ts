@@ -1,8 +1,6 @@
-import { ProductModel } from './../../models/ProductModel';
-import { authActions } from './../auth/authSlice';
-import { RegisterPayload } from './../../models/AuthModel';
-import { User } from "../../models/UserModel";
-import { LoginPayload } from "../../models/AuthModel";
+import { RegisterPayload } from "../../models/Auth";
+import { User } from "../../models/User";
+import { LoginPayload } from "../../models/Auth";
 
 export interface ActionTypeLoginRequest {
   type: string;
@@ -26,7 +24,6 @@ export interface LogoutSuccessType {
 export interface LogoutFailureType {
   type: string;
 }
-
 
 export interface ActionTypeRegisterRequest {
   type: string;

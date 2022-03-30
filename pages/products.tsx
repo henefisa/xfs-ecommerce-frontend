@@ -2,14 +2,14 @@ import clsx from "clsx";
 import React, { useState } from "react";
 
 // components
-import Card from "../components/Card/Card";
-import Col from "../components/Col/Col";
-import Container from "../components/Container/Container";
-import Pagination from "../components/Pagination/Pagination";
-import Product from "../components/Product/Product";
-import Row from "../components/Row/Row";
+import Card from "../components/common/Card/Card";
+import Col from "../components/common/Col/Col";
+import Container from "../components/common/Container/Container";
+import Pagination from "../components/common/Pagination/Pagination";
+import Product from "../components/modules/Product/Product";
+import Row from "../components/common/Row/Row";
 import CommonLayout from "../layouts/CommonLayout";
-import Divider from "../components/Divider/Divider";
+import Divider from "../components/common/Divider/Divider";
 
 interface ProductsProps {}
 

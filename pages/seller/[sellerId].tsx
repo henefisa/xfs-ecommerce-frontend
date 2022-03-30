@@ -5,13 +5,13 @@ import Image from "next/image";
 
 // components
 import CommonLayout from "../../layouts/CommonLayout";
-import Container from "../../components/Container/Container";
-import Avatar from "../../components/Avatar/Avatar";
-import Row from "../../components/Row/Row";
-import Col from "../../components/Col/Col";
-import Card from "../../components/Card/Card";
-import Product from "../../components/Product/Product";
-import Pagination from "../../components/Pagination/Pagination";
+import Container from "../../components/common/Container/Container";
+import Avatar from "../../components/common/Avatar/Avatar";
+import Row from "../../components/common/Row/Row";
+import Col from "../../components/common/Col/Col";
+import Card from "../../components/common/Card/Card";
+import Product from "../../components/modules/Product/Product";
+import Pagination from "../../components/common/Pagination/Pagination";
 
 // icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 // utils
-import { currencyFormat } from "../../utils/currencyFormat";
+import { currencyFormat } from "../../../utils/currencyFormat";
 
 interface ProductProps {
   id?: string;

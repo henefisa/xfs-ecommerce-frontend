@@ -24,7 +24,7 @@ export interface PeristStore extends Store {
 const combinedReducer = combineReducers({
   auth: authReducer,
   products: productsReducer,
-  carts: cartsReducer
+  carts: cartsReducer,
 });
 
 const rootReducer = (state: RootState | undefined, action: AnyAction) => {
@@ -50,7 +50,7 @@ const makeStore = (context: Context) => {
   const store = configureStore({
     reducer: persistReducer(persistConfig, rootReducer),
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(sagaMiddleware),
+      getDefaultMiddleware({ serializableCheck: false }).concat(sagaMiddleware),
   });
   (store as SagaStore).sagaTask = sagaMiddleware.run(saga);
   (store as PeristStore).__persistor = persistStore(store);

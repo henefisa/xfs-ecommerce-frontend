@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 // context
-import FormContext from "../../contexts/FormContext";
+import FormContext from "../../../contexts/FormContext";
 
 export interface FormProps {
   children: React.ReactNode;

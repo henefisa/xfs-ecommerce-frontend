@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ProductModel } from "../../models/ProductModel";
+import { ProductModel } from "../../models/Product";
 
 export interface ProductState {
   isLoading: boolean;
@@ -26,19 +26,15 @@ export const productSlice = createSlice({
       state.isError = false;
     },
     getProductsSuccess(state, action: PayloadAction<ProductModel[]>) {
-      state.products = action.payload
+      state.products = action.payload;
       state.isLoading = false;
     },
-    getProductsFailure(
-      state,
-      action: PayloadAction<string>
-    ) {
+    getProductsFailure(state, action: PayloadAction<string>) {
       state.isLoading = false;
       state.isError = true;
       state.products = [];
       state.message = action.payload;
     },
-
 
     getProductDetailRequest(state, action: PayloadAction<string>) {
       state.isLoading = true;
@@ -48,10 +44,7 @@ export const productSlice = createSlice({
       state.productDetail = action.payload;
       state.isLoading = false;
     },
-    getProductDetailFailure(
-      state,
-      action: PayloadAction<string>
-    ) {
+    getProductDetailFailure(state, action: PayloadAction<string>) {
       state.isLoading = false;
       state.isError = true;
       state.productDetail = null;
