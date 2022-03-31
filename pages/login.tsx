@@ -5,17 +5,19 @@ import Link from "next/link";
 import * as yup from "yup";
 
 // components
-import Input from "../components/common/Input/Input";
-import Button from "../components/common/Button/Button";
-import CommonLayout from "../layouts/CommonLayout";
-import { Form, FormItem } from "../components/common/Form";
-import Container from "../components/common/Container/Container";
-import Row from "../components/common/Row/Row";
+import Input from "components/common/Input/Input";
+import Button from "components/common/Button/Button";
+import CommonLayout from "layouts/CommonLayout";
+import { Form, FormItem } from "components/common/Form";
+import Container from "components/common/Container/Container";
+import Row from "components/common/Row/Row";
+
+// hooks
+import { useAppDispatch, useAppSelector } from "hooks";
 
 // stores
-import { RootState } from "../store";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { authActions } from "../store/auth/authSlice";
+import { RootState } from "store";
+import { authActions } from "store/auth/authSlice";
 
 interface LoginInputs {
   username: string;

@@ -5,22 +5,22 @@ import Link from "next/link";
 import * as yup from "yup";
 
 // components
-import Input from "../components/common/Input/Input";
-import Button from "../components/common/Button/Button";
-import CommonLayout from "../layouts/CommonLayout";
-import { Form, FormItem } from "../components/common/Form";
-import Container from "../components/common/Container/Container";
-import Row from "../components/common/Row/Row";
-import Col from "../components/common/Col/Col";
+import Input from "components/common/Input/Input";
+import Button from "components/common/Button/Button";
+import CommonLayout from "layouts/CommonLayout";
+import { Form, FormItem } from "components/common/Form";
+import Container from "components/common/Container/Container";
+import Row from "components/common/Row/Row";
+import Col from "components/common/Col/Col";
 
 // store
+import { authActions } from "store/auth/authSlice";
 
 // models
-import { RegisterPayload } from "../models/Auth";
-import { useDispatch } from "react-redux";
-import { useAppSelector } from "../store/hooks";
-import { RootState } from "../store";
-import { authActions } from "../store/auth/authSlice";
+import { RegisterPayload } from "models/Auth";
+
+// hooks
+import { useAppDispatch, useAppSelector } from "hooks";
 
 type RegisterInputs = RegisterPayload & { birthday: Date };
 
@@ -53,8 +53,9 @@ const registerSchema = yup.object().shape({
 });
 
 const Register = () => {
-  const authSelector = useAppSelector((state: RootState) => state.auth);
-  const dispatch = useDispatch();
+  const authSelector = useAppSelector((state) => state.auth);
+
+  const dispatch = useAppDispatch();
 
   const handleSubmit = (values: RegisterInputs) => {
     dispatch(
