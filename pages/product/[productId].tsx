@@ -8,7 +8,7 @@ import {
 } from "next";
 import { productsActions } from "../../store/product/productSlice";
 import { END } from "redux-saga";
-import ProductView from "views/Product/components/ProductView";
+import ProductView from "views/Product/Product";
 
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async (context) => {

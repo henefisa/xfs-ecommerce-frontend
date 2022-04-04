@@ -69,7 +69,7 @@ const SimilarProducts = (props: SimilarProductsProps) => {
         >
           {[...new Array(5)].map((_, idx) => {
             <SwiperSlide key={idx}>
-              <Product hoverable image={image ? image : "/product-1.jpg"} />
+              <Product hoverable image={"/product-1.jpg"} />
             </SwiperSlide>;
           })}
         </Swiper>

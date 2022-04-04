@@ -6,7 +6,7 @@ import { SagaStore, wrapper } from "store";
 import { productsActions } from "store/product/productSlice";
 
 // views
-import HomeView from "views/Home";
+import HomeView from "views/Home/Home";
 
 export const getStaticProps = wrapper.getStaticProps(
   (store) => async (context) => {

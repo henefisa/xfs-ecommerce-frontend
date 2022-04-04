@@ -4,7 +4,7 @@ import Image from "next/image";
 import chroma from "chroma-js";
 
 // hooks
-import { useAppDispatch } from "hooks";
+import { useAppDispatch, useAppSelector } from "hooks";
 
 // stores
 import { cartActions } from "store/cart/cartSlice";
@@ -23,14 +23,12 @@ import SellerWrap from "./SellerWrap";
 // utils
 import { currencyFormat } from "utils";
 
-interface ProductViewProps {
-  price?: number;
-  image?: string;
-  description?: string;
-  stock?: number;
-  name?: string;
-  id?: string;
-}
+// models
+import { ProductModel } from "models/Product";
+
+import { API_END_POINT } from "constants/env";
+
+interface ProductViewProps {}
 
 type ColorOption = {
   label: string;
@@ -152,14 +150,14 @@ const sizeSelectStyle: StylesConfig<SizeOption, boolean> = {
   }),
 };
 
-const ProductView = (props: ProductViewProps) => {
-  const { price, image, description, stock, name, id } = props;
-  const [currentIndex, setCurrentIndex] = React.useState(1);
+const ProductView: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = React.useState(0);
   const [selectRoot, setSelectRoot] = React.useState<HTMLElement | null>(null);
   const [quantity, setQuantity] = React.useState<number>(1);
   const dispatch = useAppDispatch();
+  const { productDetail } = useAppSelector((state) => state.products);
 
-  const imageDisplay = image ?? `/product-${currentIndex}.jpg`;
+  console.log(productDetail);
 
   const handleChangeImage = (index: number) => {
     setCurrentIndex(index);
@@ -169,17 +167,8 @@ const ProductView = (props: ProductViewProps) => {
     setSelectRoot(document.getElementById("select-root"));
   }, []);
 
-  const handleAddToCard = () => {
-    console.log("quantiy", quantity);
-    dispatch(
-      cartActions.addProductToCart({
-        id: id || "",
-        name: name || "",
-        quantity,
-        price: price || 0,
-        image: imageDisplay,
-      })
-    );
+  const handleAddToCart = () => {
+    // dispatch(cartActions.addProductToCart(product));
   };
 
   return (
@@ -189,7 +178,7 @@ const ProductView = (props: ProductViewProps) => {
           <div className="product-view__image-wrap">
             <div className="product-view__thumbnail">
               <Image
-                src={`${imageDisplay}`}
+                src={`${API_END_POINT}${productDetail?.images?.[currentIndex]?.url}`}
                 layout="fill"
                 alt="Product"
                 objectFit="cover"
@@ -197,17 +186,17 @@ const ProductView = (props: ProductViewProps) => {
               />
             </div>
             <div className="product-view__image-list">
-              {[...new Array(4)].map((_, idx) => (
+              {productDetail?.images?.map((item, idx) => (
                 <a
                   className={clsx(
                     "product-view__image",
-                    idx + 1 === currentIndex && `active`
+                    idx === currentIndex && `active`
                   )}
-                  onClick={() => handleChangeImage(idx + 1)}
+                  onClick={() => handleChangeImage(idx)}
                   key={idx}
                 >
                   <Image
-                    src={`${imageDisplay}`}
+                    src={`${API_END_POINT}${item.url}`}
                     layout="fill"
                     alt="Product"
                     objectFit="cover"
@@ -220,14 +209,16 @@ const ProductView = (props: ProductViewProps) => {
         </Col>
         <Col sm={6} lg={8}>
           <div className="product-view__details">
-            <h3 className="product-view__title">{description}</h3>
+            <h3 className="product-view__title">
+              {productDetail?.description}
+            </h3>
             <Rating value={4} size="small" />
           </div>
           <Row gutter={[16, 16]}>
             <Col lg={6} xl={7}>
               <div className="product-view__price-wrap">
                 <div className="product-view__price">
-                  {currencyFormat.format(price || 0)}
+                  {currencyFormat.format(productDetail?.price || 0)}
                 </div>
               </div>
               <Divider />
@@ -259,19 +250,22 @@ const ProductView = (props: ProductViewProps) => {
                 <InputNumber
                   value={quantity}
                   min={1}
-                  max={stock || 100000}
+                  max={productDetail?.stock || 100000}
                   defaultValue={1}
                   onChange={setQuantity}
                 />
               </div>
               <div className="product-view__actions">
-                <Button type="solid" color="error" onClick={handleAddToCard}>
+                <Button type="solid" color="error">
                   Add to cart
                 </Button>
               </div>
             </Col>
             <Col lg={6} xl={5}>
-              <SellerWrap query="(min-width:1024px)" name={name} />
+              <SellerWrap
+                query="(min-width:1024px)"
+                name={productDetail?.name}
+              />
             </Col>
           </Row>
         </Col>
@@ -279,7 +273,7 @@ const ProductView = (props: ProductViewProps) => {
       <SellerWrap
         query="(max-width:1023px)"
         breakpoints={{ 640: { slidesPerView: 2 } }}
-        name={name}
+        name={productDetail?.name}
       />
     </Card>
   );

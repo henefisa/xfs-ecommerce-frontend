@@ -1,9 +1,8 @@
-
 export interface ImageProduct {
-     url: string;
-     id: string;
-     createdAt: string;
-     updatedAt: string;
+  url: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ProductModel {

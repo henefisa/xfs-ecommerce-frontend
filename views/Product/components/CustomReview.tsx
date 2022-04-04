@@ -35,7 +35,7 @@ const CustomerReview = (props: CustomerReviewProps) => {
                   <SwiperSlide key={idx}>
                     <div className="review-images__item">
                       <Image
-                        src={images ? `${images}` : "/product-1.jpg"}
+                        src={"/product-1.jpg"}
                         layout="fill"
                         objectFit="cover"
                         objectPosition="center"

@@ -15,7 +15,7 @@ import Product from "components/modules/Product/Product";
 import { useAppSelector } from "hooks";
 
 // constants
-import { DEFAULT_URL_BE } from "constants/env";
+import { API_END_POINT } from "constants/env";
 
 const Deals = () => {
   const nextEl = React.useRef<HTMLDivElement | null>(null);
@@ -66,7 +66,7 @@ const Deals = () => {
           <SwiperSlide key={e.id}>
             <Product
               direction="horizontal"
-              image={`${DEFAULT_URL_BE}${e.images[0].url}`}
+              image={`${API_END_POINT}${e.images[0].url}`}
               name={e.name}
               price={e.price}
               id={e.id}

@@ -7,13 +7,15 @@ import Product from "components/modules/Product/Product";
 import Section from "components/common/Section/Section";
 
 // constants
-import { DEFAULT_URL_BE } from "constants/env";
+import { API_END_POINT } from "constants/env";
 
 // store
 import { useAppSelector } from "hooks";
 
 const TopRatedProducts = () => {
   const { products } = useAppSelector((state) => state.products);
+
+  console.log(products);
 
   return (
     <Section
@@ -34,7 +36,7 @@ const TopRatedProducts = () => {
           <Product
             key={e.id}
             direction="horizontal"
-            image={`${DEFAULT_URL_BE}${e.images[0].url}`}
+            image={`${API_END_POINT}${e.images[0].url}`}
             name={e.name}
             price={e.price}
             id={e.id}

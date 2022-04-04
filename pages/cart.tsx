@@ -1,6 +1,6 @@
-import * as React from "react";
 import { NextPage } from "next";
-import CartView from "views/Cart";
+
+import CartView from "views/Cart/Cart";
 
 const Cart: NextPage = () => {
   return <CartView />;

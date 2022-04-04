@@ -1,1 +1,1 @@
-export const DEFAULT_URL_BE = process.env.defaultUrlBe || "";
+export const API_END_POINT = process.env.API_END_POINT || "";

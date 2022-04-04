@@ -2,13 +2,10 @@ import * as React from "react";
 
 // components
 import Card from "components/common/Card/Card";
+import { useAppSelector } from "hooks";
 
-interface DetailsProps {
-  description?: string;
-}
-
-const Details = (props: DetailsProps) => {
-  const { description } = props;
+const Details = () => {
+  const { productDetail } = useAppSelector((state) => state.products);
   return (
     <Card className="details">
       <h4 className="details__title">Details</h4>
@@ -17,7 +14,7 @@ const Details = (props: DetailsProps) => {
           <tbody>
             <tr>
               <td>Trademark</td>
-              <td>{description || "Lorem isum"}</td>
+              <td>{productDetail?.description || "Lorem isum"}</td>
             </tr>
             <tr>
               <td>Origin</td>

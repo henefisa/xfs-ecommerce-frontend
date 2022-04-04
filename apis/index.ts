@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { LoginPayload, RegisterPayload } from "../models/Auth";
 import { User } from "../models/User";
 
-const baseURL = process.env.defaultUrlBe || "";
+const baseURL = process.env.API_END_POINT || "";
 console.log("baseURL", baseURL);
 
 export const instance = axios.create({
