@@ -11,6 +11,7 @@ interface ModalProps {
   isOpen?: boolean;
   className?: string;
   onClose?: () => void;
+  size?: "xl" | "lg" | "md" | "sm";
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -18,6 +19,7 @@ const Modal: React.FC<ModalProps> = ({
   isOpen,
   className,
   onClose,
+  size,
 }) => {
   const [root, setRoot] = useState<Element>();
   const [isMount, setIsMount] = useState(isOpen);
@@ -35,7 +37,17 @@ const Modal: React.FC<ModalProps> = ({
       onTransitionEnd={handleTransitionEnd}
       ref={modalRef}
     >
-      <div className="modal__content">
+      <div
+        className={`modal__content ${
+          size === "xl"
+            ? "w-full"
+            : size === "lg"
+            ? "w-9/12"
+            : size === "md"
+            ? "w-6/12"
+            : "w-3/12"
+        }`}
+      >
         {children}
         <div className="modal__close" onClick={onClose}>
           <FontAwesomeIcon icon={faTimes} />

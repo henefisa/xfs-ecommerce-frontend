@@ -23,9 +23,6 @@ import SellerWrap from "./SellerWrap";
 // utils
 import { currencyFormat } from "utils";
 
-// models
-import { ProductModel } from "models/Product";
-
 import { API_END_POINT } from "constants/env";
 
 interface ProductViewProps {}
@@ -156,8 +153,6 @@ const ProductView: React.FC = () => {
   const [quantity, setQuantity] = React.useState<number>(1);
   const dispatch = useAppDispatch();
   const { productDetail } = useAppSelector((state) => state.products);
-
-  console.log(productDetail);
 
   const handleChangeImage = (index: number) => {
     setCurrentIndex(index);

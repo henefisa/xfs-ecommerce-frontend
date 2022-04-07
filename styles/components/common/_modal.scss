@@ -1,5 +1,6 @@
 .modal {
-  @apply fixed inset-0 bg-transparent z-50;
+  @apply fixed inset-0 bg-transparent;
+  z-index: 10000;
   &__content {
     box-shadow: 0 0 0 10000px rgba($color: #000000, $alpha: 0.3);
     transition-property: opacity, visibility;
@@ -9,12 +10,14 @@
   }
 
   &__close {
-    @apply absolute -top-8 right-0 w-6 h-6 flex items-center justify-center text-white text-2xl cursor-pointer hover:text-red-400 transition-colors duration-300;
+    @apply absolute -top-0 right-0 w-6 h-6 flex items-center justify-center text-white text-2xl cursor-pointer text-red-400 transition-colors duration-300;
+
   }
 
   &--show {
     .modal__content {
       @apply visible opacity-100 pointer-events-auto;
+      overflow: auto;
     }
   }
 }

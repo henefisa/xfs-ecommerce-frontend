@@ -44,7 +44,10 @@ function* loginRequest(
     const response = (yield call(
       apis.loginRequest,
       action.payload
-    )) as AxiosResponse<User>;
+    )) as AxiosResponse<{
+      accessToken: string;
+      refreshToken: string;
+    }>;
 
     yield put(authActions.loginSuccess(response.data));
     Router.push("/");

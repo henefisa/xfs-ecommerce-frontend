@@ -60,7 +60,7 @@ const MobileNavbar = () => {
 
 const Header = () => {
   const isAuthenticated = useAppSelector(
-    (state: RootState) => !!state.auth.user
+    (state: RootState) => state.auth.token?.accessToken
   );
   const dispatch = useAppDispatch();
   const headerRef = useRef<HTMLElement>(null);

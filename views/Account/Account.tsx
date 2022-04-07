@@ -20,11 +20,20 @@ import {
   faSlidersH,
   faTruckLoading,
   faUser,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CreateNewProduct from "./components/CreateProduct";
+import ManagementProducts from "./components/ManagementProducts";
 
 const Menu = [
   { title: "Dashboard", icon: faSlidersH, content: <Dashboard /> },
+  { title: "Create Product", icon: faPlus, content: <CreateNewProduct /> },
+  {
+    title: "Managements Product",
+    icon: faPlus,
+    content: <ManagementProducts />,
+  },
   { title: "Orders", icon: faBox, content: <Orders /> },
   {
     title: "Track Your Order",

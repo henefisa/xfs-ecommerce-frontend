@@ -3,11 +3,17 @@ import { WritableDraft } from "immer/dist/internal";
 import { RegisterPayload } from "../../models/Auth";
 import { User } from "../../models/User";
 
+interface Token {
+  accessToken: string;
+  refreshToken: string;
+}
+
 export interface IAuthState {
   isLoading: boolean;
   isError: boolean;
   errors: Record<string, string>;
   user: User | null;
+  token: Token | null;
   message: string;
 }
 
@@ -16,6 +22,7 @@ const initialState: IAuthState = {
   isError: false,
   errors: {},
   user: null,
+  token: null,
   message: "",
 };
 
@@ -53,9 +60,12 @@ export const authSlice = createSlice({
       state.isLoading = true;
       state.isError = false;
     },
-    loginSuccess(state, action: PayloadAction<User>) {
+    loginSuccess(state, action: PayloadAction<{
+      accessToken: string;
+      refreshToken: string;
+    }>) {
       state.isLoading = false;
-      state.user = action.payload;
+      state.token = action.payload
     },
 
     loginFailure(state, action: PayloadAction<string>) {

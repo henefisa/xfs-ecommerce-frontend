@@ -1,10 +1,13 @@
+import { CreateProductRequest } from 'store/types/products';
+import { AccountDetailsInput } from './../models/User';
 import { ProductModel } from "../models/Product";
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 
 // models
 import { LoginPayload, RegisterPayload } from "../models/Auth";
 import { User } from "../models/User";
+import { RESPONSE } from 'store/types/response';
 
 const baseURL = process.env.API_END_POINT || "";
 console.log("baseURL", baseURL);
@@ -23,7 +26,7 @@ instance.interceptors.request.use((config: any) => {
   const token = JSON.parse(parseLocalstorage.auth);
 
   if (token) {
-    config.headers.Authorization = `Bearer ${token.user.accessToken}`;
+    config.headers.Authorization = `Bearer ${token.token.accessToken}`;
   }
   return config;
 });
@@ -59,7 +62,7 @@ export const logoutRequest = () => {
 };
 
 export const getUserInfo = () => {
-  return instance.get("/authentication/user/profile");
+  return instance.get("/user/profile");
 };
 
 export const getProducts = () => {
@@ -69,3 +72,24 @@ export const getProducts = () => {
 export const getProductDetail = (id: string) => {
   return axios.get<ProductModel>(`${baseURL}/product/${id}`);
 };
+
+export const updateInfomationUser = (userId: string, data: AccountDetailsInput, callback?: (type: RESPONSE, message?: string) => void) => {
+  instance.patch(`/user/${userId}`, data).then((res: AxiosResponse) => {
+     callback && callback(RESPONSE.SUCCESS)
+  }).catch((err: AxiosError) => {
+    callback && callback(RESPONSE.ERROR, err.response?.data?.message)
+     
+  });
+}
+
+export const addNewProduct = (data: CreateProductRequest) => {
+  return instance.post('/product/create', data)
+}
+
+export const updateProduct = (idProduct: string, data: CreateProductRequest) => {
+  return instance.patch(`/product/${idProduct}`, data)
+}
+
+export const deleteProduct = (id: string) => {
+  return instance.delete(`/product/${id}`)
+}

@@ -8,3 +8,12 @@ export interface User {
   updatedAt: string | null;
   birthday: string;
 }
+
+
+export interface AccountDetailsInput {
+  email: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  birthday: Date;
+}

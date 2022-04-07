@@ -66,7 +66,7 @@ const Deals = () => {
           <SwiperSlide key={e.id}>
             <Product
               direction="horizontal"
-              image={`${API_END_POINT}${e.images[0].url}`}
+              image={`${API_END_POINT}${e.images[0]?.url}`}
               name={e.name}
               price={e.price}
               id={e.id}

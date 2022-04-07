@@ -15,8 +15,6 @@ import { useAppSelector } from "hooks";
 const TopRatedProducts = () => {
   const { products } = useAppSelector((state) => state.products);
 
-  console.log(products);
-
   return (
     <Section
       className="products"
@@ -36,7 +34,7 @@ const TopRatedProducts = () => {
           <Product
             key={e.id}
             direction="horizontal"
-            image={`${API_END_POINT}${e.images[0].url}`}
+            image={`${API_END_POINT}${e.images[0]?.url}`}
             name={e.name}
             price={e.price}
             id={e.id}

@@ -9,7 +9,10 @@ export interface ActionTypeLoginRequest {
 
 export interface LoginSuccessType {
   type: string;
-  payload: User;
+  payload: {
+    accessToken: string;
+    refreshToken: string;
+  };
 }
 
 export interface LoginFailureType {
