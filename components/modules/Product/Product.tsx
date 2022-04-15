@@ -53,12 +53,7 @@ const Product: React.FC<ProductProps> = ({
       </div>
       <div className="product__details">
         <h3 className="product__name">
-          <Link
-            href={{
-              pathname: `/product/${id}`,
-              query: { prodId: id },
-            }}
-          >
+          <Link href={`/product/${id}`}>
             <a>{name}</a>
           </Link>
         </h3>

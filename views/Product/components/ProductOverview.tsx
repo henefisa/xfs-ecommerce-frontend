@@ -191,7 +191,7 @@ const ProductView: React.FC = () => {
                   key={idx}
                 >
                   <Image
-                    src={`${API_END_POINT}${item.url}`}
+                    src={`${API_END_POINT}/${item.url}`}
                     layout="fill"
                     alt="Product"
                     objectFit="cover"

@@ -2,10 +2,9 @@
 import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import React, { useRef } from "react";
-import { RootState } from "store";
+import React, { useEffect, useRef, useState } from "react";
 import { authActions } from "store/auth/authSlice";
-import { useAppDispatch, useAppSelector } from "hooks";
+import { useAppDispatch } from "hooks";
 
 // components
 import Badge from "components/common/Badge/Badge";
@@ -59,9 +58,16 @@ const MobileNavbar = () => {
 };
 
 const Header = () => {
-  const isAuthenticated = useAppSelector(
-    (state: RootState) => state.auth.token?.accessToken
-  );
+  // const isAuthenticated = useAppSelector(
+  //   (state: RootState) => state.auth.token?.accessToken
+  // );
+  const [isAuthenticated, setIsAuthenticated] = useState<string>("");
+  useEffect(() => {
+    const item = localStorage.getItem("localStorage");
+    if (item) {
+      setIsAuthenticated(item);
+    }
+  }, []);
   const dispatch = useAppDispatch();
   const headerRef = useRef<HTMLElement>(null);
 

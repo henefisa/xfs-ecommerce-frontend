@@ -1,3 +1,4 @@
+import { NewLikeReview } from './../../models/Product';
 import {
   ActionTypeGetProductDetailRequest,
   ActionTypeGetProductDetailSuccess,
@@ -13,6 +14,12 @@ import {
   ActionTypeUpdateProductRequest,
   ActionTypeUpdateProductSuccess,
   ActionTypeUpdateProductFailure,
+  ActionTypeReviewProductFailure,
+  ActionTypeReviewProductRequest,
+  ActionTypeReviewProductSuccess,
+  ActionTypeLikeReviewProductRequest,
+  ActionTypeLikeReviewProductFailure,
+  ActionTypeLikeReviewProductSuccess,
 } from "./../types/products";
 import axios, { AxiosResponse } from "axios";
 import { toast } from "react-toastify";
@@ -26,7 +33,7 @@ import {
 } from "redux-saga/effects";
 import * as apis from "../../apis";
 import { productsActions } from "../product/productSlice";
-import { ProductModel } from "../../models/Product";
+import { NewReviewProduct, ProductModel } from "../../models/Product";
 
 function* productRequest(): Generator<
   | CallEffect<AxiosResponse<ProductModel[]>>
@@ -176,6 +183,69 @@ function* updateProductRequest(
   }
 }
 
+function* createReviewProductRequest(
+  action: ActionTypeReviewProductRequest
+): Generator<
+  | CallEffect<AxiosResponse<NewReviewProduct>>
+  | PutEffect<ActionTypeReviewProductSuccess>
+  | PutEffect<ActionTypeReviewProductFailure>,
+  void,
+  unknown
+> {
+  try {
+    const response = (yield call(
+      apis.reviewProduct,
+      action.payload.id,
+      action.payload.body
+    )) as AxiosResponse<NewReviewProduct>;
+    yield put(productsActions.createReviewProductSuccess(response.data));
+  } catch (error: any) {
+    if (axios.isAxiosError(error)) {
+      yield put(
+        productsActions.createProductFailure(error?.response?.data?.message)
+      );
+      toast.error(error.response?.data?.message, {
+        position: "top-right",
+        autoClose: 5000,
+      });
+      return;
+    }
+  }
+}
+
+function* likeReviewProductRequest(
+  action: ActionTypeLikeReviewProductRequest
+): Generator<
+  | CallEffect<AxiosResponse<NewLikeReview>>
+  | PutEffect<ActionTypeLikeReviewProductSuccess>
+  | PutEffect<ActionTypeLikeReviewProductFailure>,
+  void,
+  unknown
+> {
+  try {
+    const response = (yield call(
+      apis.likeReviewProduct,
+      action.payload.id,
+      action.payload.productId
+    )) as AxiosResponse<any>;
+    yield put(productsActions.likeReviewSuccess({
+      ...response.data,
+      idLike: action.payload.id
+    }));
+  } catch (error: any) {
+    if (axios.isAxiosError(error)) {
+      yield put(
+        productsActions.likeReviewFailure(error?.response?.data?.message)
+      );
+      toast.error(error.response?.data?.message, {
+        position: "top-right",
+        autoClose: 5000,
+      });
+      return;
+    }
+  }
+}
+
 function* productsSaga() {
   yield all([
     takeLatest(productsActions.getProductsRequest.type, productRequest),
@@ -194,6 +264,14 @@ function* productsSaga() {
       takeLatest(
       productsActions.updateProductRequest.type,
       updateProductRequest
+    ),
+    takeLatest(
+      productsActions.createReviewProductRequest.type,
+      createReviewProductRequest
+    ),
+     takeLatest(
+      productsActions.likeReviewRequest.type,
+      likeReviewProductRequest
     ),
   ]);
 }

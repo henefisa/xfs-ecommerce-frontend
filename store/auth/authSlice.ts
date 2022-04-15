@@ -64,6 +64,7 @@ export const authSlice = createSlice({
       accessToken: string;
       refreshToken: string;
     }>) {
+      localStorage.setItem('accessToken', action.payload.accessToken)
       state.isLoading = false;
       state.token = action.payload
     },

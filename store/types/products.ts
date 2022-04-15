@@ -1,4 +1,4 @@
-import { ProductModel } from "../../models/Product";
+import { NewLikeReview, NewReviewProduct, ProductModel } from "../../models/Product";
 export interface ActionTypeGetProductsSuccess {
   type: string;
   payload: ProductModel[];
@@ -76,6 +76,43 @@ export interface ActionTypeUpdateProductSuccess {
   payload: ProductModel;
 }
 
+export interface ActionTypeReviewProductRequest {
+  type: string;
+  payload: {
+    id: string;
+    body: ReviewProduct
+  };
+}
+
+export interface ActionTypeReviewProductFailure {
+  type: string;
+  payload: string;
+}
+
+export interface ActionTypeReviewProductSuccess {
+  type: string;
+  payload: NewReviewProduct;
+}
+
+
+export interface ActionTypeLikeReviewProductRequest {
+  type: string;
+  payload: {
+    id: string;
+    productId: string;
+  };
+}
+
+export interface ActionTypeLikeReviewProductFailure {
+  type: string;
+  payload: string;
+}
+
+export interface ActionTypeLikeReviewProductSuccess {
+  type: string;
+  payload: NewLikeReview;
+}
+
 
 
 export interface CreateProductRequest {
@@ -86,4 +123,10 @@ export interface CreateProductRequest {
   details: object;
   images: File[];
   categories?: any[];
+}
+
+export interface ReviewProduct {
+  content: string;
+  rating: number;
+  images: File[];
 }

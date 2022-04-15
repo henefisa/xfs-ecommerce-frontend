@@ -12,7 +12,7 @@
   }
 
   &__details {
-    @apply mt-3;
+    @apply mt-3 mb-3;
   }
 
   &__level {
@@ -32,4 +32,26 @@
   &__number {
     @apply ml-2 text-xs text-gray-500;
   }
+}
+
+.review-rating-product {
+  min-height: inherit;
+  &__title {
+    @apply text-xl font-semibold mb-4;
+  }
+
+  &__stars {
+    @apply mb-2 flex;
+
+    &--title {
+      @apply flex items-center text-sm font-medium text-gray-700 mr-2;
+    }
+  }
+  &__content-review {
+    @apply mb-2;
+  }
+}
+
+textarea:focus {
+  outline: none;
 }

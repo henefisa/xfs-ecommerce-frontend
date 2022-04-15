@@ -1,5 +1,5 @@
 .stars {
-  @apply flex items-center space-x-1 text-gray-300;
+  @apply flex items-center space-x-1 cursor-pointer text-gray-300;
   .star {
     &.active {
       @apply text-yellow-400;

@@ -1,7 +1,7 @@
-import { CreateProductRequest } from 'store/types/products';
+import { CreateProductRequest, ReviewProduct } from 'store/types/products';
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { cloneDeep } from "lodash";
-import { ProductModel } from "../../models/Product";
+import { NewLikeReview, NewReviewProduct, ProductModel } from "../../models/Product";
 
 export interface ProductState {
   isLoading: boolean;
@@ -35,7 +35,6 @@ export const productSlice = createSlice({
       state.isLoading = false;
       state.isError = true;
       state.products = [];
-      state.message = action.payload;
     },
 
     getProductDetailRequest(state, action: PayloadAction<string>) {
@@ -104,7 +103,75 @@ export const productSlice = createSlice({
       state.isLoading = false;
       state.isError = true;
       state.message = action.payload;
-    }
+    },
+     createReviewProductRequest(state,  action: PayloadAction<{
+       id: string,
+       body: ReviewProduct
+     }>) {
+      state.isLoading = true;
+    },
+
+    createReviewProductSuccess(state, action: PayloadAction<NewReviewProduct>) {
+      const newProductDetail = cloneDeep(state.productDetail);
+      
+      if(newProductDetail) {
+        const newReview = cloneDeep(newProductDetail.reviews);
+        if(newReview)  {
+          newReview.push({
+          content: action.payload.content,
+          createdAt: action.payload.createdAt,
+          updatedAt: action.payload.updatedAt,
+          id: action.payload.id,
+          count: action.payload.count,
+          rating: Number(action.payload.rating),
+          images: action.payload.images
+        })
+        }
+        
+        newProductDetail.reviews = newReview
+      }
+      state.productDetail = newProductDetail;
+      state.isLoading = false;
+     
+    },
+
+    createReviewProductFailure(state, action: PayloadAction<string>) {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+    },
+     likeReviewRequest(state,  action: PayloadAction<{
+       id: string,
+       productId: string
+     }>) {
+      state.isLoading = true;
+    },
+
+    likeReviewSuccess(state, action: PayloadAction<NewLikeReview>) {
+      const newProductDetail = cloneDeep(state.productDetail);
+      
+      if(newProductDetail) {
+        const newReview = cloneDeep(newProductDetail.reviews);
+        if(newReview)  {
+          const findIndex = newReview.findIndex((e) => e.id === action.payload.idLike);
+          if(findIndex > -1) {
+            newReview[findIndex].count = newReview[findIndex].count + 1;
+          }
+        }
+        
+        newProductDetail.reviews = newReview
+      }
+      state.productDetail = newProductDetail;
+      state.isLoading = false;
+     
+    },
+
+    likeReviewFailure(state, action: PayloadAction<string>) {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+    },
+
   },
 });
 

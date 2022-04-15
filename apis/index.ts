@@ -1,3 +1,4 @@
+import { ReviewProduct } from './../store/types/products';
 import { CreateProductRequest } from 'store/types/products';
 import { AccountDetailsInput } from './../models/User';
 import { ProductModel } from "../models/Product";
@@ -20,13 +21,20 @@ export const instance = axios.create({
 });
 
 instance.interceptors.request.use((config: any) => {
-  const parseLocalstorage = JSON.parse(
-    localStorage.getItem("persist:root") || ""
-  );
-  const token = JSON.parse(parseLocalstorage.auth);
+  // const parseLocalstorage = JSON.parse(
+  //   localStorage.getItem("persist:root") || ""
+  // );
+  // const token = JSON.parse(parseLocalstorage.auth);
 
-  if (token) {
-    config.headers.Authorization = `Bearer ${token.token.accessToken}`;
+  // if (token) {
+  //   config.headers.Authorization = `Bearer ${token.token.accessToken}`;
+  // }
+  // return config;
+   const accessToken = 
+    localStorage.getItem("accessToken") || ""
+
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
   }
   return config;
 });
@@ -92,4 +100,12 @@ export const updateProduct = (idProduct: string, data: CreateProductRequest) => 
 
 export const deleteProduct = (id: string) => {
   return instance.delete(`/product/${id}`)
+}
+
+export const reviewProduct = (id: string, data: ReviewProduct) => {
+  return instance.post(`/product/${id}/review/create`, data)
+}
+
+export const likeReviewProduct = (id: string, productId: string) => {
+  return instance.post(`/product/${productId}/review/${id}/like`)
 }
