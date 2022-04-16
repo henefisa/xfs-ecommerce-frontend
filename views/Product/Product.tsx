@@ -7,7 +7,7 @@ import { useAppSelector } from "hooks";
 import CommonLayout from "layouts/CommonLayout";
 import Container from "components/common/Container/Container";
 import ProductOverview from "./components/ProductOverview";
-import SimilarProducts from "./components/SimilarProducts";
+// import SimilarProducts from "./components/SimilarProducts";
 import Details from "./components/Details";
 import ProductDescription from "./components/ProductDescription";
 import CustomerReview from "./components/CustomReview";

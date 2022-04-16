@@ -25,6 +25,7 @@ import { useAppDispatch, useAppSelector } from "hooks";
 // stores
 import { RootState } from "store";
 import { cartActions } from "store/cart/cartSlice";
+import { API_END_POINT } from "constants/env";
 
 const CartView: React.FC = () => {
   const { carts } = useAppSelector((state: RootState) => state.carts);
@@ -117,7 +118,8 @@ const CartView: React.FC = () => {
                                       layout="fill"
                                       alt="products"
                                       src={
-                                        `${product.image}` || "/product-1.jpg"
+                                        `${API_END_POINT}${product.image}` ||
+                                        "/product-1.jpg"
                                       }
                                       objectFit="cover"
                                       objectPosition="center"

@@ -14,8 +14,10 @@ import Dropdown from "components/common/Dropdown/Dropdown";
 import Input from "components/common/Input/Input";
 import { Menu, MenuItem, SubMenu } from "components/common/Menu";
 import Row from "components/common/Row/Row";
+import { instance } from "apis";
+import { Category } from "models/Category";
 
-const MobileNavbar = () => {
+const MobileNavbar = ({ categories }: { categories: Category[] }) => {
   return (
     <nav className="mobile-navbar">
       <Drawer handler>
@@ -25,17 +27,8 @@ const MobileNavbar = () => {
         <Menu>
           <MenuItem>Sample</MenuItem>
           <SubMenu title="Categoires">
-            {[
-              "All Categories",
-              "Fashion",
-              "Bikes",
-              "Accessories",
-              "Smartphone",
-              "Electric",
-              "Toys",
-              "Pets",
-            ].map((category, idx) => (
-              <MenuItem key={idx}>{category}</MenuItem>
+            {categories.map((category, idx) => (
+              <MenuItem key={idx}>{category.name}</MenuItem>
             ))}
           </SubMenu>
           <SubMenu title="Account">
@@ -59,9 +52,19 @@ const MobileNavbar = () => {
 
 const Header = () => {
   const token = useAppSelector((state) => state.auth.token);
+  const carts = useAppSelector((state) => state.carts.carts);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   const dispatch = useAppDispatch();
   const headerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    (async () => {
+      const response = await instance.get("/category");
+
+      setCategories(response.data);
+    })();
+  }, []);
 
   return (
     <header className="header" ref={headerRef}>
@@ -76,17 +79,8 @@ const Header = () => {
             <div className="navbar">
               <Menu mode="vertical" className="navbar__menu">
                 <SubMenu title="Categories" portal overlayWidth={300}>
-                  {[
-                    "All Categories",
-                    "Fashion",
-                    "Bikes",
-                    "Accessories",
-                    "Smartphone",
-                    "Electric",
-                    "Toys",
-                    "Pets",
-                  ].map((category, idx) => (
-                    <MenuItem key={idx}>{category}</MenuItem>
+                  {categories.map((category, idx) => (
+                    <MenuItem key={idx}>{category.name}</MenuItem>
                   ))}
                 </SubMenu>
               </Menu>
@@ -98,7 +92,7 @@ const Header = () => {
               <div className="user__item">
                 <Link href="/cart">
                   <a>
-                    <Badge value={1}>
+                    <Badge value={carts.length}>
                       <span className="icon">
                         <FontAwesomeIcon icon={faShoppingCart} />
                       </span>
@@ -156,7 +150,7 @@ const Header = () => {
             </div>
           </div>
         </Row>
-        <MobileNavbar />
+        <MobileNavbar categories={categories} />
       </Container>
     </header>
   );

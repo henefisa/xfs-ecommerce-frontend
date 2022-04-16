@@ -4,7 +4,7 @@ import Image from "next/image";
 import chroma from "chroma-js";
 
 // hooks
-import { useAppSelector } from "hooks";
+import { useAppDispatch, useAppSelector } from "hooks";
 
 // components
 import Select, { StylesConfig } from "react-select";
@@ -21,18 +21,43 @@ import SellerWrap from "./SellerWrap";
 import { currencyFormat } from "utils";
 
 import { API_END_POINT } from "constants/env";
+import { cartActions } from "store/cart/cartSlice";
+import { toast } from "react-toastify";
 
 const ProductView: React.FC = () => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [quantity, setQuantity] = React.useState<number>(1);
   const { productDetail } = useAppSelector((state) => state.products);
+  const dispatch = useAppDispatch();
+  const cart = useAppSelector((state) => state.carts.carts);
+
+  const isAlreadyInCart =
+    cart.findIndex((item) => item.id === productDetail?.id) !== -1;
 
   const handleChangeImage = (index: number) => {
     setCurrentIndex(index);
   };
 
   const handleAddToCart = () => {
-    // dispatch(cartActions.addProductToCart(product));
+    if (!productDetail) return;
+
+    if (isAlreadyInCart) {
+      toast.error("Product already in cart");
+
+      return;
+    }
+
+    dispatch(
+      cartActions.addProductToCart({
+        id: productDetail.id,
+        image: productDetail.images[0].url,
+        name: productDetail.name,
+        price: productDetail.price,
+        quantity,
+      })
+    );
+
+    toast.success("Added to cart");
   };
 
   return (
@@ -97,8 +122,13 @@ const ProductView: React.FC = () => {
                 />
               </div>
               <div className="product-view__actions">
-                <Button type="solid" color="error">
-                  Add to cart
+                <Button
+                  type="solid"
+                  disabled={!isAlreadyInCart}
+                  color="error"
+                  onClick={handleAddToCart}
+                >
+                  {isAlreadyInCart ? "Already in cart" : "Add to cart"}
                 </Button>
               </div>
             </Col>
@@ -111,11 +141,11 @@ const ProductView: React.FC = () => {
           </Row>
         </Col>
       </Row>
-      <SellerWrap
+      {/* <SellerWrap
         query="(max-width:1023px)"
         breakpoints={{ 640: { slidesPerView: 2 } }}
         name={productDetail?.name}
-      />
+      /> */}
     </Card>
   );
 };
