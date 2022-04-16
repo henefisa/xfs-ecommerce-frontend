@@ -65,6 +65,7 @@ export const authSlice = createSlice({
       action: PayloadAction<{
         accessToken: string;
         refreshToken: string;
+        user: User;
       }>
     ) {
       state.isLoading = false;

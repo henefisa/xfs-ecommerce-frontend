@@ -120,7 +120,6 @@ export const productSlice = createSlice({
     ) {
       state.isLoading = true;
     },
-
     createReviewProductSuccess(state, action: PayloadAction<NewReviewProduct>) {
       const newProductDetail = cloneDeep(state.productDetail);
 
@@ -135,6 +134,7 @@ export const productSlice = createSlice({
             count: action.payload.count,
             rating: Number(action.payload.rating),
             images: action.payload.images,
+            user: action.payload.user,
           });
         }
 

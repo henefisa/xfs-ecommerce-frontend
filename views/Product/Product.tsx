@@ -18,7 +18,7 @@ const ProductView: React.FC = () => {
       <div className="product-page">
         <Container>
           <ProductOverview />
-          <SimilarProducts />
+          {/* <SimilarProducts /> */}
           <Details />
           <ProductDescription />
           <CustomerReview />

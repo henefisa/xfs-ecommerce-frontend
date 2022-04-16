@@ -1,3 +1,5 @@
+import { User } from "./User";
+
 export interface ImageProduct {
   url: string;
   id: string;
@@ -28,6 +30,7 @@ export interface ReviewProduct {
   content: string;
   count: number;
   images: ImageProduct[];
+  user: User;
 }
 
 export interface NewReviewProduct {
@@ -39,11 +42,12 @@ export interface NewReviewProduct {
   createdAt: string;
   updatedAt: string;
   count: number;
+  user: User;
 }
 
 export interface NewLikeReview {
   idLike: string;
   generatedMaps: string[];
   raw: string[];
-  affected: number
+  affected: number;
 }

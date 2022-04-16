@@ -48,8 +48,15 @@ function* loginRequest(
       accessToken: string;
       refreshToken: string;
     }>;
+    localStorage.setItem("token", response.data.accessToken);
+    const userResponse = (yield call(apis.getUserInfo)) as AxiosResponse<User>;
+    yield put(
+      authActions.loginSuccess({
+        ...response.data,
+        user: userResponse.data,
+      })
+    );
 
-    yield put(authActions.loginSuccess(response.data));
     Router.push("/");
     toast.success("Login success!");
   } catch (error: any) {

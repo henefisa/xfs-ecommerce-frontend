@@ -31,6 +31,7 @@ const rootReducer = (state: RootState | undefined, action: AnyAction) => {
       };
 
       if (state?.auth.token) nextState.auth.token = state?.auth.token;
+      if (state?.auth.user) nextState.auth.user = state.auth.user;
 
       return nextState;
     default: {

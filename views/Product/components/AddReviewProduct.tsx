@@ -28,8 +28,6 @@ const AddReviewProduct = (props: Props) => {
     (state: RootState) => state.products.productDetail?.id
   );
 
-  const [isAccessToken, setIsAccessToken] = useState<string>("");
-
   // useEffect(() => {
   //   const item = localStorage.getItem("accessToken");
   //   if (item) {
@@ -67,10 +65,7 @@ const AddReviewProduct = (props: Props) => {
     if (!id) {
       return;
     }
-    if (!isAccessToken) {
-      toast("Please login to take action");
-      Router.push("/login");
-    }
+
     const request: ReviewProduct = {
       content: contentReview,
       rating: 5,
@@ -83,7 +78,8 @@ const AddReviewProduct = (props: Props) => {
     let body: any = request;
     body = compileFormData(body);
     body.append("_method", "POST");
-    console.log("body", body);
+
+    console.log("RUN");
 
     dispatch(
       productsActions.createReviewProductRequest({
@@ -114,6 +110,7 @@ const AddReviewProduct = (props: Props) => {
           isHover
           startSelect={startSelect}
           setStartSelect={setStartSelect}
+          active={startSelect}
         />
       </div>
 

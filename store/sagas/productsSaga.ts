@@ -1,4 +1,4 @@
-import { NewLikeReview } from './../../models/Product';
+import { NewLikeReview } from "./../../models/Product";
 import {
   ActionTypeGetProductDetailRequest,
   ActionTypeGetProductDetailSuccess,
@@ -100,10 +100,7 @@ function* deleteProductRequest(
   unknown
 > {
   try {
-    yield call(
-      apis.deleteProduct,
-      action.payload
-    )
+    yield call(apis.deleteProduct, action.payload);
     yield put(productsActions.deleteProductSuccess(action.payload));
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
@@ -129,13 +126,12 @@ function* createProductRequest(
   unknown
 > {
   try {
-     const response = (yield call(
+    const response = (yield call(
       apis.addNewProduct,
       action.payload
     )) as AxiosResponse<ProductModel>;
     yield put(productsActions.createProductSuccess(response.data));
-          toast.success("Create product Success");
-    
+    toast.success("Create product Success");
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
       yield put(
@@ -150,7 +146,6 @@ function* createProductRequest(
   }
 }
 
-
 function* updateProductRequest(
   action: ActionTypeUpdateProductRequest
 ): Generator<
@@ -161,14 +156,13 @@ function* updateProductRequest(
   unknown
 > {
   try {
-     const response = (yield call(
+    const response = (yield call(
       apis.updateProduct,
       action.payload.id,
       action.payload.body
     )) as AxiosResponse<ProductModel>;
     yield put(productsActions.updateProductSuccess(response.data));
     toast.success("Update product Success");
-    
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
       yield put(
@@ -198,6 +192,7 @@ function* createReviewProductRequest(
       action.payload.id,
       action.payload.body
     )) as AxiosResponse<NewReviewProduct>;
+
     yield put(productsActions.createReviewProductSuccess(response.data));
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
@@ -228,10 +223,12 @@ function* likeReviewProductRequest(
       action.payload.id,
       action.payload.productId
     )) as AxiosResponse<any>;
-    yield put(productsActions.likeReviewSuccess({
-      ...response.data,
-      idLike: action.payload.id
-    }));
+    yield put(
+      productsActions.likeReviewSuccess({
+        ...response.data,
+        idLike: action.payload.id,
+      })
+    );
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
       yield put(
@@ -253,23 +250,14 @@ function* productsSaga() {
       productsActions.getProductDetailRequest.type,
       getProductDetailRequest
     ),
-    takeLatest(
-      productsActions.createProductRequest.type,
-      createProductRequest
-    ),
-    takeLatest(
-      productsActions.deleteProductRequest.type,
-      deleteProductRequest
-    ),
-      takeLatest(
-      productsActions.updateProductRequest.type,
-      updateProductRequest
-    ),
+    takeLatest(productsActions.createProductRequest.type, createProductRequest),
+    takeLatest(productsActions.deleteProductRequest.type, deleteProductRequest),
+    takeLatest(productsActions.updateProductRequest.type, updateProductRequest),
     takeLatest(
       productsActions.createReviewProductRequest.type,
       createReviewProductRequest
     ),
-     takeLatest(
+    takeLatest(
       productsActions.likeReviewRequest.type,
       likeReviewProductRequest
     ),

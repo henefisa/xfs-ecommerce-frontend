@@ -125,18 +125,20 @@ const CustomerReview = () => {
                     </div>
                     <div>
                       <div className="review-comment__user-name">
-                        Sample username
+                        {e.user.firstName + " " + e.user.lastName}
                       </div>
                       <div className="review-comment__user-date">
-                        Joined 2 years ago
+                        {formatDistanceToNow(new Date(e.user.createdAt), {
+                          addSuffix: true,
+                        })}
                       </div>
                     </div>
                   </div>
-                  <div className="review-comment__user-info">
+                  {/* <div className="review-comment__user-info">
                     <FontAwesomeIcon icon={faCommentAlt} />
                     Writen:
                     <span>14 Review</span>
-                  </div>
+                  </div> */}
                   <div className="review-comment__user-info">
                     <FontAwesomeIcon icon={faThumbsUp} />
                     Received:
