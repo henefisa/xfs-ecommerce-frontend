@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { authActions } from "store/auth/authSlice";
-import { useAppDispatch } from "hooks";
+import { useAppDispatch, useAppSelector } from "hooks";
 
 // components
 import Badge from "components/common/Badge/Badge";
@@ -58,16 +58,8 @@ const MobileNavbar = () => {
 };
 
 const Header = () => {
-  // const isAuthenticated = useAppSelector(
-  //   (state: RootState) => state.auth.token?.accessToken
-  // );
-  const [isAuthenticated, setIsAuthenticated] = useState<string>("");
-  useEffect(() => {
-    const item = localStorage.getItem("localStorage");
-    if (item) {
-      setIsAuthenticated(item);
-    }
-  }, []);
+  const token = useAppSelector((state) => state.auth.token);
+
   const dispatch = useAppDispatch();
   const headerRef = useRef<HTMLElement>(null);
 
@@ -118,7 +110,7 @@ const Header = () => {
                 <Dropdown
                   overlay={
                     <Menu>
-                      {isAuthenticated ? (
+                      {token ? (
                         <>
                           <MenuItem>
                             <Link href="/account/me">

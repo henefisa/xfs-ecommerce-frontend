@@ -1,7 +1,11 @@
-import { CreateProductRequest, ReviewProduct } from 'store/types/products';
+import { CreateProductRequest, ReviewProduct } from "store/types/products";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { cloneDeep } from "lodash";
-import { NewLikeReview, NewReviewProduct, ProductModel } from "../../models/Product";
+import {
+  NewLikeReview,
+  NewReviewProduct,
+  ProductModel,
+} from "../../models/Product";
 
 export interface ProductState {
   isLoading: boolean;
@@ -52,7 +56,7 @@ export const productSlice = createSlice({
       state.message = action.payload;
     },
 
-     createProductRequest(state, action: PayloadAction<any>) {
+    createProductRequest(state, action: PayloadAction<any>) {
       state.isLoading = true;
     },
 
@@ -60,7 +64,7 @@ export const productSlice = createSlice({
       const newProduct = cloneDeep(state.products);
       newProduct.push(action.payload);
       state.isLoading = false;
-      state.products = newProduct
+      state.products = newProduct;
     },
 
     createProductFailure(state, action: PayloadAction<string>) {
@@ -69,18 +73,21 @@ export const productSlice = createSlice({
       state.message = action.payload;
     },
 
-     updateProductRequest(state, action: PayloadAction<{
-       id: string,
-       body: CreateProductRequest
-     }>) {
+    updateProductRequest(
+      state,
+      action: PayloadAction<{
+        id: string;
+        body: CreateProductRequest;
+      }>
+    ) {
       state.isLoading = true;
     },
 
     updateProductSuccess(state, action: PayloadAction<ProductModel>) {
       const newProduct = cloneDeep(state.products);
       const findIndex = newProduct.findIndex((e) => e.id === action.payload.id);
-      if(findIndex > - 1) {
-        newProduct[findIndex] = action.payload
+      if (findIndex > -1) {
+        newProduct[findIndex] = action.payload;
       }
       state.isLoading = false;
       state.products = newProduct;
@@ -95,44 +102,46 @@ export const productSlice = createSlice({
     deleteProductRequest(state, action: PayloadAction<string>) {
       state.isLoading = true;
     },
-      deleteProductSuccess(state, action: PayloadAction<string>) {
+    deleteProductSuccess(state, action: PayloadAction<string>) {
       state.isLoading = false;
-      state.products = state.products.filter((e) => e.id !== action.payload)
+      state.products = state.products.filter((e) => e.id !== action.payload);
     },
-      deleteProductError(state, action: PayloadAction<string>) {
+    deleteProductError(state, action: PayloadAction<string>) {
       state.isLoading = false;
       state.isError = true;
       state.message = action.payload;
     },
-     createReviewProductRequest(state,  action: PayloadAction<{
-       id: string,
-       body: ReviewProduct
-     }>) {
+    createReviewProductRequest(
+      state,
+      action: PayloadAction<{
+        id: string;
+        body: ReviewProduct;
+      }>
+    ) {
       state.isLoading = true;
     },
 
     createReviewProductSuccess(state, action: PayloadAction<NewReviewProduct>) {
       const newProductDetail = cloneDeep(state.productDetail);
-      
-      if(newProductDetail) {
+
+      if (newProductDetail) {
         const newReview = cloneDeep(newProductDetail.reviews);
-        if(newReview)  {
+        if (newReview) {
           newReview.push({
-          content: action.payload.content,
-          createdAt: action.payload.createdAt,
-          updatedAt: action.payload.updatedAt,
-          id: action.payload.id,
-          count: action.payload.count,
-          rating: Number(action.payload.rating),
-          images: action.payload.images
-        })
+            content: action.payload.content,
+            createdAt: action.payload.createdAt,
+            updatedAt: action.payload.updatedAt,
+            id: action.payload.id,
+            count: action.payload.count,
+            rating: Number(action.payload.rating),
+            images: action.payload.images,
+          });
         }
-        
-        newProductDetail.reviews = newReview
+
+        newProductDetail.reviews = newReview;
       }
       state.productDetail = newProductDetail;
       state.isLoading = false;
-     
     },
 
     createReviewProductFailure(state, action: PayloadAction<string>) {
@@ -140,30 +149,34 @@ export const productSlice = createSlice({
       state.isError = true;
       state.message = action.payload;
     },
-     likeReviewRequest(state,  action: PayloadAction<{
-       id: string,
-       productId: string
-     }>) {
+    likeReviewRequest(
+      state,
+      action: PayloadAction<{
+        id: string;
+        productId: string;
+      }>
+    ) {
       state.isLoading = true;
     },
 
     likeReviewSuccess(state, action: PayloadAction<NewLikeReview>) {
       const newProductDetail = cloneDeep(state.productDetail);
-      
-      if(newProductDetail) {
+
+      if (newProductDetail) {
         const newReview = cloneDeep(newProductDetail.reviews);
-        if(newReview)  {
-          const findIndex = newReview.findIndex((e) => e.id === action.payload.idLike);
-          if(findIndex > -1) {
+        if (newReview) {
+          const findIndex = newReview.findIndex(
+            (e) => e.id === action.payload.idLike
+          );
+          if (findIndex > -1) {
             newReview[findIndex].count = newReview[findIndex].count + 1;
           }
         }
-        
-        newProductDetail.reviews = newReview
+
+        newProductDetail.reviews = newReview;
       }
       state.productDetail = newProductDetail;
       state.isLoading = false;
-     
     },
 
     likeReviewFailure(state, action: PayloadAction<string>) {
@@ -171,7 +184,6 @@ export const productSlice = createSlice({
       state.isError = true;
       state.message = action.payload;
     },
-
   },
 });
 

@@ -7,6 +7,7 @@ import Stars from "../Stars/Stars";
 import Button from "../Button/Button";
 import Modal from "../Modal/Modal";
 import AddReviewProduct from "views/Product/components/AddReviewProduct";
+import { useAppSelector } from "hooks";
 
 interface ReviewRatingProps {
   listItemInfoRating: { rating: number; total: number }[];
@@ -15,6 +16,7 @@ interface ReviewRatingProps {
 const ReviewRating: React.FC<ReviewRatingProps> = ({ listItemInfoRating }) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [numberRatingTallest, setNumberRatingTatllest] = useState<number>(0);
+  const token = useAppSelector((state) => state.auth.token);
 
   React.useEffect(() => {
     if (listItemInfoRating) {
@@ -46,6 +48,8 @@ const ReviewRating: React.FC<ReviewRatingProps> = ({ listItemInfoRating }) => {
       0
     );
 
+    if (count === 0) return 0;
+
     return sum / count;
   };
 
@@ -57,7 +61,7 @@ const ReviewRating: React.FC<ReviewRatingProps> = ({ listItemInfoRating }) => {
             {averagedTotalRating().toFixed(1)}
           </div>
           <div className="review-rating__stars">
-            <Stars active={4.9} />
+            <Stars active={averagedTotalRating()} />
             <div className="review-rating__total">
               {listItemInfoRating.reduce((previousValue, currentValue) => {
                 return previousValue + currentValue.total;
@@ -87,11 +91,15 @@ const ReviewRating: React.FC<ReviewRatingProps> = ({ listItemInfoRating }) => {
               </div>
             ))}
         </div>
-        <Button onClick={() => setIsOpenModal(true)}>Review Product</Button>
+        {token && (
+          <Button onClick={() => setIsOpenModal(true)}>Review Product</Button>
+        )}
       </div>
-      <Modal isOpen={isOpenModal} onClose={handleClose} size="md">
-        <AddReviewProduct onCloseModal={handleClose} />
-      </Modal>
+      {token && (
+        <Modal isOpen={isOpenModal} onClose={handleClose} size="md">
+          <AddReviewProduct onCloseModal={handleClose} />
+        </Modal>
+      )}
     </div>
   );
 };

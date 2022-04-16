@@ -60,13 +60,15 @@ export const authSlice = createSlice({
       state.isLoading = true;
       state.isError = false;
     },
-    loginSuccess(state, action: PayloadAction<{
-      accessToken: string;
-      refreshToken: string;
-    }>) {
-      localStorage.setItem('accessToken', action.payload.accessToken)
+    loginSuccess(
+      state,
+      action: PayloadAction<{
+        accessToken: string;
+        refreshToken: string;
+      }>
+    ) {
       state.isLoading = false;
-      state.token = action.payload
+      state.token = action.payload;
     },
 
     loginFailure(state, action: PayloadAction<string>) {

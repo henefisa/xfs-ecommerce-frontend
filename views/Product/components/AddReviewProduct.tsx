@@ -27,14 +27,15 @@ const AddReviewProduct = (props: Props) => {
   const id = useAppSelector(
     (state: RootState) => state.products.productDetail?.id
   );
+
   const [isAccessToken, setIsAccessToken] = useState<string>("");
 
-  useEffect(() => {
-    const item = localStorage.getItem("accessToken");
-    if (item) {
-      setIsAccessToken(item);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const item = localStorage.getItem("accessToken");
+  //   if (item) {
+  //     setIsAccessToken(item);
+  //   }
+  // }, []);
 
   const dispatch = useAppDispatch();
   const [files, setFiles] = useState<FileInput[]>([]);
@@ -106,7 +107,7 @@ const AddReviewProduct = (props: Props) => {
 
       <div className="review-rating-product__stars">
         <div className="review-rating-product__stars--title">
-          <Label forLabel="start-select" label="Select Start" isRequired />
+          <Label forLabel="star-select" label="Select star" isRequired />
         </div>
 
         <Stars
@@ -160,6 +161,8 @@ const AddReviewProduct = (props: Props) => {
               ))
             : null}
         </div>
+      </div>
+      <div className="flex justify-end mt-2 space-x-2">
         <div className="flex justify-between px-[10px] py-[10px]">
           <div className="flex items-center">
             <input
@@ -185,8 +188,6 @@ const AddReviewProduct = (props: Props) => {
             </label>
           </div>
         </div>
-      </div>
-      <div className="flex justify-end mt-2">
         <Button htmlType="button" loading={isLoading} onClick={handleSubmit}>
           Submit
         </Button>

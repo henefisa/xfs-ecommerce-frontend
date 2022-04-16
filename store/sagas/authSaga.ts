@@ -51,9 +51,7 @@ function* loginRequest(
 
     yield put(authActions.loginSuccess(response.data));
     Router.push("/");
-    setTimeout(() => {
-      toast.success("Login success!");
-    },1000)
+    toast.success("Login success!");
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
       yield put(authActions.loginFailure(error?.response?.data?.message));
@@ -146,7 +144,7 @@ function* logoutRequest(): Generator<
     yield put(authActions.logoutSuccess());
     toast.success("Logged out!");
     Router.push("/login");
-    console.log('runnn')
+    console.log("runnn");
     if (!context) return;
     if (response.headers["set-cookie"]) {
       context.res.setHeader("Set-Cookie", response.headers["set-cookie"]);

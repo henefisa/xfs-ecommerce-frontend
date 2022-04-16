@@ -71,7 +71,7 @@
 
     &__actions {
       .button {
-        @apply max-w-xs w-full h-12 font-medium text-base;
+        @apply max-w-xs w-full h-12 font-medium text-base justify-center text-lg;
       }
     }
 
@@ -256,6 +256,10 @@
 
       &__thank {
         @apply px-6 font-medium;
+
+        .button__content {
+          @apply flex items-center gap-x-2;
+        }
       }
     }
   }

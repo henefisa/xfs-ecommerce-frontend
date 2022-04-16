@@ -1,8 +1,6 @@
 import type { AppProps } from "next/app";
 import { ToastContainer } from "react-toastify";
 import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
-import { useStore } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
 
 // icons css
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -22,22 +20,15 @@ import "tailwindcss/tailwind.css";
 import "typeface-roboto";
 
 // wrapper
-import { wrapper, PeristStore } from "../store";
+import { wrapper } from "../store";
 
 config.autoAddCss = false;
 
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const store = useStore();
-
   return (
     <>
-      <PersistGate
-        loading={null}
-        persistor={(store as PeristStore).__persistor}
-      />
-
       <Component {...pageProps} />
 
       <ToastContainer />

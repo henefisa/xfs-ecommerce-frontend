@@ -84,107 +84,115 @@ const CustomerReview = () => {
         <Col md={5} lg={4} xl={3}>
           <ReviewRating listItemInfoRating={viewRating()} />
         </Col>
-        <Col md={7} lg={8} xl={9}>
-          <div className="review-images">
-            <div className="review-images__title">All Images</div>
-            {listAllsImage?.length ? (
-              <div className="review-images__wrap">
-                <Swiper slidesPerView="auto">
-                  {listAllsImage.map((e, idx) => (
-                    <SwiperSlide key={idx}>
-                      <div className="review-images__item">
+        {!!productDetail.reviews?.length && (
+          <Col md={7} lg={8} xl={9}>
+            <div className="review-images">
+              <div className="review-images__title">All Images</div>
+              {listAllsImage?.length ? (
+                <div className="review-images__wrap">
+                  <Swiper slidesPerView="auto">
+                    {listAllsImage.map((e, idx) => (
+                      <SwiperSlide key={idx}>
+                        <div className="review-images__item">
+                          <Image
+                            src={`${API_END_POINT}${e?.url}`}
+                            layout="fill"
+                            objectFit="cover"
+                            objectPosition="center"
+                            alt="Review Images"
+                          />
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+              ) : null}
+            </div>
+          </Col>
+        )}
+      </Row>
+      {!productDetail.reviews?.length ? (
+        <div>No reviews</div>
+      ) : (
+        <div className="review-comment-wrap">
+          {productDetail?.reviews?.map((e, idx) => (
+            <Row className="review-comment" gutter={[16, 16]} key={idx}>
+              <Col md={5} lg={4} xl={3}>
+                <div className="review-comment__user">
+                  <div className="review-comment__user-inner">
+                    <div className="review-comment__user-avatar">
+                      <Avatar src="/vendor-1.jpg" size="small" />
+                    </div>
+                    <div>
+                      <div className="review-comment__user-name">
+                        Sample username
+                      </div>
+                      <div className="review-comment__user-date">
+                        Joined 2 years ago
+                      </div>
+                    </div>
+                  </div>
+                  <div className="review-comment__user-info">
+                    <FontAwesomeIcon icon={faCommentAlt} />
+                    Writen:
+                    <span>14 Review</span>
+                  </div>
+                  <div className="review-comment__user-info">
+                    <FontAwesomeIcon icon={faThumbsUp} />
+                    Received:
+                    <span>{e.count}</span>
+                  </div>
+                </div>
+              </Col>
+              <Col md={7} lg={8} xl={9}>
+                <div className="review-comment__content-wrap">
+                  <div className="review-comment__rating">
+                    <Stars active={e.rating} type="solid" />
+                  </div>
+                  <div className="review-comment__content">{e.content}</div>
+                  <div className="review-comment__images">
+                    {e.images.map((e, idx) => (
+                      <div className="review-comment__image" key={idx}>
                         <Image
-                          src={`${API_END_POINT}${e?.url}`}
+                          src={`${API_END_POINT}${e.url}`}
                           layout="fill"
                           objectFit="cover"
                           objectPosition="center"
                           alt="Review Images"
                         />
                       </div>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
-            ) : null}
-          </div>
-        </Col>
-      </Row>
-      <div className="review-comment-wrap">
-        {productDetail?.reviews?.map((e, idx) => (
-          <Row className="review-comment" gutter={[16, 16]} key={idx}>
-            <Col md={5} lg={4} xl={3}>
-              <div className="review-comment__user">
-                <div className="review-comment__user-inner">
-                  <div className="review-comment__user-avatar">
-                    <Avatar src="/vendor-1.jpg" size="small" />
+                    ))}
                   </div>
-                  <div>
-                    <div className="review-comment__user-name">
-                      Sample username
-                    </div>
-                    <div className="review-comment__user-date">
-                      Joined 2 years ago
-                    </div>
-                  </div>
-                </div>
-                <div className="review-comment__user-info">
-                  <FontAwesomeIcon icon={faCommentAlt} />
-                  Writen:
-                  <span>14 Review</span>
-                </div>
-                <div className="review-comment__user-info">
-                  <FontAwesomeIcon icon={faThumbsUp} />
-                  Received:
-                  <span>{e.count}</span>
-                </div>
-              </div>
-            </Col>
-            <Col md={7} lg={8} xl={9}>
-              <div className="review-comment__content-wrap">
-                <div className="review-comment__rating">
-                  <Stars active={e.rating} type="solid" />
-                </div>
-                <div className="review-comment__content">{e.content}</div>
-                <div className="review-comment__images">
-                  {e.images.map((e, idx) => (
-                    <div className="review-comment__image">
-                      <Image
-                        src={`${API_END_POINT}${e.url}`}
-                        layout="fill"
-                        objectFit="cover"
-                        objectPosition="center"
-                        alt="Review Images"
-                      />
-                    </div>
-                  ))}
-                </div>
 
-                <div className="review-comment__created-date">
-                  <div className="review-comment__attributes">
-                    <div className="review-comment__attribute">
-                      Color: Purple
+                  <div className="review-comment__created-date">
+                    <div className="review-comment__attributes">
+                      <div className="review-comment__attribute">
+                        Color: Purple
+                      </div>
+                      <div className="review-comment__attribute">
+                        Size: Large
+                      </div>
                     </div>
-                    <div className="review-comment__attribute">Size: Large</div>
+                    <span>
+                      Review:{" "}
+                      {formatDistanceToNow(new Date(e.createdAt), {
+                        addSuffix: true,
+                      })}
+                    </span>
                   </div>
-                  <span>
-                    Review:{" "}
-                    {formatDistanceToNow(new Date(e.createdAt), {
-                      addSuffix: true,
-                    })}
-                  </span>
+                  <Button
+                    className="review-comment__thank"
+                    onClick={() => handleLikeReview(e.id)}
+                  >
+                    <FontAwesomeIcon icon={faThumbsUp} />
+                    {`Useful (${e.count || 0})`}
+                  </Button>
                 </div>
-                <Button
-                  className="review-comment__thank"
-                  onClick={() => handleLikeReview(e.id)}
-                >
-                  <FontAwesomeIcon icon={faThumbsUp} />
-                  {`Useful (${e.count || 0})`}
-                </Button>
-              </div>
-            </Col>
-          </Row>
-        ))}
-      </div>
+              </Col>
+            </Row>
+          ))}
+        </div>
+      )}
     </Card>
   );
 };
