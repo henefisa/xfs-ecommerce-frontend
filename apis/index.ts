@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { LoginPayload, RegisterPayload } from "../models/Auth";
 import { User } from "../models/User";
 import { RESPONSE } from "store/types/response";
+import { IS_SERVER } from "constants/index";
 
 const baseURL = process.env.API_END_POINT || "";
 
@@ -19,15 +20,24 @@ export const instance = axios.create({
   },
 });
 
-instance.interceptors.request.use((config: any) => {
-  const token = localStorage.getItem("token");
+export const configAuthorization = (clientToken?: string) => {
+  instance.interceptors.request.use((config: any) => {
+    if (!IS_SERVER && !clientToken) {
+      const token = localStorage.getItem("token");
 
-  if (localStorage.getItem("token")) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
 
-  return config;
-});
+    if (clientToken) {
+      config.headers.Authorization = `Bearer ${clientToken}`;
+    }
+
+    return config;
+  });
+};
+// configAuthorization();
 
 instance.interceptors.response.use(
   (res: any) => res,

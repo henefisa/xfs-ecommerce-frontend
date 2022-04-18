@@ -53,18 +53,10 @@ const MobileNavbar = ({ categories }: { categories: Category[] }) => {
 const Header = () => {
   const token = useAppSelector((state) => state.auth.token);
   const carts = useAppSelector((state) => state.carts.carts);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const categories = useAppSelector((state) => state.category.categories);
 
   const dispatch = useAppDispatch();
   const headerRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    (async () => {
-      const response = await instance.get("/category");
-
-      setCategories(response.data);
-    })();
-  }, []);
 
   return (
     <header className="header" ref={headerRef}>

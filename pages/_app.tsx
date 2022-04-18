@@ -1,4 +1,5 @@
-import type { AppProps } from "next/app";
+import type { AppInitialProps, AppProps } from "next/app";
+import App from "next/app";
 import { ToastContainer } from "react-toastify";
 import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
 
@@ -19,21 +20,44 @@ import "tailwindcss/tailwind.css";
 // font
 import "typeface-roboto";
 
-// wrapper
+// stores
 import { wrapper } from "../store";
+import { addCategories } from "store/category/categorySlice";
+
+import { fetchStaticProps } from "utils/fetchStaticProps";
 
 config.autoAddCss = false;
 
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <>
-      <Component {...pageProps} />
+class MyApp extends App<AppInitialProps> {
+  public static getInitialProps = wrapper.getInitialAppProps(
+    (store) =>
+      async ({ Component, ctx }) => {
+        const [categories] = (
+          await fetchStaticProps(ctx.req?.headers.authorization)
+        ).map((item) => item.data);
+        store.dispatch(addCategories(categories));
 
-      <ToastContainer />
-    </>
+        let pageProps = {};
+        if (Component.getInitialProps) {
+          pageProps = await Component.getInitialProps(ctx);
+        }
+
+        return { pageProps };
+      }
   );
+
+  public render() {
+    const { Component, pageProps } = this.props;
+
+    return (
+      <>
+        <Component {...pageProps} />
+        <ToastContainer />
+      </>
+    );
+  }
 }
 
 export default wrapper.withRedux(MyApp);
