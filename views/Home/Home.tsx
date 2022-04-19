@@ -21,7 +21,7 @@ const HomeView: React.FC = () => {
           <Introduction />
           <Services />
           <TopBanners />
-          <TopSellers />
+          {/* <TopSellers /> */}
           <Deals />
           <BottomBanners />
           <TopRatedProducts />

@@ -12,9 +12,17 @@ import { Form, FormItem } from "components/common/Form";
 import Input from "components/common/Input/Input";
 import Button from "components/common/Button/Button";
 
+// hooks
+import { useAppSelector } from "hooks";
+
+// constants
+import { API_END_POINT } from "constants/env";
+import { EBannerType } from "models/Banner";
+
 const Introduction: React.FC = () => {
   const nextEl = React.useRef<HTMLDivElement>(null);
   const prevEl = React.useRef<HTMLDivElement>(null);
+  const banners = useAppSelector((state) => state.banner.banners);
 
   return (
     <section className="introduction">
@@ -40,69 +48,46 @@ const Introduction: React.FC = () => {
           bulletActiveClass: "active",
         }}
       >
-        <SwiperSlide>
-          <div className="introduction__slide">
-            <div
-              className="introduction__slide-image"
-              style={{ overflow: "hidden", borderRadius: "24px" }}
-            >
-              <Image
-                src="/images/home/slider-1.jpg"
-                layout="fill"
-                alt="Slide image 1"
-                objectFit="cover"
-                objectPosition="center"
-                quality="100"
-              />
-            </div>
-            <div className="introduction__slide-content">
-              <h1 className="introduction__slide-content-title">
-                Don&apos;t miss <br /> amazing deals
-              </h1>
-              <h4 className="introduction__slide-content-subtitle">
-                Subscribe for newsletter
-              </h4>
-              <Form className="introduction__slide-content-form" type="inline">
-                <FormItem name="email">
-                  <Input type="email" placeholder="Email..." />
-                </FormItem>
-                <Button htmlType="submit" type="solid" color="success">
-                  Subscribe
-                </Button>
-              </Form>
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="introduction__slide">
-            <div className="introduction__slide-image">
-              <Image
-                src="/images/home/slider-2.jpg"
-                layout="fill"
-                alt="Slide image 2"
-                objectFit="cover"
-                objectPosition="center"
-                quality="100"
-              />
-            </div>
-            <div className="introduction__slide-content">
-              <h1 className="introduction__slide-content-title">
-                Dress like it is <br /> your day
-              </h1>
-              <h4 className="introduction__slide-content-subtitle">
-                Subscribe for newsletter
-              </h4>
-              <Form className="introduction__slide-content-form" type="inline">
-                <FormItem name="email">
-                  <Input type="email" placeholder="Email..." />
-                </FormItem>
-                <Button htmlType="submit" type="solid" color="success">
-                  Subscribe
-                </Button>
-              </Form>
-            </div>
-          </div>
-        </SwiperSlide>
+        {banners
+          .filter((item) => item.type === EBannerType.Big)
+          .map((item) => (
+            <SwiperSlide key={item.id}>
+              <div className="introduction__slide">
+                <div
+                  className="introduction__slide-image"
+                  style={{ overflow: "hidden", borderRadius: "24px" }}
+                >
+                  <Image
+                    src={`${API_END_POINT}${item.image}`}
+                    layout="fill"
+                    alt="Slide image 1"
+                    objectFit="cover"
+                    objectPosition="center"
+                    quality="100"
+                  />
+                </div>
+                <div className="introduction__slide-content">
+                  <h1 className="introduction__slide-content-title">
+                    {item.title}
+                  </h1>
+                  <h4 className="introduction__slide-content-subtitle">
+                    {item.description}
+                  </h4>
+                  <Form
+                    className="introduction__slide-content-form"
+                    type="inline"
+                  >
+                    <FormItem name="email">
+                      <Input type="email" placeholder="Email..." />
+                    </FormItem>
+                    <Button htmlType="submit" type="solid" color="success">
+                      Subscribe
+                    </Button>
+                  </Form>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
         <div className="introduction__navigation">
           <div className="introduction__navigation-item" ref={prevEl}>
             <FontAwesomeIcon icon={faChevronLeft} />

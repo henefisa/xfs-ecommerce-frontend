@@ -47,7 +47,10 @@ const InputNumber: React.FC<InputNumberProps> = ({
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputVal(+e.target.value);
+    if (defaultValue) {
+      setInputVal(+e.target.value);
+    }
+
     onChange?.(+e.target.value);
   };
 

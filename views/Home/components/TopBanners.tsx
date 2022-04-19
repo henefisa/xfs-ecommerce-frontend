@@ -1,41 +1,34 @@
 import * as React from "react";
 
 // components
-import { Banner, BannerGroup } from "components/modules/Banner";
+import { Banner, BannerGroup, BannerProps } from "components/modules/Banner";
 import Button from "components/common/Button/Button";
 import Section from "components/common/Section/Section";
+import { useAppSelector } from "hooks";
+import { EBannerType } from "models/Banner";
+import { API_END_POINT } from "constants/env";
+
+const sizes = ["lg", "md", "sm", "sm"];
 
 const TopBanners: React.FC = () => {
+  const banners = useAppSelector((state) => state.banner.banners);
+
   return (
     <Section className="top-banners">
       <BannerGroup>
-        <Banner
-          title="Sample title"
-          subTitle="Sample sub title"
-          size="lg"
-          extra={<Button>Sample button</Button>}
-          style={{ backgroundImage: "url(/banner-1.jpg)" }}
-        />
-        <Banner
-          title="Sample title"
-          subTitle="Sample sub title"
-          size="md"
-          style={{ backgroundImage: "url(/banner-2.jpg)" }}
-          className="banner--custom"
-        />
-        <Banner
-          title="Sample title"
-          subTitle="Sample sub title"
-          size="sm"
-          className="banner--custom"
-          style={{ backgroundImage: "url(/banner-3.jpg)" }}
-        />
-        <Banner
-          title="Sample title"
-          subTitle="Sample sub title"
-          size="sm"
-          style={{ backgroundImage: "url(/banner-4.jpg)" }}
-        />
+        {banners
+          .filter((item) => item.type === EBannerType.Small)
+          .slice(0, 4)
+          .map((item, idx) => (
+            <Banner
+              key={item.id}
+              title={item.title}
+              subTitle={item.description}
+              size={sizes[idx] as BannerProps["size"]}
+              // extra={<Button>Sample button</Button>}
+              style={{ backgroundImage: `url(${API_END_POINT}${item.image})` }}
+            />
+          ))}
       </BannerGroup>
     </Section>
   );

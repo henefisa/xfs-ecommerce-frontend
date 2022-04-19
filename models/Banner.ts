@@ -1,3 +1,8 @@
+export enum EBannerType {
+  Big = "big",
+  Small = "small",
+}
+
 export interface Banner {
   id: string;
   createdAt: string;
@@ -5,4 +10,5 @@ export interface Banner {
   title: string;
   description: string;
   image: string;
+  type: EBannerType;
 }

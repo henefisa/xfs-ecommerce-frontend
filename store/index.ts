@@ -35,7 +35,7 @@ const rootReducer = (state: RootState | undefined, action: AnyAction) => {
 
       if (state?.auth.token) nextState.auth.token = state.auth.token;
       if (state?.auth.user) nextState.auth.user = state.auth.user;
-      if (state?.carts.carts.length) nextState.carts.carts = state.carts.carts;
+      if (state?.carts.carts) nextState.carts.carts.concat(state.carts.carts);
 
       return nextState;
     default: {
