@@ -10,6 +10,7 @@ import { LoginPayload, RegisterPayload } from "../models/Auth";
 import { User } from "../models/User";
 import { RESPONSE } from "store/types/response";
 import { IS_SERVER } from "constants/index";
+import { OrderRequest } from "models/Order";
 
 const baseURL = process.env.API_END_POINT || "";
 
@@ -117,4 +118,8 @@ export const reviewProduct = (id: string, data: ReviewProduct) => {
 
 export const likeReviewProduct = (id: string, productId: string) => {
   return instance.post(`/product/${productId}/review/${id}/like`);
+};
+
+export const createOrder = (body: OrderRequest) => {
+  return instance.post("/order/create", body);
 };
