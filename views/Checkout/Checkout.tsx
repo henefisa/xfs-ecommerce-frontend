@@ -10,6 +10,7 @@ import { OrderRequest } from "models/Order";
 import { useRouter } from "next/router";
 import * as React from "react";
 import { cartActions } from "store/cart/cartSlice";
+import { addOrder } from "store/order/orderSlice";
 import * as yup from "yup";
 
 const options = [
@@ -47,6 +48,7 @@ const CheckoutView: React.FC = () => {
   const router = useRouter();
   const carts = useAppSelector((state) => state.carts.carts);
   const [isLoading, setIsLoading] = React.useState(false);
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     if (!carts.length) {
@@ -68,6 +70,8 @@ const CheckoutView: React.FC = () => {
     const response = await createOrder(data);
 
     if (response.status === 201) {
+      dispatch(addOrder(response.data.order));
+
       if (selected.value === "cash") {
         router.push("/result?redirect_status=succeeded");
       }

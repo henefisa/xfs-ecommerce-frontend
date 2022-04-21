@@ -5,9 +5,11 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { updateOrder } from "apis";
 import Button from "components/common/Button/Button";
 import Card from "components/common/Card/Card";
 import CommonLayout from "layouts/CommonLayout";
+import { EOrderStatus } from "models/Order";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import * as React from "react";
@@ -70,7 +72,6 @@ const PaymentForm = () => {
       switch (paymentIntent?.status) {
         case "succeeded":
           setMessage("Payment succeeded!");
-
           break;
         case "processing":
           setMessage("Your payment is processing.");
@@ -83,7 +84,7 @@ const PaymentForm = () => {
           break;
       }
     });
-  }, [stripe, router.query.intent]);
+  }, [stripe, router.query.intent, router.query.orderId]);
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>

@@ -14,6 +14,7 @@ import productsReducer from "./product/productSlice";
 import cartsReducer from "./cart/cartSlice";
 import { categorySlice } from "./category/categorySlice";
 import { bannerSlice } from "./banner/bannerSlice";
+import orderSlice from "./order/orderSlice";
 
 export interface SagaStore extends Store {
   sagaTask?: Task;
@@ -29,6 +30,7 @@ const combinedReducer = combineReducers({
   carts: cartsReducer,
   category: categorySlice.reducer,
   banner: bannerSlice.reducer,
+  order: orderSlice.reducer,
 });
 
 const rootReducer = (state: RootState | undefined, action: AnyAction) => {
@@ -56,6 +58,7 @@ const rootReducer = (state: RootState | undefined, action: AnyAction) => {
 const persistConfig = {
   key: "root",
   storage,
+  blacklist: ["order"],
 };
 
 const makeStore = (context: Context) => {
