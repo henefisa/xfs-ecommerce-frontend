@@ -15,6 +15,7 @@ import cartsReducer from "./cart/cartSlice";
 import { categorySlice } from "./category/categorySlice";
 import { bannerSlice } from "./banner/bannerSlice";
 import orderSlice from "./order/orderSlice";
+import logger from "redux-logger";
 
 export interface SagaStore extends Store {
   sagaTask?: Task;
@@ -43,6 +44,7 @@ const rootReducer = (state: RootState | undefined, action: AnyAction) => {
 
       if (state?.auth.token) nextState.auth.token = state.auth.token;
       if (state?.auth.user) nextState.auth.user = state.auth.user;
+      if (state?.order.order) nextState.order.order = state.order.order;
       if (state?.carts.carts) nextState.carts.carts.concat(state.carts.carts);
 
       return {
@@ -58,7 +60,6 @@ const rootReducer = (state: RootState | undefined, action: AnyAction) => {
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["order"],
 };
 
 const makeStore = (context: Context) => {
@@ -66,7 +67,10 @@ const makeStore = (context: Context) => {
   const store = configureStore({
     reducer: persistReducer(persistConfig, rootReducer),
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({ serializableCheck: false }).concat(sagaMiddleware),
+      getDefaultMiddleware({ serializableCheck: false }).concat(
+        sagaMiddleware,
+        logger
+      ),
   });
   (store as SagaStore).sagaTask = sagaMiddleware.run(saga);
   (store as PeristStore).__persistor = persistStore(store);
