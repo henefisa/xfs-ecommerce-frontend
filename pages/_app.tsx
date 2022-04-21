@@ -1,7 +1,8 @@
-import type { AppInitialProps, AppProps } from "next/app";
-import App from "next/app";
+import type { AppProps } from "next/app";
 import { ToastContainer } from "react-toastify";
 import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
+import { useStore } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 // icons css
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -20,44 +21,28 @@ import "tailwindcss/tailwind.css";
 // font
 import "typeface-roboto";
 
-// stores
-import { wrapper } from "../store";
-import { addCategories } from "store/category/categorySlice";
-
-import { fetchStaticProps } from "utils/fetchStaticProps";
+// wrapper
+import { wrapper, PeristStore } from "../store";
 
 config.autoAddCss = false;
 
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
-class MyApp extends App<AppInitialProps> {
-  public static getInitialProps = wrapper.getInitialAppProps(
-    (store) =>
-      async ({ Component, ctx }) => {
-        const [categories] = (
-          await fetchStaticProps(ctx.req?.headers.authorization)
-        ).map((item) => item.data);
-        store.dispatch(addCategories(categories));
+function MyApp({ Component, pageProps }: AppProps) {
+  const store = useStore();
 
-        let pageProps = {};
-        if (Component.getInitialProps) {
-          pageProps = await Component.getInitialProps(ctx);
-        }
+  return (
+    <>
+      <PersistGate
+        loading={null}
+        persistor={(store as PeristStore).__persistor}
+      />
 
-        return { pageProps };
-      }
+      <Component {...pageProps} />
+
+      <ToastContainer />
+    </>
   );
-
-  public render() {
-    const { Component, pageProps } = this.props;
-
-    return (
-      <>
-        <Component {...pageProps} />
-        <ToastContainer />
-      </>
-    );
-  }
 }
 
 export default wrapper.withRedux(MyApp);

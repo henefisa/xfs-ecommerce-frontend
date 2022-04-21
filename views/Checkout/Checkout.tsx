@@ -46,7 +46,7 @@ const CheckoutView: React.FC = () => {
   const [selected, setSelected] = React.useState(options[0]);
   const router = useRouter();
   const carts = useAppSelector((state) => state.carts.carts);
-  const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
     if (!carts.length) {
@@ -55,6 +55,7 @@ const CheckoutView: React.FC = () => {
   }, [carts.length, router]);
 
   const handleSubmit = async (values: FormValues) => {
+    setIsLoading(true);
     const data: OrderRequest = {
       ...values,
       paymentType: selected.value,
@@ -68,15 +69,19 @@ const CheckoutView: React.FC = () => {
 
     if (response.status === 201) {
       if (selected.value === "cash") {
-        router.push("/order?success=true&type=cash");
+        router.push("/result?redirect_status=succeeded");
       }
 
       if (selected.value === "card") {
         router.push(
-          `/order?success=true&type=card&intent=${response.data.intent}`
+          `/order?success=true&type=card&intent=${response.data.intent}&orderId=${response.data.order.id}`
         );
       }
+    } else {
+      router.push("/result");
     }
+
+    setIsLoading(false);
   };
 
   return (
@@ -141,7 +146,9 @@ const CheckoutView: React.FC = () => {
               </Transition>
             </div>
           </Listbox>
-          <Button className="mt-4">Paynow</Button>
+          <Button className="mt-4" loading={isLoading}>
+            Paynow
+          </Button>
         </Form>
       </Card>
     </CommonLayout>

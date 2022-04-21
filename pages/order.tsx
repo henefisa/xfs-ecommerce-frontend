@@ -38,7 +38,7 @@ const PaymentForm = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000",
+        return_url: "http://localhost:3000/result",
       },
     });
 
@@ -70,6 +70,7 @@ const PaymentForm = () => {
       switch (paymentIntent?.status) {
         case "succeeded":
           setMessage("Payment succeeded!");
+
           break;
         case "processing":
           setMessage("Your payment is processing.");
@@ -87,13 +88,20 @@ const PaymentForm = () => {
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" />
-      <Button className="mt-4" type="solid" disabled={isLoading || !stripe || !elements}>
-        <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-        </span>
+      <Button
+        className="mt-4"
+        type="solid"
+        disabled={isLoading || !stripe || !elements}
+        loading={isLoading}
+      >
+        Pay now
       </Button>
       {/* Show any error or success messages */}
-      {message && <div className="text-red-500 mt-2" id="payment-message">{message}</div>}
+      {message && (
+        <div className="text-red-500 mt-2" id="payment-message">
+          {message}
+        </div>
+      )}
     </form>
   );
 };

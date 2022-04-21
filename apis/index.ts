@@ -10,7 +10,7 @@ import { LoginPayload, RegisterPayload } from "../models/Auth";
 import { User } from "../models/User";
 import { RESPONSE } from "store/types/response";
 import { IS_SERVER } from "constants/index";
-import { OrderRequest } from "models/Order";
+import { EOrderStatus, OrderRequest } from "models/Order";
 
 const baseURL = process.env.API_END_POINT || "";
 
@@ -38,7 +38,7 @@ export const configAuthorization = (clientToken?: string) => {
     return config;
   });
 };
-// configAuthorization();
+configAuthorization();
 
 instance.interceptors.response.use(
   (res: any) => res,
@@ -122,4 +122,8 @@ export const likeReviewProduct = (id: string, productId: string) => {
 
 export const createOrder = (body: OrderRequest) => {
   return instance.post("/order/create", body);
+};
+
+export const updateOrder = (id: string, status: EOrderStatus) => {
+  return instance.patch(`/order/${id}`, { status });
 };

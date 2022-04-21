@@ -151,7 +151,6 @@ function* logoutRequest(): Generator<
     yield put(authActions.logoutSuccess());
     toast.success("Logged out!");
     Router.push("/login");
-    console.log("runnn");
     if (!context) return;
     if (response.headers["set-cookie"]) {
       context.res.setHeader("Set-Cookie", response.headers["set-cookie"]);
