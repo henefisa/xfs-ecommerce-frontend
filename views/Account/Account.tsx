@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import clsx from "clsx";
 
 // components
@@ -25,10 +25,16 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CreateNewProduct from "./components/CreateProduct";
 import ManagementProducts from "./components/ManagementProducts";
+import { useAppSelector } from "hooks";
+import { useRouter } from "next/router";
 
 const Menu = [
   { title: "Dashboard", icon: faSlidersH, content: <Dashboard /> },
-  { title: "Create Product", icon: faPlus, content: <CreateNewProduct /> },
+  {
+    title: "Create Product",
+    icon: faPlus,
+    content: <CreateNewProduct onCloseModal={() => {}} />,
+  },
   {
     title: "Managements Product",
     icon: faPlus,
@@ -46,10 +52,18 @@ const Menu = [
 
 const AccountView: React.FC = () => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const user = useAppSelector((state) => state.auth.user);
+  const router = useRouter();
 
   const handleChangeTab = (idx: number) => {
     setActiveTabIndex(idx);
   };
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/");
+    }
+  }, [user, router]);
 
   return (
     <CommonLayout>

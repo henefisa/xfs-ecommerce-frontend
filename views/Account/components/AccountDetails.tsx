@@ -32,53 +32,30 @@ const updateInfomationSchema = yup.object().shape({
 
 const AccountDetails: React.FC = () => {
   const { user } = useAppSelector((state: RootState) => state.auth);
-  const [id, setId] = useState<string>("");
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  // const [firstName, setFirstName] = useState<string>("");
-  // const [lastName, setLastName] = useState<string>("");
-  // const [birthday, setBirthday] = useState<string>("");
-  // const [phoneNumber, setPhoneNumber] = useState<string>("");
-
-  React.useEffect(() => {
-    getUserData();
-  }, []);
-
-  const getUserData = async () => {
-    const data = await getUserInfo();
-    setId(data.data.id);
-    // console.log("data", data);
-    // setFirstName(data.data.firstName);
-    // setLastName(data.data.lastName);
-    // setBirthday(data.data.birthday);
-    // setPhoneNumber(data.data.phoneNumber);
-  };
-
-  // console.log("birthday", birthday);
-
-  // React.useEffect(() => {
-  //   if (user) {
-  //     setFirstName(user.firstName);
-  //     setLastName(user.lastName);
-  //     setBirthday(user.birthday);
-  //     setPhoneNumber(user.phoneNumber);
-  //   }
-  // }, [user]);
 
   const handleSubmit = (values: AccountDetailsInput) => {
+    if (!user) return;
+
     setIsLoading(true);
-    updateInfomationUser(id, values, (type: RESPONSE, message?: string) => {
-      setIsLoading(false);
-      if (type === RESPONSE.SUCCESS) {
-        toast.success("Update Infomation Success");
-        return;
+    updateInfomationUser(
+      user.id,
+      values,
+      (type: RESPONSE, message?: string) => {
+        setIsLoading(false);
+        if (type === RESPONSE.SUCCESS) {
+          toast.success("Update Infomation Success");
+          return;
+        }
+        if (type === RESPONSE.ERROR) {
+          toast.error(message, {
+            position: "top-right",
+            autoClose: 5000,
+          });
+        }
       }
-      if (type === RESPONSE.ERROR) {
-        toast.error(message, {
-          position: "top-right",
-          autoClose: 5000,
-        });
-      }
-    });
+    );
   };
 
   return (

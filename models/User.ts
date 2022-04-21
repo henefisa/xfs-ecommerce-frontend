@@ -1,4 +1,5 @@
 export interface User {
+  id: string;
   username: string;
   email: string;
   firstName: string;
@@ -8,7 +9,6 @@ export interface User {
   updatedAt: string | null;
   birthday: string;
 }
-
 
 export interface AccountDetailsInput {
   email: string;

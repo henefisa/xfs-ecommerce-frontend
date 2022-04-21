@@ -68,6 +68,9 @@ export const authSlice = createSlice({
         user: User;
       }>
     ) {
+      console.log(action.payload);
+
+      state.user = action.payload.user;
       state.isLoading = false;
       state.token = action.payload;
     },
