@@ -127,3 +127,7 @@ export const createOrder = (body: OrderRequest) => {
 export const updateOrder = (id: string, status: EOrderStatus) => {
   return instance.patch(`/order/${id}`, { status });
 };
+
+export const getProductsByCategory = (category?: string) => {
+  return instance.get(`/product?category=${category}`);
+};

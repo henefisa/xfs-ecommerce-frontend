@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // components
 import Card from "../components/common/Card/Card";
@@ -10,31 +10,75 @@ import Product from "../components/modules/Product/Product";
 import Row from "../components/common/Row/Row";
 import CommonLayout from "../layouts/CommonLayout";
 import Divider from "../components/common/Divider/Divider";
+import { SagaStore, wrapper } from "store";
+import { fetchStaticProps } from "utils/fetchStaticProps";
+import { addCategories } from "store/category/categorySlice";
+import { productsActions } from "store/product/productSlice";
+import { END } from "redux-saga";
+import { useAppSelector } from "hooks";
+import { API_END_POINT } from "constants/env";
+import { getProductsByCategory } from "apis";
 
 interface ProductsProps {}
 
-const SortBy = ["Popular", "Newest", "Bestseller", "Low Price", "High Price"];
-const Categories = [
-  "Fashion",
-  "Bikes",
-  "Accessories",
-  "Smartphone",
-  "Electric",
-  "Toys",
-  "Pets",
-];
+const SortBy = ["Newest", "Low Price", "High Price"];
+
+export const getStaticProps = wrapper.getStaticProps(
+  (store) => async (context) => {
+    const [categories] = (await fetchStaticProps()).map((item) => item.data);
+    store.dispatch(addCategories(categories));
+    store.dispatch(productsActions.getProductsRequest());
+    store.dispatch(END);
+    await (store as SagaStore).sagaTask?.toPromise();
+
+    return {
+      props: {},
+      revalidate: 3,
+    };
+  }
+);
 
 const Products: React.FC<ProductsProps> = ({}) => {
-  const [activeCategory, setActiveCategory] = useState(0);
+  const [activeCategory, setActiveCategory] = useState("");
   const [sortBy, setSortBy] = useState(0);
+  const categories = useAppSelector((state) => state.category.categories);
+  const prds = useAppSelector((state) => state.products.products);
+  const [products, setProducts] = useState(prds);
+
+  useEffect(() => {
+    (async () => {
+      const response = await getProductsByCategory(activeCategory);
+
+      setProducts(response.data);
+    })();
+  }, [activeCategory]);
 
   const handleChangeSortBy = (idx: number) => {
     setSortBy(idx);
   };
 
-  const handleChangeCategory = (category: number) => {
-    setActiveCategory(category);
+  const handleChangeCategory = (id: string) => {
+    setActiveCategory(id);
   };
+
+  let sorted = products;
+
+  switch (sortBy) {
+    case 0:
+      // newest
+      sorted = products.sort((a, b) => {
+        return (
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+      });
+
+    case 1:
+      // low to high
+      sorted = products.sort((a, b) => a.price - b.price);
+    case 2:
+      // high to low
+      sorted = products.sort((a, b) => b.price - a.price);
+  }
 
   return (
     <CommonLayout>
@@ -48,25 +92,25 @@ const Products: React.FC<ProductsProps> = ({}) => {
                     <div
                       className={clsx(
                         "category-list__header",
-                        0 === activeCategory && "active"
+                        "" === activeCategory && "active"
                       )}
-                      onClick={() => handleChangeCategory(0)}
+                      onClick={() => handleChangeCategory("")}
                     >
                       All Categories
                     </div>
                     <Divider />
                     <div className="category-list__body">
                       <ul className="category-list__categories">
-                        {Categories.map((category, idx) => (
+                        {categories.map((category, idx) => (
                           <li
                             className={clsx(
                               "category-list__category",
-                              idx + 1 === activeCategory && "active"
+                              category.id === activeCategory && "active"
                             )}
                             key={idx}
-                            onClick={() => handleChangeCategory(idx + 1)}
+                            onClick={() => handleChangeCategory(category.id)}
                           >
-                            {category}
+                            {category.name}
                           </li>
                         ))}
                       </ul>
@@ -97,19 +141,28 @@ const Products: React.FC<ProductsProps> = ({}) => {
               </Card>
               <Card>
                 <div className="products-list">
-                  <Row gutter={[16, 16]}>
-                    {[...new Array(10)].map((_, idx) => (
-                      <Col key={idx} sm={6} md={4} lg={3}>
-                        <Product
-                          image={`/product-${(idx % 5) + 1}.jpg`}
-                          hoverable
-                        />
-                      </Col>
-                    ))}
-                  </Row>
-                  <Row className="products-pagination" justify="end">
+                  {!!products.length ? (
+                    <Row gutter={[16, 16]}>
+                      {sorted.map((item) => (
+                        <Col key={item.id} sm={6} md={4}>
+                          <Product
+                            key={item.id}
+                            direction="horizontal"
+                            image={`${API_END_POINT}${item.images[0]?.url}`}
+                            name={item.name}
+                            price={item.price}
+                            id={item.id}
+                            hoverable
+                          />
+                        </Col>
+                      ))}
+                    </Row>
+                  ) : (
+                    <h3 className="text-xl">There are no products</h3>
+                  )}
+                  {/* <Row className="products-pagination" justify="end">
                     <Pagination current={1} total={100} pageSize={10} />
-                  </Row>
+                  </Row> */}
                 </div>
               </Card>
             </Col>

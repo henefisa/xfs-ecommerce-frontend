@@ -27,7 +27,7 @@ export const getStaticProps = wrapper.getStaticProps(
 
     return {
       props: {},
-      revalidate: 10000,
+      revalidate: 3,
     };
   }
 );

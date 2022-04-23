@@ -82,6 +82,4 @@ export type RootState = ReturnType<typeof combinedReducer>;
 
 export type AppDispatch = Store["dispatch"];
 
-export const wrapper = createWrapper<Store<RootState>>(makeStore, {
-  debug: true,
-});
+export const wrapper = createWrapper<Store<RootState>>(makeStore);
