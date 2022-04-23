@@ -16,8 +16,11 @@ import { Menu, MenuItem, SubMenu } from "components/common/Menu";
 import Row from "components/common/Row/Row";
 import { instance } from "apis";
 import { Category } from "models/Category";
+import { useRouter } from "next/router";
 
 const MobileNavbar = ({ categories }: { categories: Category[] }) => {
+  const router = useRouter();
+
   return (
     <nav className="mobile-navbar">
       <Drawer handler>
@@ -26,9 +29,16 @@ const MobileNavbar = ({ categories }: { categories: Category[] }) => {
         </div>
         <Menu>
           <MenuItem>Sample</MenuItem>
-          <SubMenu title="Categoires">
+          <SubMenu title="Categories">
             {categories.map((category, idx) => (
-              <MenuItem key={idx}>{category.name}</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  router.push(`/products?category=${category.id}`);
+                }}
+                key={idx}
+              >
+                {category.name}
+              </MenuItem>
             ))}
           </SubMenu>
           <SubMenu title="Account">
@@ -54,6 +64,7 @@ const Header = () => {
   const token = useAppSelector((state) => state.auth.token);
   const carts = useAppSelector((state) => state.carts.carts);
   const categories = useAppSelector((state) => state.category.categories);
+  const router = useRouter();
 
   const dispatch = useAppDispatch();
   const headerRef = useRef<HTMLElement>(null);
@@ -72,7 +83,14 @@ const Header = () => {
               <Menu mode="vertical" className="navbar__menu">
                 <SubMenu title="Categories" portal overlayWidth={300}>
                   {categories.map((category, idx) => (
-                    <MenuItem key={idx}>{category.name}</MenuItem>
+                    <MenuItem
+                      key={idx}
+                      onClick={() => {
+                        router.push(`/products?category=${category.id}`);
+                      }}
+                    >
+                      {category.name}
+                    </MenuItem>
                   ))}
                 </SubMenu>
               </Menu>

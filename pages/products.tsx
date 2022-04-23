@@ -18,6 +18,7 @@ import { END } from "redux-saga";
 import { useAppSelector } from "hooks";
 import { API_END_POINT } from "constants/env";
 import { getProductsByCategory } from "apis";
+import { useRouter } from "next/router";
 
 interface ProductsProps {}
 
@@ -45,6 +46,8 @@ const Products: React.FC<ProductsProps> = ({}) => {
   const prds = useAppSelector((state) => state.products.products);
   const [products, setProducts] = useState(prds);
 
+  const router = useRouter();
+
   useEffect(() => {
     (async () => {
       const response = await getProductsByCategory(activeCategory);
@@ -52,6 +55,22 @@ const Products: React.FC<ProductsProps> = ({}) => {
       setProducts(response.data);
     })();
   }, [activeCategory]);
+
+  useEffect(() => {
+    const categoryQuery = router.query.category;
+
+    console.log(router.query);
+
+    const category = categories.find((item) => item.id === categoryQuery);
+
+    console.log(categoryQuery);
+    console.log(categories);
+    console.log(category);
+
+    if (!category) return;
+
+    setActiveCategory(category.id);
+  }, [router.query, categories]);
 
   const handleChangeSortBy = (idx: number) => {
     setSortBy(idx);
@@ -61,12 +80,12 @@ const Products: React.FC<ProductsProps> = ({}) => {
     setActiveCategory(id);
   };
 
-  let sorted = products;
+  let sorted = [...products];
 
   switch (sortBy) {
     case 0:
       // newest
-      sorted = products.sort((a, b) => {
+      sorted = sorted.sort((a, b) => {
         return (
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
@@ -74,10 +93,10 @@ const Products: React.FC<ProductsProps> = ({}) => {
 
     case 1:
       // low to high
-      sorted = products.sort((a, b) => a.price - b.price);
+      sorted = sorted.sort((a, b) => a.price - b.price);
     case 2:
       // high to low
-      sorted = products.sort((a, b) => b.price - a.price);
+      sorted = sorted.sort((a, b) => b.price - a.price);
   }
 
   return (
