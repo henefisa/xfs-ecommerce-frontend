@@ -147,14 +147,11 @@ function* logoutRequest(): Generator<
 > {
   const context = Context.getContext();
   try {
-    const response = (yield call(apis.logoutRequest)) as AxiosResponse<void>;
+    (yield call(apis.logoutRequest)) as AxiosResponse<void>;
     yield put(authActions.logoutSuccess());
     toast.success("Logged out!");
     Router.push("/login");
     if (!context) return;
-    if (response.headers["set-cookie"]) {
-      context.res.setHeader("Set-Cookie", response.headers["set-cookie"]);
-    }
   } catch (error) {
     toast.error("Failed to logout!");
     yield put(authActions.logoutFailure());

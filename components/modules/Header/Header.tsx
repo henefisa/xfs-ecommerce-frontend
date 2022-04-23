@@ -62,12 +62,15 @@ const MobileNavbar = ({ categories }: { categories: Category[] }) => {
 
 const Header = () => {
   const token = useAppSelector((state) => state.auth.token);
+  const user = useAppSelector((state) => state.auth.user);
   const carts = useAppSelector((state) => state.carts.carts);
   const categories = useAppSelector((state) => state.category.categories);
   const router = useRouter();
 
   const dispatch = useAppDispatch();
   const headerRef = useRef<HTMLElement>(null);
+
+  console.log(token, user);
 
   return (
     <header className="header" ref={headerRef}>
@@ -114,7 +117,7 @@ const Header = () => {
                 <Dropdown
                   overlay={
                     <Menu>
-                      {token ? (
+                      {token && user ? (
                         <>
                           <MenuItem>
                             <Link href="/account/me">
