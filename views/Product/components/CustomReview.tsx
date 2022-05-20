@@ -63,11 +63,12 @@ const CustomerReview = () => {
 
   const listAllsImage = productDetail?.reviews
     ?.map((e) => {
-      if (e.images.length) {
+      if (e.images?.length) {
         return e.images;
       }
     })
-    .flat();
+    .flat()
+    .filter(Boolean);
 
   const handleLikeReview = (id: string) => {
     dispatch(
@@ -153,7 +154,7 @@ const CustomerReview = () => {
                   </div>
                   <div className="review-comment__content">{e.content}</div>
                   <div className="review-comment__images">
-                    {e.images.map((e, idx) => (
+                    {e.images?.map((e, idx) => (
                       <div className="review-comment__image" key={idx}>
                         <Image
                           src={`${API_END_POINT}${e.url}`}

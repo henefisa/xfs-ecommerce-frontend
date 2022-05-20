@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import Label from "../Label/Label";
 
 interface Props {
