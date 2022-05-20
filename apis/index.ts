@@ -131,3 +131,7 @@ export const updateOrder = (id: string, status: EOrderStatus) => {
 export const getProductsByCategory = (category?: string) => {
   return instance.get(`/product?category=${category}`);
 };
+
+export const searchProducts = (q: string) => {
+  return instance.get(`/product/search?q=${q}`);
+};

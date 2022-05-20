@@ -26,6 +26,7 @@ import { useAppDispatch, useAppSelector } from "hooks";
 import { RootState } from "store";
 import { cartActions } from "store/cart/cartSlice";
 import { API_END_POINT } from "constants/env";
+import Head from "next/head";
 
 const CartView: React.FC = () => {
   const { carts } = useAppSelector((state: RootState) => state.carts);
@@ -58,6 +59,10 @@ const CartView: React.FC = () => {
 
   return (
     <CommonLayout>
+      <Head>
+        <title>Cart</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div className="cart-page">
         <Container>
           <div className="cart">
@@ -172,12 +177,12 @@ const CartView: React.FC = () => {
                       </div>
                       <div className="summary__shipping-fee summary__price">
                         <span>Shipping Fee</span>
-                        <span>{currencyFormat.format(30000)}</span>
+                        <span>{currencyFormat.format(5)}</span>
                       </div>
                       <Divider />
                       <div className="summary__total summary__price">
                         <span>Total</span>
-                        <span>{currencyFormat.format(subTotal + 30000)}</span>
+                        <span>{currencyFormat.format(subTotal + 5)}</span>
                       </div>
                       <Link href="/checkout">
                         <a>

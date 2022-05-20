@@ -19,6 +19,7 @@ import { useAppSelector } from "hooks";
 import { API_END_POINT } from "constants/env";
 import { getProductsByCategory } from "apis";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 interface ProductsProps {}
 
@@ -59,13 +60,7 @@ const Products: React.FC<ProductsProps> = ({}) => {
   useEffect(() => {
     const categoryQuery = router.query.category;
 
-    console.log(router.query);
-
     const category = categories.find((item) => item.id === categoryQuery);
-
-    console.log(categoryQuery);
-    console.log(categories);
-    console.log(category);
 
     if (!category) return;
 
@@ -101,6 +96,10 @@ const Products: React.FC<ProductsProps> = ({}) => {
 
   return (
     <CommonLayout>
+      <Head>
+        <title>Product</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div className="products-page">
         <Container>
           <Row gutter={[16, 8]}>

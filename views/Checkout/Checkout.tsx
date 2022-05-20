@@ -7,9 +7,9 @@ import Input from "components/common/Input/Input";
 import { useAppDispatch, useAppSelector } from "hooks";
 import CommonLayout from "layouts/CommonLayout";
 import { OrderRequest } from "models/Order";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import * as React from "react";
-import { cartActions } from "store/cart/cartSlice";
 import { addOrder } from "store/order/orderSlice";
 import * as yup from "yup";
 
@@ -90,6 +90,10 @@ const CheckoutView: React.FC = () => {
 
   return (
     <CommonLayout>
+      <Head>
+        <title>Checkout</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Card className="mx-auto max-w-3xl mt-10">
         <Form onSubmit={handleSubmit} schema={schema}>
           <FormItem label="Address" name="address">

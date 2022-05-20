@@ -20,6 +20,7 @@ import { RegisterPayload } from "models/Auth";
 
 // hooks
 import { useAppDispatch, useAppSelector } from "hooks";
+import Head from "next/head";
 
 type RegisterInputs = RegisterPayload & { birthday: Date };
 
@@ -67,6 +68,10 @@ const RegisterView = () => {
 
   return (
     <CommonLayout>
+      <Head>
+        <title>Register</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div
         className="login-register-page"
         style={{ backgroundImage: `url("/login-bg.jpg")` }}

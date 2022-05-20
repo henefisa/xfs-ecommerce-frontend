@@ -16,6 +16,7 @@ import { useAppDispatch, useAppSelector } from "hooks";
 
 // stores
 import { authActions } from "store/auth/authSlice";
+import Head from "next/head";
 
 interface LoginInputs {
   username: string;
@@ -42,6 +43,10 @@ const LoginView = () => {
 
   return (
     <>
+      <Head>
+        <title>Login</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <CommonLayout>
         <div
           className="login-register-page"

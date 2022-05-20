@@ -11,6 +11,7 @@ import Card from "components/common/Card/Card";
 import CommonLayout from "layouts/CommonLayout";
 import { EOrderStatus } from "models/Order";
 import { NextPage } from "next";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import * as React from "react";
 
@@ -121,6 +122,10 @@ const Order: NextPage = () => {
 
   return (
     <CommonLayout>
+      <Head>
+        <title>Order</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Card className="max-w-3xl mx-auto mt-6">
         <Elements
           options={{

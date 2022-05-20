@@ -1,6 +1,8 @@
 import { instance } from "apis";
-import { InferGetStaticPropsType, NextPage } from "next";
-import { END } from "redux-saga";
+import { NextPage } from "next";
+import Head from "next/head";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 // store
 import { SagaStore, wrapper } from "store";
@@ -14,28 +16,29 @@ import { fetchStaticProps } from "utils/fetchStaticProps";
 // views
 import HomeView from "views/Home/Home";
 
-export const getStaticProps = wrapper.getStaticProps(
-  (store) => async (context) => {
-    const [categories] = (await fetchStaticProps()).map((item) => item.data);
-    const response = await instance.get("/banner");
+const Home: NextPage = ({}) => {
+  const dispatch = useDispatch();
 
-    store.dispatch(addBanners(response.data));
-    store.dispatch(addCategories(categories));
-    store.dispatch(productsActions.getProductsRequest());
-    store.dispatch(END);
-    await (store as SagaStore).sagaTask?.toPromise();
+  useEffect(() => {
+    (async () => {
+      const [categories] = (await fetchStaticProps()).map((item) => item.data);
+      const response = await instance.get("/banner");
 
-    return {
-      props: {},
-      revalidate: 3,
-    };
-  }
-);
+      dispatch(addBanners(response.data));
+      dispatch(addCategories(categories));
+      dispatch(productsActions.getProductsRequest());
+    })();
+  }, [dispatch]);
 
-type HomeProps = InferGetStaticPropsType<typeof getStaticProps>;
-
-const Home: NextPage<HomeProps> = ({}) => {
-  return <HomeView />;
+  return (
+    <>
+      <Head>
+        <title>Ecommerce</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <HomeView />
+    </>
+  );
 };
 
 export default Home;

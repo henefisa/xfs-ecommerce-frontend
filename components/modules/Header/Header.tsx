@@ -20,12 +20,23 @@ import { useRouter } from "next/router";
 
 const MobileNavbar = ({ categories }: { categories: Category[] }) => {
   const router = useRouter();
+  const [value, setValue] = useState("");
 
   return (
     <nav className="mobile-navbar">
       <Drawer handler>
         <div className="mobile-navbar__search-wrap">
-          <Input placeholder="Search" className="mobile-navbar__search" />
+          <Input
+            placeholder="Search"
+            className="mobile-navbar__search"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            onKeyUp={(e) => {
+              if (e.key === "Enter" && value) {
+                router.push(`/search?q=${value}`);
+              }
+            }}
+          />
         </div>
         <Menu>
           <MenuItem>Sample</MenuItem>
@@ -61,6 +72,7 @@ const MobileNavbar = ({ categories }: { categories: Category[] }) => {
 };
 
 const Header = () => {
+  const [value, setValue] = useState("");
   const token = useAppSelector((state) => state.auth.token);
   const user = useAppSelector((state) => state.auth.user);
   const carts = useAppSelector((state) => state.carts.carts);
@@ -69,8 +81,6 @@ const Header = () => {
 
   const dispatch = useAppDispatch();
   const headerRef = useRef<HTMLElement>(null);
-
-  console.log(token, user);
 
   return (
     <header className="header" ref={headerRef}>
@@ -97,7 +107,17 @@ const Header = () => {
                   ))}
                 </SubMenu>
               </Menu>
-              <Input placeholder="Search" className="navbar__search" />
+              <Input
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                placeholder="Search"
+                className="navbar__search"
+                onKeyUp={(e) => {
+                  if (e.key === "Enter" && value) {
+                    router.push(`/search?q=${value}`);
+                  }
+                }}
+              />
             </div>
           </div>
           <div className="header__right">
