@@ -33,7 +33,7 @@ const Home: NextPage = ({}) => {
   return (
     <>
       <Head>
-        <title>Ecommerce</title>
+        <title>Home</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <HomeView />

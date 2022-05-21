@@ -99,11 +99,11 @@ const PaymentForm = () => {
         Pay now
       </Button>
       {/* Show any error or success messages */}
-      {message && (
+      {/* {message && (
         <div className="text-red-500 mt-2" id="payment-message">
           {message}
         </div>
-      )}
+      )} */}
     </form>
   );
 };

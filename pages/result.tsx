@@ -1,22 +1,28 @@
 import { updateOrder } from "apis";
 import Button from "components/common/Button/Button";
-import { useAppSelector } from "hooks";
+import { useAppDispatch, useAppSelector } from "hooks";
 import CommonLayout from "layouts/CommonLayout";
 import { EOrderStatus } from "models/Order";
 import { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import * as React from "react";
+import { cartActions } from "store/cart/cartSlice";
 
 const Result: NextPage = () => {
   const router = useRouter();
   const order = useAppSelector((state) => state.order.order);
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     if (!order || router.query.redirect_status !== "succeeded") return;
 
     updateOrder(order.id, EOrderStatus.PROCESSING);
   }, [order, router.query.redirect_status]);
+
+  React.useEffect(() => {
+    dispatch(cartActions.removeAllProductToCart());
+  }, [dispatch]);
 
   if (router.query.redirect_status === "succeeded") {
     return (
