@@ -61,8 +61,6 @@ const CustomerReview = () => {
     return newInfoRating;
   };
 
-  console.log(viewRating())
-
   const listAllsImage = productDetail?.reviews
     ?.map((e) => {
       if (e.images?.length) {
