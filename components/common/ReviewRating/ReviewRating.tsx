@@ -37,13 +37,10 @@ const ReviewRating: React.FC<ReviewRatingProps> = ({ listItemInfoRating }) => {
   const averagedTotalRating = () => {
     let count = 0;
     const sum = listItemInfoRating.reduce(
-      (
-        currentValue: number,
-        item: { rating: number; total: number },
-        index
-      ) => {
+      (currentValue: number, item: { rating: number; total: number }) => {
         count += item.total;
-        return currentValue + item.total * (index + 1);
+
+        return currentValue + item.total * item.rating;
       },
       0
     );
